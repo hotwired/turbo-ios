@@ -48,7 +48,7 @@
 		C1D0082C257594D500A9CE85 /* PathConfigurationLoaderSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = C149E3DB25758D6800158E8C /* PathConfigurationLoaderSpec.swift */; };
 		C1D008382575960900A9CE85 /* test-configuration.json in Resources */ = {isa = PBXBuildFile; fileRef = C1D008342575960900A9CE85 /* test-configuration.json */; };
 		C1D008392575960900A9CE85 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = C1D008362575960900A9CE85 /* index.html */; };
-		C1D0083A2575960900A9CE85 /* turbolinks.js in Resources */ = {isa = PBXBuildFile; fileRef = C1D008372575960900A9CE85 /* turbolinks.js */; };
+		C1D0083A2575960900A9CE85 /* turbo.js in Resources */ = {isa = PBXBuildFile; fileRef = C1D008372575960900A9CE85 /* turbo.js */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,7 +106,7 @@
 		C149E4072575928200158E8C /* GCDWebServers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GCDWebServers.framework; path = Carthage/Build/iOS/GCDWebServers.framework; sourceTree = "<group>"; };
 		C1D008342575960900A9CE85 /* test-configuration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "test-configuration.json"; sourceTree = "<group>"; };
 		C1D008362575960900A9CE85 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
-		C1D008372575960900A9CE85 /* turbolinks.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = turbolinks.js; sourceTree = "<group>"; };
+		C1D008372575960900A9CE85 /* turbo.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = turbo.js; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -267,7 +267,7 @@
 			isa = PBXGroup;
 			children = (
 				C1D008362575960900A9CE85 /* index.html */,
-				C1D008372575960900A9CE85 /* turbolinks.js */,
+				C1D008372575960900A9CE85 /* turbo.js */,
 			);
 			path = Server;
 			sourceTree = "<group>";
@@ -376,7 +376,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C1D0083A2575960900A9CE85 /* turbolinks.js in Resources */,
+				C1D0083A2575960900A9CE85 /* turbo.js in Resources */,
 				C1D008382575960900A9CE85 /* test-configuration.json in Resources */,
 				C1D008392575960900A9CE85 /* index.html in Resources */,
 			);
