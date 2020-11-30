@@ -5,7 +5,7 @@ import Nimble
 import GCDWebServers
 @testable import Turbo
 
-private let timeout = 5.0
+private let timeout = DispatchTimeInterval.seconds(5)
 
 class SessionSpec: QuickSpec {
     let server = GCDWebServer()
@@ -87,11 +87,12 @@ class SessionSpec: QuickSpec {
                 
                 it("provides an error") {
                     expect(sessionDelegate.failedRequestError).toEventuallyNot(beNil(), timeout: timeout)
-                    guard let error = sessionDelegate.failedRequestError else { return }
+                    guard let error = sessionDelegate.failedRequestError else {
+                        fail("Should have gotten an error")
+                        return
+                    }
                     
-                    expect(error.domain) == Turbolinks.ErrorDomain
-                    expect(error.code) == Turbolinks.ErrorCode.httpFailure.rawValue
-                    expect(error.userInfo["statusCode"]! as? Int) == 404
+                    expect(error).to(matchError(TurboError.http(statusCode: 404)))
                 }
                 
                 it("calls sessionDidFinishRequest delegate method") {

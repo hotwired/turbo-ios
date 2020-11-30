@@ -1,0 +1,24 @@
+{
+  "settings": {
+    "server": "beta",
+    "some-feature-enabled": true
+  },
+  "rules": [
+    {
+      "patterns": ["/$"],
+      "properties": {"page": "root"}
+    },
+    {
+      "patterns": ["/new$", "/edit$"],
+      "properties": {"context": "modal"}
+    },
+    {
+      "patterns": ["/new$"],
+      "properties": {"background_color": "black"}
+    },
+    {
+      "patterns": ["/edit$"],
+      "properties": {"background_color": "white"}
+    }
+  ]
+}

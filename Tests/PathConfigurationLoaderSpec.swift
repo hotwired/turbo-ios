@@ -46,7 +46,7 @@ class PathConfigurationLoaderSpec: QuickSpec {
                     loader = PathConfigurationLoader(sources: [.server(serverURL)])
                     stub(condition: { _ in true }) { _ in
                         let json = ["rules": [["patterns": ["/new"], "properties": ["presentation": "test"]]]]
-                        return OHHTTPStubsResponse(jsonObject: json, statusCode: 200, headers: [:])
+                        return HTTPStubsResponse(jsonObject: json, statusCode: 200, headers: [:])
                     }
                     
                     clearCache(loader.configurationCacheURL)
@@ -80,7 +80,7 @@ class PathConfigurationLoaderSpec: QuickSpec {
                     
                     stub(condition: { _ in true }) { _ in
                         let json = ["rules": [["patterns": ["/new"], "properties": ["presentation": "test"]]]]
-                        return OHHTTPStubsResponse(jsonObject: json, statusCode: 200, headers: [:])
+                        return HTTPStubsResponse(jsonObject: json, statusCode: 200, headers: [:])
                     }
                     
                     var handlerCalledTimes = 0

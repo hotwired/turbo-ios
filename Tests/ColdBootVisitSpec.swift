@@ -13,7 +13,7 @@ class ColdBootVisitSpec: QuickSpec {
         beforeEach {
             webView = WebView(configuration: WKWebViewConfiguration())
             visitDelegate = TestVisitDelegate()
-            visit = ColdBootVisit(visitable: TestVisitable(url: url), options: .defaultOptions, webView: webView)
+            visit = ColdBootVisit(visitable: TestVisitable(url: url), options: VisitOptions(), webView: webView)
             visit.delegate = visitDelegate
         }
         
@@ -106,7 +106,7 @@ class TestVisitDelegate: VisitDelegate {
         methodsCalled.insert(#function)
     }
     
-    func visit(_ visit: Visit, requestDidFailWithError error: NSError) {
+    func visit(_ visit: Visit, requestDidFailWithError error: Error) {
         methodsCalled.insert(#function)
     }
     

@@ -33,19 +33,22 @@
 		C149E3BE257586EE00158E8C /* ColdBootVisit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C149E3BD257586EE00158E8C /* ColdBootVisit.swift */; };
 		C149E3C9257589C700158E8C /* VisitResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C149E3C8257589C700158E8C /* VisitResponse.swift */; };
 		C149E3E125758D6800158E8C /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = C149E3D725758D6800158E8C /* Test.swift */; };
-		C149E3E225758D6800158E8C /* VisitOptionsSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = C149E3D825758D6800158E8C /* VisitOptionsSpec.swift */; };
-		C149E3E325758D6800158E8C /* PathRuleSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = C149E3D925758D6800158E8C /* PathRuleSpec.swift */; };
-		C149E3E425758D6800158E8C /* PathConfigurationSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = C149E3DA25758D6800158E8C /* PathConfigurationSpec.swift */; };
-		C149E3E525758D6800158E8C /* PathConfigurationLoaderSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = C149E3DB25758D6800158E8C /* PathConfigurationLoaderSpec.swift */; };
-		C149E3E625758D6800158E8C /* JavaScriptExpressionSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = C149E3DC25758D6800158E8C /* JavaScriptExpressionSpec.swift */; };
-		C149E3E725758D6800158E8C /* JavaScriptVisitSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = C149E3DD25758D6800158E8C /* JavaScriptVisitSpec.swift */; };
-		C149E3E825758D6800158E8C /* SessionSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = C149E3DE25758D6800158E8C /* SessionSpec.swift */; };
-		C149E3E925758D6800158E8C /* ColdBootVisitSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = C149E3DF25758D6800158E8C /* ColdBootVisitSpec.swift */; };
-		C149E3EA25758D6800158E8C /* ScriptMessageSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = C149E3E025758D6800158E8C /* ScriptMessageSpec.swift */; };
 		C149E4082575928200158E8C /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C149E4042575928200158E8C /* Nimble.framework */; };
 		C149E4092575928200158E8C /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C149E4052575928200158E8C /* Quick.framework */; };
 		C149E40A2575928200158E8C /* OHHTTPStubs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C149E4062575928200158E8C /* OHHTTPStubs.framework */; };
 		C149E40B2575928200158E8C /* GCDWebServers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C149E4072575928200158E8C /* GCDWebServers.framework */; };
+		C1D00824257594D500A9CE85 /* ColdBootVisitSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = C149E3DF25758D6800158E8C /* ColdBootVisitSpec.swift */; };
+		C1D00825257594D500A9CE85 /* PathRuleSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = C149E3D925758D6800158E8C /* PathRuleSpec.swift */; };
+		C1D00826257594D500A9CE85 /* PathConfigurationSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = C149E3DA25758D6800158E8C /* PathConfigurationSpec.swift */; };
+		C1D00827257594D500A9CE85 /* ScriptMessageSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = C149E3E025758D6800158E8C /* ScriptMessageSpec.swift */; };
+		C1D00828257594D500A9CE85 /* JavaScriptVisitSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = C149E3DD25758D6800158E8C /* JavaScriptVisitSpec.swift */; };
+		C1D00829257594D500A9CE85 /* SessionSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = C149E3DE25758D6800158E8C /* SessionSpec.swift */; };
+		C1D0082A257594D500A9CE85 /* VisitOptionsSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = C149E3D825758D6800158E8C /* VisitOptionsSpec.swift */; };
+		C1D0082B257594D500A9CE85 /* JavaScriptExpressionSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = C149E3DC25758D6800158E8C /* JavaScriptExpressionSpec.swift */; };
+		C1D0082C257594D500A9CE85 /* PathConfigurationLoaderSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = C149E3DB25758D6800158E8C /* PathConfigurationLoaderSpec.swift */; };
+		C1D008382575960900A9CE85 /* test-configuration.json in Resources */ = {isa = PBXBuildFile; fileRef = C1D008342575960900A9CE85 /* test-configuration.json */; };
+		C1D008392575960900A9CE85 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = C1D008362575960900A9CE85 /* index.html */; };
+		C1D0083A2575960900A9CE85 /* turbolinks.js in Resources */ = {isa = PBXBuildFile; fileRef = C1D008372575960900A9CE85 /* turbolinks.js */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,6 +104,9 @@
 		C149E4052575928200158E8C /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
 		C149E4062575928200158E8C /* OHHTTPStubs.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OHHTTPStubs.framework; path = Carthage/Build/iOS/OHHTTPStubs.framework; sourceTree = "<group>"; };
 		C149E4072575928200158E8C /* GCDWebServers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GCDWebServers.framework; path = Carthage/Build/iOS/GCDWebServers.framework; sourceTree = "<group>"; };
+		C1D008342575960900A9CE85 /* test-configuration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "test-configuration.json"; sourceTree = "<group>"; };
+		C1D008362575960900A9CE85 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
+		C1D008372575960900A9CE85 /* turbolinks.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = turbolinks.js; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +170,8 @@
 		C149E35B2575780900158E8C /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				C1D008332575960900A9CE85 /* Fixtures */,
+				C1D008352575960900A9CE85 /* Server */,
 				C149E3D725758D6800158E8C /* Test.swift */,
 				C149E3DF25758D6800158E8C /* ColdBootVisitSpec.swift */,
 				C149E3DC25758D6800158E8C /* JavaScriptExpressionSpec.swift */,
@@ -245,6 +253,23 @@
 				C149E4052575928200158E8C /* Quick.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C1D008332575960900A9CE85 /* Fixtures */ = {
+			isa = PBXGroup;
+			children = (
+				C1D008342575960900A9CE85 /* test-configuration.json */,
+			);
+			path = Fixtures;
+			sourceTree = "<group>";
+		};
+		C1D008352575960900A9CE85 /* Server */ = {
+			isa = PBXGroup;
+			children = (
+				C1D008362575960900A9CE85 /* index.html */,
+				C1D008372575960900A9CE85 /* turbolinks.js */,
+			);
+			path = Server;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -351,6 +376,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1D0083A2575960900A9CE85 /* turbolinks.js in Resources */,
+				C1D008382575960900A9CE85 /* test-configuration.json in Resources */,
+				C1D008392575960900A9CE85 /* index.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -391,16 +419,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1D00824257594D500A9CE85 /* ColdBootVisitSpec.swift in Sources */,
+				C1D00828257594D500A9CE85 /* JavaScriptVisitSpec.swift in Sources */,
+				C1D00825257594D500A9CE85 /* PathRuleSpec.swift in Sources */,
+				C1D00826257594D500A9CE85 /* PathConfigurationSpec.swift in Sources */,
 				C149E3E125758D6800158E8C /* Test.swift in Sources */,
-				C149E3E625758D6800158E8C /* JavaScriptExpressionSpec.swift in Sources */,
-				C149E3E325758D6800158E8C /* PathRuleSpec.swift in Sources */,
-				C149E3E825758D6800158E8C /* SessionSpec.swift in Sources */,
-				C149E3E425758D6800158E8C /* PathConfigurationSpec.swift in Sources */,
-				C149E3E225758D6800158E8C /* VisitOptionsSpec.swift in Sources */,
-				C149E3E925758D6800158E8C /* ColdBootVisitSpec.swift in Sources */,
-				C149E3E525758D6800158E8C /* PathConfigurationLoaderSpec.swift in Sources */,
-				C149E3E725758D6800158E8C /* JavaScriptVisitSpec.swift in Sources */,
-				C149E3EA25758D6800158E8C /* ScriptMessageSpec.swift in Sources */,
+				C1D00827257594D500A9CE85 /* ScriptMessageSpec.swift in Sources */,
+				C1D00829257594D500A9CE85 /* SessionSpec.swift in Sources */,
+				C1D0082B257594D500A9CE85 /* JavaScriptExpressionSpec.swift in Sources */,
+				C1D0082A257594D500A9CE85 /* VisitOptionsSpec.swift in Sources */,
+				C1D0082C257594D500A9CE85 /* PathConfigurationLoaderSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -604,6 +632,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.basecamp.TurboTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -629,6 +658,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.basecamp.TurboTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";

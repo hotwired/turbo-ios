@@ -1,6 +1,6 @@
 import Foundation
 
-public enum TurboError: LocalizedError {
+public enum TurboError: LocalizedError, Equatable {
     case http(statusCode: Int)
     case network
     case unknown

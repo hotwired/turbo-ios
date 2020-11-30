@@ -29,7 +29,7 @@ class TestSessionDelegate: NSObject, SessionDelegate {
     var sessionDidLoadWebViewCalled = false
     var sessionDidStartRequestCalled = false
     var sessionDidFinishRequestCalled = false
-    var failedRequestError: NSError? = nil
+    var failedRequestError: Error? = nil
     var sessionDidFailRequestCalled = false
     var sessionDidProposeVisitCalled = false
     
@@ -45,7 +45,7 @@ class TestSessionDelegate: NSObject, SessionDelegate {
         sessionDidFinishRequestCalled = true
     }
     
-    func session(_ session: Session, didFailRequestForVisitable visitable: Visitable, withError error: NSError) {
+    func session(_ session: Session, didFailRequestForVisitable visitable: Visitable, error: Error) {
         sessionDidFailRequestCalled = true
         failedRequestError = error
     }
