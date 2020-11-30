@@ -1,0 +1,174 @@
+import WebKit
+
+open class VisitableView: UIView {
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        initialize()
+    }
+
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+        initialize()
+    }
+
+    private func initialize() {
+        installActivityIndicatorView()
+    }
+
+
+    // MARK: Web View
+
+    open var webView: WKWebView?
+    private weak var visitable: Visitable?
+
+    open func activateWebView(_ webView: WKWebView, forVisitable visitable: Visitable) {
+        self.webView = webView
+        self.visitable = visitable
+        addSubview(webView)
+        addFillConstraints(for: webView)
+        installRefreshControl()
+        showOrHideWebView()
+    }
+
+    open func deactivateWebView() {
+        removeRefreshControl()
+        webView?.removeFromSuperview()
+        webView = nil
+        visitable = nil
+    }
+
+    private func showOrHideWebView() {
+        webView?.isHidden = isShowingScreenshot
+    }
+
+
+    // MARK: Refresh Control
+
+    open lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
+        return refreshControl
+    }()
+
+    open var allowsPullToRefresh: Bool = true {
+        didSet {
+            if allowsPullToRefresh {
+                installRefreshControl()
+            } else {
+                removeRefreshControl()
+            }
+        }
+    }
+
+    open var isRefreshing: Bool {
+        return refreshControl.isRefreshing
+    }
+
+    private func installRefreshControl() {
+        guard let scrollView = webView?.scrollView, allowsPullToRefresh else { return }
+        
+        #if !targetEnvironment(macCatalyst)
+        scrollView.addSubview(refreshControl)
+        #endif
+    }
+
+    private func removeRefreshControl() {
+        refreshControl.endRefreshing()
+        refreshControl.removeFromSuperview()
+    }
+
+    @objc func refresh(_ sender: AnyObject) {
+        visitable?.visitableViewDidRequestRefresh()
+    }
+
+
+    // MARK: Activity Indicator
+
+    open lazy var activityIndicatorView: UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView(style: .white)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.color = UIColor.gray
+        view.hidesWhenStopped = true
+        return view
+    }()
+
+    private func installActivityIndicatorView() {
+        addSubview(activityIndicatorView)
+        NSLayoutConstraint.activate([
+            activityIndicatorView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            activityIndicatorView.centerYAnchor.constraint(equalTo: centerYAnchor)
+        ])
+    }
+
+    open func showActivityIndicator() {
+        guard !isRefreshing else { return }
+
+        activityIndicatorView.startAnimating()
+        bringSubviewToFront(activityIndicatorView)
+    }
+
+    open func hideActivityIndicator() {
+        activityIndicatorView.stopAnimating()
+    }
+
+
+    // MARK: Screenshots
+
+    private lazy var screenshotContainerView: UIView = {
+        let view = UIView(frame: .zero)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = self.backgroundColor
+        return view
+    }()
+
+    private var screenshotView: UIView?
+
+    var isShowingScreenshot: Bool {
+        return screenshotContainerView.superview != nil
+    }
+
+    open func updateScreenshot() {
+        guard !isShowingScreenshot, let webView = self.webView, let screenshot = webView.snapshotView(afterScreenUpdates: false) else { return }
+
+        screenshotView?.removeFromSuperview()
+        screenshot.translatesAutoresizingMaskIntoConstraints = false
+        screenshotContainerView.addSubview(screenshot)
+
+        NSLayoutConstraint.activate([
+            screenshot.centerXAnchor.constraint(equalTo: screenshotContainerView.centerXAnchor),
+            screenshot.topAnchor.constraint(equalTo: screenshotContainerView.topAnchor),
+            screenshot.widthAnchor.constraint(equalToConstant: screenshot.bounds.size.width),
+            screenshot.heightAnchor.constraint(equalToConstant: screenshot.bounds.size.height)
+        ])
+
+        screenshotView = screenshot        
+    }
+
+    open func showScreenshot() {
+        guard !isShowingScreenshot, !isRefreshing else { return }
+
+        addSubview(screenshotContainerView)
+        addFillConstraints(for: screenshotContainerView)
+        showOrHideWebView()
+    }
+
+    open func hideScreenshot() {
+        screenshotContainerView.removeFromSuperview()
+        showOrHideWebView()
+    }
+
+    open func clearScreenshot() {
+        screenshotView?.removeFromSuperview()
+    }
+
+    // MARK: - Constraints
+    
+    private func addFillConstraints(for view: UIView) {
+        NSLayoutConstraint.activate([
+            view.leadingAnchor.constraint(equalTo: leadingAnchor),
+            view.trailingAnchor.constraint(equalTo: trailingAnchor),
+            view.topAnchor.constraint(equalTo: topAnchor),
+            view.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
+    }
+}
