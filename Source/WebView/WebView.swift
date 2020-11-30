@@ -3,7 +3,7 @@ import WebKit
 protocol WebViewDelegate: class {
     func webView(_ webView: WebView, didProposeVisitToLocation location: URL, options: VisitOptions)
     func webViewDidInvalidatePage(_ webView: WebView)
-    func webView(_ webView: WebView, didFailJavaScriptEvaluationWithError error: NSError)
+    func webView(_ webView: WebView, didFailJavaScriptEvaluationWithError error: Error)
 }
 
 protocol WebViewPageLoadDelegate: class {
@@ -77,7 +77,7 @@ class WebView: WKWebView {
             if let result = result as? [String: Any], let error = result["error"] as? String, let stack = result["stack"] as? String {
                 NSLog("Error evaluating JavaScript function `%@': %@\n%@", function, error, stack)
             } else if let error = error {
-                self.delegate?.webView(self, didFailJavaScriptEvaluationWithError: error as NSError)
+                self.delegate?.webView(self, didFailJavaScriptEvaluationWithError: error)
             }
         }
     }

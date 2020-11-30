@@ -3,13 +3,10 @@ import WebKit
 
 open class Session: NSObject {
     open weak var delegate: SessionDelegate?
-
+    
+    public var webView: WKWebView { _webView }
     public var pathConfiguration: PathConfiguration?
     
-    public var webView: WKWebView {
-        return _webView
-    }
-
     private let _webView: WebView
     private var initialized = false
     private var refreshing = false
@@ -35,11 +32,11 @@ open class Session: NSObject {
         return activatedVisitable
     }
 
-    open func visit(_ visitable: Visitable, action: Action) {
+    open func visit(_ visitable: Visitable, action: VisitAction) {
         visit(visitable, options: VisitOptions(action: action, response: nil))
     }
     
-    open func visit(_ visitable: Visitable, options: VisitOptions = .defaultOptions, reload: Bool = false) {
+    open func visit(_ visitable: Visitable, options: VisitOptions? = nil, reload: Bool = false) {
         debugLog(self)
         guard visitable.visitableURL != nil else { return }
 
@@ -49,7 +46,7 @@ open class Session: NSObject {
             initialized = false
         }
         
-        let visit = makeVisit(for: visitable, options: options)
+        let visit = makeVisit(for: visitable, options: options ?? VisitOptions())
         currentVisit?.cancel()
         currentVisit = visit
 
@@ -136,8 +133,8 @@ extension Session: VisitDelegate {
         delegate?.sessionDidFinishRequest(self)
     }
 
-    func visit(_ visit: Visit, requestDidFailWithError error: NSError) {
-        delegate?.session(self, didFailRequestForVisitable: visit.visitable, withError: error)
+    func visit(_ visit: Visit, requestDidFailWithError error: Error) {
+        delegate?.session(self, didFailRequestForVisitable: visit.visitable, error: error)
     }
 
     func visitDidInitializeWebView(_ visit: Visit) {
@@ -250,7 +247,7 @@ extension Session: WebViewDelegate {
         reload()
     }
 
-    func webView(_ webView: WebView, didFailJavaScriptEvaluationWithError error: NSError) {
+    func webView(_ webView: WebView, didFailJavaScriptEvaluationWithError error: Error) {
         guard let currentVisit = self.currentVisit, initialized else { return }
         
         initialized = false

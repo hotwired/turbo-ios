@@ -13,7 +13,7 @@ protocol VisitDelegate: class {
     func visitDidRender(_ visit: Visit)
     
     func visitRequestDidStart(_ visit: Visit)
-    func visit(_ visit: Visit, requestDidFailWithError error: NSError)
+    func visit(_ visit: Visit, requestDidFailWithError error: Error)
     func visitRequestDidFinish(_ visit: Visit)
     
     func visit(_ visit: Visit, didReceiveAuthenticationChallenge challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void)

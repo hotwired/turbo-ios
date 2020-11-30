@@ -1,6 +1,6 @@
 import Foundation
 
-public enum Action: String, Codable {
+public enum VisitAction: String, Codable {
     case advance
     case replace
     case restore
