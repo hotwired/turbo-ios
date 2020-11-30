@@ -12,6 +12,6 @@ jobs:
       env:
         DEVELOPER_DIR: /Applications/Xcode_12.2.app
     - name: Run Tests
-      run: xcodebuild -project Turbo -scheme Turbo test -quiet -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 12'
+      run: xcodebuild -project Turbo.xcodeproj -scheme Turbo test -quiet -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 12'
       env:
-        DEVELOPER_DIR: //Applications/Xcode_12.2.app
+        DEVELOPER_DIR: /Applications/Xcode_12.2.app
