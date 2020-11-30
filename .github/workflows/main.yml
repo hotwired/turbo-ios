@@ -8,7 +8,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Build Dependencies
-      run: carthage bootstrap --cache-builds --platform ios
+      run: bin/carthage.sh bootstrap --cache-builds --platform ios
       env:
         DEVELOPER_DIR: /Applications/Xcode_12.2.app
     - name: Run Tests
