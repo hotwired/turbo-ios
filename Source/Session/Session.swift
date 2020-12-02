@@ -17,14 +17,17 @@ public class Session: NSObject {
 
     /// Automatically creates a web view with the passed-in configuration
     public convenience init(webViewConfiguration: WKWebViewConfiguration? = nil) {
-        let webView = WKWebView(frame: .zero, configuration: webViewConfiguration ?? WKWebViewConfiguration())
-        webView.translatesAutoresizingMaskIntoConstraints = false
-        self.init(webView: webView)
+        self.init(webView: WKWebView(frame: .zero, configuration: webViewConfiguration ?? WKWebViewConfiguration()))
     }
     
     public init(webView: WKWebView) {
         self.webView = webView
         super.init()
+        setup()
+    }
+    
+    private func setup() {
+        webView.translatesAutoresizingMaskIntoConstraints = false
         bridge.delegate = self
     }
     
@@ -48,7 +51,9 @@ public class Session: NSObject {
     }
     
     public func visit(_ visitable: Visitable, options: VisitOptions? = nil, reload: Bool = false) {
-        guard visitable.visitableURL != nil else { return }
+        guard visitable.visitableURL != nil else {
+            fatalError("Visitable must provide a url!")
+        }
 
         visitable.visitableDelegate = self
 
