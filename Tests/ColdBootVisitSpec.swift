@@ -5,15 +5,17 @@ import WebKit
 
 class ColdBootVisitSpec: QuickSpec {
     override func spec() {
-        var webView: WebView!
+        var webView: WKWebView!
+        var bridge: WebViewBridge!
         var visit: ColdBootVisit!
         var visitDelegate: TestVisitDelegate!
         let url = URL(string: "http://localhost/")!
         
         beforeEach {
-            webView = WebView(configuration: WKWebViewConfiguration())
+            webView = WKWebView(frame: .zero, configuration: WKWebViewConfiguration())
+            bridge = WebViewBridge(webView: webView)
             visitDelegate = TestVisitDelegate()
-            visit = ColdBootVisit(visitable: TestVisitable(url: url), options: VisitOptions(), webView: webView)
+            visit = ColdBootVisit(visitable: TestVisitable(url: url), options: VisitOptions(), bridge: bridge)
             visit.delegate = visitDelegate
         }
         
