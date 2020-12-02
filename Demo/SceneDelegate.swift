@@ -29,6 +29,35 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.rootViewController = navigationController
         self.session.visit(viewController)
     }
+    
+    private func route(url: URL, options: VisitOptions, properties: PathProperties) {
+        // This is a simplified version of what you might do in your app
+        // You can look at the path or properties and decide how to render and navigate
+        // to each url. For example, here we look at the path and decide to load a native
+        // view controller for "/numbers" screen
+        let viewController: UIViewController
+        
+        switch url.path {
+        case "/numbers":
+            viewController = NumbersViewController()
+        default:
+            viewController = VisitableViewController(url: url)
+        }
+        
+        navigate(to: viewController, action: options.action)
+        
+        if let visitable = viewController as? Visitable {
+            session.visit(visitable)
+        }
+    }
+    
+    private func navigate(to viewController: UIViewController, action: VisitAction) {
+        if action == .replace {
+            navigationController.viewControllers = navigationController.viewControllers.dropLast() + [viewController]
+        } else {
+            navigationController.pushViewController(viewController, animated: true)
+        }
+    }
 }
 
 extension SceneDelegate: SessionDelegate {
@@ -40,14 +69,6 @@ extension SceneDelegate: SessionDelegate {
     }
     
     func session(_ session: Session, didProposeVisitToURL url: URL, options: VisitOptions, properties: PathProperties) {
-        let viewController = VisitableViewController(url: url)
-        
-        if options.action == .replace {
-            navigationController.viewControllers = navigationController.viewControllers.dropLast() + [viewController]
-        } else {
-            navigationController.pushViewController(viewController, animated: true)
-        }
-        
-        session.visit(viewController)
+        route(url: url, options: options, properties: properties)
     }
 }
