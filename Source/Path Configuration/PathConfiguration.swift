@@ -10,10 +10,10 @@ public protocol PathConfigurationDelegate: class {
 public final class PathConfiguration {
     public weak var delegate: PathConfigurationDelegate?
     
-    /// Returns top-level settings
+    /// Returns top-level settings: `{ settings: {} }`
     public private(set) var settings: [String: AnyHashable] = [:]
     
-    /// The list of rules from the configuration
+    /// The list of rules from the configuration: `{ rules: [] }`
     public private(set) var rules: [PathRule] = []
     
     /// Sources for this configuration, setting it will
@@ -31,14 +31,20 @@ public final class PathConfiguration {
         load()
     }
     
-    /// Convenience method for getting properties
-    /// configuration["/path"]
+    /// Convenience method for getting properties for path: configuration["/path"]
     public subscript(path: String) -> PathProperties {
         properties(for: path)
     }
     
+    /// Convenience method for retrieving properties for url: configuration[url]
+    public subscript(url: URL) -> PathProperties {
+        properties(for: url)
+    }
+    
     /// Returns a merged dictionary containing all the properties
-    /// that match this url, currently only looks at path, not query
+    /// that match this url
+    /// Note: currently only looks at path, not query, but most likely will
+    /// add query support in the future
     public func properties(for url: URL) -> PathProperties {
         properties(for: url.path)
     }

@@ -1,20 +1,20 @@
+import UIKit
 import WebKit
 
 open class VisitableView: UIView {
-    required public init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        initialize()
-    }
-
     public override init(frame: CGRect) {
         super.init(frame: frame)
-        initialize()
+        setup()
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setup()
     }
 
-    private func initialize() {
+    private func setup() {
         installActivityIndicatorView()
     }
-
 
     // MARK: Web View
 
@@ -40,7 +40,6 @@ open class VisitableView: UIView {
     private func showOrHideWebView() {
         webView?.isHidden = isShowingScreenshot
     }
-
 
     // MARK: Refresh Control
 
@@ -81,7 +80,6 @@ open class VisitableView: UIView {
         visitable?.visitableViewDidRequestRefresh()
     }
 
-
     // MARK: Activity Indicator
 
     open lazy var activityIndicatorView: UIActivityIndicatorView = {
@@ -111,7 +109,6 @@ open class VisitableView: UIView {
         activityIndicatorView.stopAnimating()
     }
 
-
     // MARK: Screenshots
 
     private lazy var screenshotContainerView: UIView = {
@@ -124,7 +121,7 @@ open class VisitableView: UIView {
     private var screenshotView: UIView?
 
     var isShowingScreenshot: Bool {
-        return screenshotContainerView.superview != nil
+        screenshotContainerView.superview != nil
     }
 
     open func updateScreenshot() {

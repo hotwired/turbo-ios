@@ -1,22 +1,7 @@
 import WebKit
 
-enum ScriptMessageName: String {
-    case pageLoaded
-    case errorRaised
-    case visitProposed
-    case visitStarted
-    case visitRequestStarted
-    case visitRequestCompleted
-    case visitRequestFailed
-    case visitRequestFinished
-    case visitRendered
-    case visitCompleted
-    case pageInvalidated
-    case log
-}
-
 struct ScriptMessage {
-    let name: ScriptMessageName
+    let name: Name
     let data: [String: Any]
 
     var identifier: String? {
@@ -51,12 +36,29 @@ extension ScriptMessage {
     init?(message: WKScriptMessage) {
         guard let body = message.body as? [String: Any],
             let rawName = body["name"] as? String,
-            let name = ScriptMessageName(rawValue: rawName),
+            let name = Name(rawValue: rawName),
             let data = body["data"] as? [String: Any]
         else {
             return nil
         }
         
         self.init(name: name, data: data)
+    }
+}
+
+extension ScriptMessage {
+    enum Name: String {
+        case pageLoaded
+        case errorRaised
+        case visitProposed
+        case visitStarted
+        case visitRequestStarted
+        case visitRequestCompleted
+        case visitRequestFailed
+        case visitRequestFinished
+        case visitRendered
+        case visitCompleted
+        case pageInvalidated
+        case log
     }
 }

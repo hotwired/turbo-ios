@@ -19,12 +19,6 @@ public protocol Visitable: AnyObject {
     func hideVisitableActivityIndicator()
 }
 
-extension Visitable where Self: UIViewController {
-    public var visitableViewController: UIViewController {
-        self
-    }
-}
-
 extension Visitable {
     public func reloadVisitable() {
         visitableDelegate?.visitableDidRequestReload(self)
@@ -72,5 +66,11 @@ extension Visitable {
 
     func visitableViewDidRequestRefresh() {
         visitableDelegate?.visitableDidRequestRefresh(self)
+    }
+}
+
+extension Visitable where Self: UIViewController {
+    public var visitableViewController: UIViewController {
+        self
     }
 }

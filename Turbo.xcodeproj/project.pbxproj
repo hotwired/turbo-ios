@@ -19,12 +19,12 @@
 		C149E3952575847800158E8C /* Visitable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C149E3822575847700158E8C /* Visitable.swift */; };
 		C149E3962575847800158E8C /* Visit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C149E3832575847700158E8C /* Visit.swift */; };
 		C149E3972575847800158E8C /* ScriptMessageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C149E3842575847700158E8C /* ScriptMessageHandler.swift */; };
-		C149E3992575847800158E8C /* WebView.js in Resources */ = {isa = PBXBuildFile; fileRef = C149E3862575847700158E8C /* WebView.js */; };
+		C149E3992575847800158E8C /* turbo.js in Resources */ = {isa = PBXBuildFile; fileRef = C149E3862575847700158E8C /* turbo.js */; };
 		C149E39A2575847800158E8C /* VisitableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C149E3872575847700158E8C /* VisitableViewController.swift */; };
 		C149E39B2575847800158E8C /* ScriptMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C149E3882575847700158E8C /* ScriptMessage.swift */; };
 		C149E39C2575847800158E8C /* TurboError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C149E3892575847700158E8C /* TurboError.swift */; };
 		C149E39D2575847800158E8C /* JavaScriptExpression.swift in Sources */ = {isa = PBXBuildFile; fileRef = C149E38A2575847700158E8C /* JavaScriptExpression.swift */; };
-		C149E39E2575847800158E8C /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C149E38B2575847700158E8C /* WebView.swift */; };
+		C149E39E2575847800158E8C /* WebViewBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = C149E38B2575847700158E8C /* WebViewBridge.swift */; };
 		C149E3A9257584A100158E8C /* PathConfigurationDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C149E3A5257584A100158E8C /* PathConfigurationDecoder.swift */; };
 		C149E3AA257584A100158E8C /* PathConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C149E3A6257584A100158E8C /* PathConfiguration.swift */; };
 		C149E3AB257584A100158E8C /* PathConfigurationLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C149E3A7257584A100158E8C /* PathConfigurationLoader.swift */; };
@@ -77,12 +77,12 @@
 		C149E3822575847700158E8C /* Visitable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Visitable.swift; sourceTree = "<group>"; };
 		C149E3832575847700158E8C /* Visit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Visit.swift; sourceTree = "<group>"; };
 		C149E3842575847700158E8C /* ScriptMessageHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScriptMessageHandler.swift; sourceTree = "<group>"; };
-		C149E3862575847700158E8C /* WebView.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = WebView.js; sourceTree = "<group>"; };
+		C149E3862575847700158E8C /* turbo.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = turbo.js; sourceTree = "<group>"; };
 		C149E3872575847700158E8C /* VisitableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitableViewController.swift; sourceTree = "<group>"; };
 		C149E3882575847700158E8C /* ScriptMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScriptMessage.swift; sourceTree = "<group>"; };
 		C149E3892575847700158E8C /* TurboError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TurboError.swift; sourceTree = "<group>"; };
 		C149E38A2575847700158E8C /* JavaScriptExpression.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JavaScriptExpression.swift; sourceTree = "<group>"; };
-		C149E38B2575847700158E8C /* WebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
+		C149E38B2575847700158E8C /* WebViewBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewBridge.swift; sourceTree = "<group>"; };
 		C149E3A5257584A100158E8C /* PathConfigurationDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathConfigurationDecoder.swift; sourceTree = "<group>"; };
 		C149E3A6257584A100158E8C /* PathConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathConfiguration.swift; sourceTree = "<group>"; };
 		C149E3A7257584A100158E8C /* PathConfigurationLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathConfigurationLoader.swift; sourceTree = "<group>"; };
@@ -224,12 +224,12 @@
 		C149E3B62575863D00158E8C /* WebView */ = {
 			isa = PBXGroup;
 			children = (
-				C149E38B2575847700158E8C /* WebView.swift */,
+				C149E38B2575847700158E8C /* WebViewBridge.swift */,
 				C149E3882575847700158E8C /* ScriptMessage.swift */,
 				C149E3842575847700158E8C /* ScriptMessageHandler.swift */,
 				C149E38A2575847700158E8C /* JavaScriptExpression.swift */,
 				C149E3792575847700158E8C /* JSON.swift */,
-				C149E3862575847700158E8C /* WebView.js */,
+				C149E3862575847700158E8C /* turbo.js */,
 			);
 			path = WebView;
 			sourceTree = "<group>";
@@ -368,7 +368,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C149E3992575847800158E8C /* WebView.js in Resources */,
+				C149E3992575847800158E8C /* turbo.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -404,7 +404,7 @@
 				C149E3AA257584A100158E8C /* PathConfiguration.swift in Sources */,
 				C149E3922575847800158E8C /* VisitDelegate.swift in Sources */,
 				C149E3AB257584A100158E8C /* PathConfigurationLoader.swift in Sources */,
-				C149E39E2575847800158E8C /* WebView.swift in Sources */,
+				C149E39E2575847800158E8C /* WebViewBridge.swift in Sources */,
 				C149E3A9257584A100158E8C /* PathConfigurationDecoder.swift in Sources */,
 				C149E3902575847800158E8C /* VisitAction.swift in Sources */,
 				C149E39D2575847800158E8C /* JavaScriptExpression.swift in Sources */,

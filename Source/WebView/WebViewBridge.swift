@@ -1,58 +1,69 @@
 import WebKit
 
-protocol WebViewDelegate: class {
-    func webView(_ webView: WebView, didProposeVisitToLocation location: URL, options: VisitOptions)
-    func webViewDidInvalidatePage(_ webView: WebView)
-    func webView(_ webView: WebView, didFailJavaScriptEvaluationWithError error: Error)
+protocol WebViewDelegate: AnyObject {
+    func webView(_ webView: WebViewBridge, didProposeVisitToLocation location: URL, options: VisitOptions)
+    func webViewDidInvalidatePage(_ webView: WebViewBridge)
+    func webView(_ webView: WebViewBridge, didFailJavaScriptEvaluationWithError error: Error)
 }
 
-protocol WebViewPageLoadDelegate: class {
-    func webView(_ webView: WebView, didLoadPageWithRestorationIdentifier restorationIdentifier: String)
+protocol WebViewPageLoadDelegate: AnyObject {
+    func webView(_ webView: WebViewBridge, didLoadPageWithRestorationIdentifier restorationIdentifier: String)
 }
 
-protocol WebViewVisitDelegate: class {
-    func webView(_ webView: WebView, didStartVisitWithIdentifier identifier: String, hasCachedSnapshot: Bool)
-    func webView(_ webView: WebView, didStartRequestForVisitWithIdentifier identifier: String, date: Date)
-    func webView(_ webView: WebView, didCompleteRequestForVisitWithIdentifier identifier: String)
-    func webView(_ webView: WebView, didFailRequestForVisitWithIdentifier identifier: String, statusCode: Int)
-    func webView(_ webView: WebView, didFinishRequestForVisitWithIdentifier identifier: String, date: Date)
-    func webView(_ webView: WebView, didRenderForVisitWithIdentifier identifier: String)
-    func webView(_ webView: WebView, didCompleteVisitWithIdentifier identifier: String, restorationIdentifier: String)
+protocol WebViewVisitDelegate: AnyObject {
+    func webView(_ webView: WebViewBridge, didStartVisitWithIdentifier identifier: String, hasCachedSnapshot: Bool)
+    func webView(_ webView: WebViewBridge, didStartRequestForVisitWithIdentifier identifier: String, date: Date)
+    func webView(_ webView: WebViewBridge, didCompleteRequestForVisitWithIdentifier identifier: String)
+    func webView(_ webView: WebViewBridge, didFailRequestForVisitWithIdentifier identifier: String, statusCode: Int)
+    func webView(_ webView: WebViewBridge, didFinishRequestForVisitWithIdentifier identifier: String, date: Date)
+    func webView(_ webView: WebViewBridge, didRenderForVisitWithIdentifier identifier: String)
+    func webView(_ webView: WebViewBridge, didCompleteVisitWithIdentifier identifier: String, restorationIdentifier: String)
 }
 
-private let MessageHandlerName = "turbo"
+/// The WebViewBridge is an internal class used for bi-directional communication
+/// with the web view/JavaScript
+final class WebViewBridge {
+    private let messageHandlerName = "turbo"
 
-class WebView: WKWebView {
     weak var delegate: WebViewDelegate?
     weak var pageLoadDelegate: WebViewPageLoadDelegate?
     weak var visitDelegate: WebViewVisitDelegate?
     
+    let webView: WKWebView
+    
     deinit {
-        configuration.userContentController.removeScriptMessageHandler(forName: MessageHandlerName)
+        webView.configuration.userContentController.removeScriptMessageHandler(forName: messageHandlerName)
     }
 
-    init(configuration: WKWebViewConfiguration) {
-        super.init(frame: CGRect.zero, configuration: configuration)
-
-        let bundle = Bundle(for: type(of: self))
-        let source = try! String(contentsOf: bundle.url(forResource: "WebView", withExtension: "js")!, encoding: .utf8)
-        let userScript = WKUserScript(source: source, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
-        configuration.userContentController.addUserScript(userScript)
-        configuration.userContentController.add(ScriptMessageHandler(delegate: self), name: MessageHandlerName)
-
-        translatesAutoresizingMaskIntoConstraints = false
+    init(webView: WKWebView) {
+        self.webView = webView
+        setup()
     }
     
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
+    private func setup() {
+        webView.configuration.userContentController.addUserScript(userScript)
+        webView.configuration.userContentController.add(ScriptMessageHandler(delegate: self), name: messageHandlerName)
     }
+    
+    private var userScript: WKUserScript {
+        let bundle = Bundle(for: type(of: self))
+        let url = bundle.url(forResource: "turbo", withExtension: "js")!
+        let source = try! String(contentsOf: url, encoding: .utf8)
+        return WKUserScript(source: source, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
+    }
+    
+    // MARK: - JS
     
     func visitLocation(_ location: URL, options: VisitOptions, restorationIdentifier: String?) {
-        callJavaScript(function: "webView.visitLocationWithOptionsAndRestorationIdentifier", arguments: [location.absoluteString, options.toJSON(), restorationIdentifier])
+        callJavaScript(function: "window.turboNative.visitLocationWithOptionsAndRestorationIdentifier", arguments: [
+            location.absoluteString,
+            options.toJSON(),
+            restorationIdentifier
+        ])
     }
 
     func cancelVisit(withIdentifier identifier: String) {
-        callJavaScript(function: "webView.cancelVisitWithIdentifier", arguments: [identifier])
+        callJavaScript(function: "window.turboNative.cancelVisitWithIdentifier", arguments: [identifier])
     }
 
     // MARK: JavaScript Evaluation
@@ -65,13 +76,9 @@ class WebView: WKWebView {
             return
         }
         
-        if window == nil {
-            debugLog("[WebView] *** calling \(function), but not in a window!")
-        }
-        
         debugLog("[Bridge] → \(function)")
 
-        evaluateJavaScript(script) { result, error in
+        webView.evaluateJavaScript(script) { result, error in
             debugLog("[Bridge] = \(function) evaluation complete")
             
             if let result = result as? [String: Any], let error = result["error"] as? String, let stack = result["stack"] as? String {
@@ -83,13 +90,12 @@ class WebView: WKWebView {
     }
 }
 
-extension WebView: ScriptMessageHandlerDelegate {
+extension WebViewBridge: ScriptMessageHandlerDelegate {
     func scriptMessageHandlerDidReceiveMessage(_ scriptMessage: WKScriptMessage) {
         guard let message = ScriptMessage(message: scriptMessage) else { return }
         
-        let timestamp = message.timestamp.truncatingRemainder(dividingBy: 10000)
         if message.name != .log {
-            debugLog("[Bridge] ← \(message.name) (@ \(timestamp))")
+            debugLog("[Bridge] ← \(message.name)")
         }
         
         switch message.name {
@@ -115,10 +121,10 @@ extension WebView: ScriptMessageHandlerDelegate {
             visitDelegate?.webView(self, didCompleteVisitWithIdentifier: message.identifier!, restorationIdentifier: message.restorationIdentifier!)
         case .errorRaised:
             let error = message.data["error"] as? String
-            NSLog("JavaScript error: %@", error ?? "<unknown error>")
+            debugLog("JavaScript error: %@", error ?? "<unknown error>")
         case .log:
             guard let msg = message.data["message"] as? String else { return }
-            debugLog("[Bridge] ← log: \(msg) (@ \(timestamp))")
+            debugLog("[Bridge] ← log: \(msg)")
         }
     }
 }

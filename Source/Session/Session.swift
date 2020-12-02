@@ -1,43 +1,53 @@
 import UIKit
 import WebKit
 
-open class Session: NSObject {
-    open weak var delegate: SessionDelegate?
+/// A Session represents the main interface for managing
+/// a Turbo app in a web view. Each Session manages a single web view
+/// so you should create multiple sessions to have multiple web views, for example
+/// when using modals or tabs
+public class Session: NSObject {
+    public weak var delegate: SessionDelegate?
     
-    public var webView: WKWebView { _webView }
+    public let webView: WKWebView
     public var pathConfiguration: PathConfiguration?
     
-    private let _webView: WebView
+    private lazy var bridge = WebViewBridge(webView: webView)
     private var initialized = false
     private var refreshing = false
 
-    public init(webViewConfiguration: WKWebViewConfiguration? = nil) {
-        _webView = WebView(configuration: webViewConfiguration ?? WKWebViewConfiguration())
-        super.init()
-        _webView.delegate = self
+    /// Automatically creates a web view with the passed-in configuration
+    public convenience init(webViewConfiguration: WKWebViewConfiguration? = nil) {
+        let webView = WKWebView(frame: .zero, configuration: webViewConfiguration ?? WKWebViewConfiguration())
+        webView.translatesAutoresizingMaskIntoConstraints = false
+        self.init(webView: webView)
     }
-
+    
+    public init(webView: WKWebView) {
+        self.webView = webView
+        super.init()
+        bridge.delegate = self
+    }
+    
     // MARK: Visiting
 
     private var currentVisit: Visit?
     private var topmostVisit: Visit?
 
     /// The topmost visitable is the visitable that has most recently completed a visit
-    open var topmostVisitable: Visitable? {
-        return topmostVisit?.visitable
+    public var topmostVisitable: Visitable? {
+        topmostVisit?.visitable
     }
     
     /// The active visitable is the visitable that currently owns the web view
     public var activeVisitable: Visitable? {
-        return activatedVisitable
+        activatedVisitable
     }
 
-    open func visit(_ visitable: Visitable, action: VisitAction) {
+    public func visit(_ visitable: Visitable, action: VisitAction) {
         visit(visitable, options: VisitOptions(action: action, response: nil))
     }
     
-    open func visit(_ visitable: Visitable, options: VisitOptions? = nil, reload: Bool = false) {
-        debugLog(self)
+    public func visit(_ visitable: Visitable, options: VisitOptions? = nil, reload: Bool = false) {
         guard visitable.visitableURL != nil else { return }
 
         visitable.visitableDelegate = self
@@ -56,13 +66,13 @@ open class Session: NSObject {
     
     private func makeVisit(for visitable: Visitable, options: VisitOptions) -> Visit {
         if initialized {
-            return JavaScriptVisit(visitable: visitable, options: options, webView: _webView, restorationIdentifier: restorationIdentifier(for: visitable))
+            return JavaScriptVisit(visitable: visitable, options: options, bridge: bridge, restorationIdentifier: restorationIdentifier(for: visitable))
         } else {
-            return ColdBootVisit(visitable: visitable, options: options, webView: _webView)
+            return ColdBootVisit(visitable: visitable, options: options, bridge: bridge)
         }
     }
 
-    open func reload() {
+    public func reload() {
         guard let visitable = topmostVisitable else { return }
 
         initialized = false
@@ -233,12 +243,12 @@ extension Session: VisitableDelegate {
 }
 
 extension Session: WebViewDelegate {
-    func webView(_ webView: WebView, didProposeVisitToLocation location: URL, options: VisitOptions) {
+    func webView(_ bridge: WebViewBridge, didProposeVisitToLocation location: URL, options: VisitOptions) {
         let properties = pathConfiguration?[location.path] ?? [:]
         delegate?.session(self, didProposeVisitToURL: location, options: options, properties: properties)
     }
 
-    func webViewDidInvalidatePage(_ webView: WebView) {
+    func webViewDidInvalidatePage(_ bridge: WebViewBridge) {
         guard let visitable = topmostVisitable else { return }
 
         visitable.updateVisitableScreenshot()
@@ -247,7 +257,7 @@ extension Session: WebViewDelegate {
         reload()
     }
 
-    func webView(_ webView: WebView, didFailJavaScriptEvaluationWithError error: Error) {
+    func webView(_ bridge: WebViewBridge, didFailJavaScriptEvaluationWithError error: Error) {
         guard let currentVisit = self.currentVisit, initialized else { return }
         
         initialized = false
@@ -280,7 +290,7 @@ extension Session: WKNavigationDelegate {
         let navigationAction: WKNavigationAction
 
         var policy: WKNavigationActionPolicy {
-            return navigationAction.navigationType == .linkActivated || isMainFrameNavigation ? .cancel : .allow
+            navigationAction.navigationType == .linkActivated || isMainFrameNavigation ? .cancel : .allow
         }
 
         var externallyOpenableURL: URL? {
@@ -302,7 +312,7 @@ extension Session: WKNavigationDelegate {
         }
 
         var isMainFrameNavigation: Bool {
-            return navigationAction.targetFrame?.isMainFrame ?? false
+            navigationAction.targetFrame?.isMainFrame ?? false
         }
     }
 }

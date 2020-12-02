@@ -1,5 +1,6 @@
 (() => {
-  class WebView {
+  // NativeBridge sends messages between native app and Turbo JS
+  class NativeBridge {
     constructor(controller, messageHandler) {
       this.controller = controller
       this.messageHandler = messageHandler
@@ -128,12 +129,12 @@
     }
   }
 
-  this.webView = new WebView(Turbolinks.controller, webkit.messageHandlers.turbo)
+  window.turboNative = new NativeBridge(Turbolinks.controller, webkit.messageHandlers.turbo)
 
   addEventListener("error", event => {
-    var error = event.message + " (" + event.filename + ":" + event.lineno + ":" + event.colno + ")"
-    webView.errorRaised(error)
+    const error = event.message + " (" + event.filename + ":" + event.lineno + ":" + event.colno + ")"
+    window.turboNative.errorRaised(error)
   }, false)
 
-  webView.pageLoaded()
+  window.turboNative.pageLoaded()
 })()

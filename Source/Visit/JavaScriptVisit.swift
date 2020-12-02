@@ -1,37 +1,40 @@
 import Foundation
 
+/// A JavaScript managed visit through the Turbo library
+/// All visits are JavaScriptVisits except the initial ColdBootVisit
+/// or if a reload() is issued
 final class JavaScriptVisit: Visit {
     private var identifier = "(pending)"
     
-    init(visitable: Visitable, options: VisitOptions, webView: WebView, restorationIdentifier: String?) {
-        super.init(visitable: visitable, options: options, webView: webView)
+    init(visitable: Visitable, options: VisitOptions, bridge: WebViewBridge, restorationIdentifier: String?) {
+        super.init(visitable: visitable, options: options, bridge: bridge)
         self.restorationIdentifier = restorationIdentifier
     }
 
-    override var description: String {
-        return "<\(type(of: self)) \(identifier): state=\(state) location=\(location)>"
+    override var debugDescription: String {
+        "<JavaScriptVisit identifier: \(identifier), state: \(state), location: \(location)>"
     }
 
     override func startVisit() {
         debugLog(self)
-        webView.visitDelegate = self
-        webView.visitLocation(location, options: options, restorationIdentifier: restorationIdentifier)
+        bridge.visitDelegate = self
+        bridge.visitLocation(location, options: options, restorationIdentifier: restorationIdentifier)
     }
 
     override func cancelVisit() {
         debugLog(self)
-        webView.cancelVisit(withIdentifier: identifier)
-        finishRequest(at: Date())
+        bridge.cancelVisit(withIdentifier: identifier)
+        finishRequest()
     }
 
     override func failVisit() {
         debugLog(self)
-        finishRequest(at: Date())
+        finishRequest()
     }
 }
 
 extension JavaScriptVisit: WebViewVisitDelegate {
-    func webView(_ webView: WebView, didStartVisitWithIdentifier identifier: String, hasCachedSnapshot: Bool) {
+    func webView(_ webView: WebViewBridge, didStartVisitWithIdentifier identifier: String, hasCachedSnapshot: Bool) {
         debugLog(self)
         self.identifier = identifier
         self.hasCachedSnapshot = hasCachedSnapshot
@@ -39,13 +42,13 @@ extension JavaScriptVisit: WebViewVisitDelegate {
         delegate?.visitDidStart(self)
     }
     
-    func webView(_ webView: WebView, didStartRequestForVisitWithIdentifier identifier: String, date: Date) {
+    func webView(_ webView: WebViewBridge, didStartRequestForVisitWithIdentifier identifier: String, date: Date) {
         guard identifier == self.identifier else { return }
         debugLog(self)
-        startRequest(at: date)
+        startRequest()
     }
     
-    func webView(_ webView: WebView, didCompleteRequestForVisitWithIdentifier identifier: String) {
+    func webView(_ webView: WebViewBridge, didCompleteRequestForVisitWithIdentifier identifier: String) {
         guard identifier == self.identifier else { return }
         debugLog(self)
         
@@ -54,27 +57,27 @@ extension JavaScriptVisit: WebViewVisitDelegate {
         }
     }
     
-    func webView(_ webView: WebView, didFailRequestForVisitWithIdentifier identifier: String, statusCode: Int) {
+    func webView(_ webView: WebViewBridge, didFailRequestForVisitWithIdentifier identifier: String, statusCode: Int) {
         guard identifier == self.identifier else { return }
         
         fail(with: TurboError.http(statusCode: statusCode))
     }
     
-    func webView(_ webView: WebView, didFinishRequestForVisitWithIdentifier identifier: String, date: Date) {
+    func webView(_ webView: WebViewBridge, didFinishRequestForVisitWithIdentifier identifier: String, date: Date) {
         guard identifier == self.identifier else { return }
         
         debugLog(self)
-        finishRequest(at: date)
+        finishRequest()
     }
     
-    func webView(_ webView: WebView, didRenderForVisitWithIdentifier identifier: String) {
+    func webView(_ webView: WebViewBridge, didRenderForVisitWithIdentifier identifier: String) {
         guard identifier == self.identifier else { return }
         
         debugLog(self)
         delegate?.visitDidRender(self)
     }
     
-    func webView(_ webView: WebView, didCompleteVisitWithIdentifier identifier: String, restorationIdentifier: String) {
+    func webView(_ webView: WebViewBridge, didCompleteVisitWithIdentifier identifier: String, restorationIdentifier: String) {
         guard identifier == self.identifier else { return }
         
         debugLog(self)

@@ -1,14 +1,16 @@
 import Foundation
 import WebKit
 
-final class ColdBootVisit: Visit, WKNavigationDelegate, WebViewPageLoadDelegate {
+/// A "Cold Boot" visit is the initial visit to load the page, including all resources
+/// Subsequent visits go through Turbo and use `JavaScriptVisit`
+final class ColdBootVisit: Visit {
     private var navigation: WKNavigation?
 
     override func startVisit() {
         debugLog(self)
 
         webView.navigationDelegate = self
-        webView.pageLoadDelegate = self
+        bridge.pageLoadDelegate = self
 
         if let response = options.response, response.isSuccessful, let body = response.responseHTML {
             navigation = webView.loadHTMLString(body, baseURL: location)
@@ -17,13 +19,13 @@ final class ColdBootVisit: Visit, WKNavigationDelegate, WebViewPageLoadDelegate 
         }
 
         delegate?.visitDidStart(self)
-        startRequest(at: Date())
+        startRequest()
     }
 
     override func cancelVisit() {
         removeNavigationDelegate()
         webView.stopLoading()
-        finishRequest(at: Date())
+        finishRequest()
     }
 
     override func completeVisit() {
@@ -33,19 +35,19 @@ final class ColdBootVisit: Visit, WKNavigationDelegate, WebViewPageLoadDelegate 
 
     override func failVisit() {
         removeNavigationDelegate()
-        finishRequest(at: Date())
+        finishRequest()
     }
 
     private func removeNavigationDelegate() {
         guard webView.navigationDelegate === self else { return }
         webView.navigationDelegate = nil
     }
+}
 
-    // MARK: - WKNavigationDelegate
-
+extension ColdBootVisit: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         guard navigation == self.navigation else { return }
-        finishRequest(at: Date())
+        finishRequest()
     }
 
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
@@ -76,23 +78,21 @@ final class ColdBootVisit: Visit, WKNavigationDelegate, WebViewPageLoadDelegate 
 
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         guard navigation == self.navigation else { return }
-
         fail(with: error)
     }
 
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         guard navigation == self.navigation else { return }
-
         fail(with: error)
     }
     
     func webView(_ webView: WKWebView, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
         delegate?.visit(self, didReceiveAuthenticationChallenge: challenge, completionHandler: completionHandler)
     }
+}
 
-    // MARK: - WebViewPageLoadDelegate
-
-    func webView(_ webView: WebView, didLoadPageWithRestorationIdentifier restorationIdentifier: String) {
+extension ColdBootVisit: WebViewPageLoadDelegate {
+    func webView(_ bridge: WebViewBridge, didLoadPageWithRestorationIdentifier restorationIdentifier: String) {
         self.restorationIdentifier = restorationIdentifier
         delegate?.visitDidRender(self)
         complete()

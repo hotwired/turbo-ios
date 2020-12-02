@@ -1,6 +1,6 @@
 import WebKit
 
-protocol ScriptMessageHandlerDelegate: class {
+protocol ScriptMessageHandlerDelegate: AnyObject {
     func scriptMessageHandlerDidReceiveMessage(_ scriptMessage: WKScriptMessage)
 }
 

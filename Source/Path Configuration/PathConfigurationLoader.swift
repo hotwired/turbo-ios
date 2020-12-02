@@ -2,10 +2,9 @@ import Foundation
 
 typealias PathConfigurationLoaderCompletionHandler = (PathConfigurationDecoder) -> Void
 
-private let cacheDirectory = "Turbo"
-private let configurationCacheFilename = "path-configuration.json"
-
 final class PathConfigurationLoader {
+    private let cacheDirectory = "Turbo"
+    private let configurationCacheFilename = "path-configuration.json"
     private let sources: [PathConfiguration.Source]
     private var completionHandler: PathConfigurationLoaderCompletionHandler?
     

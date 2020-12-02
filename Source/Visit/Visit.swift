@@ -13,17 +13,18 @@ class Visit: NSObject {
     let visitable: Visitable
     var restorationIdentifier: String?
     let options: VisitOptions
-    let webView: WebView
+    let bridge: WebViewBridge
+    var webView: WKWebView { bridge.webView }
     let location: URL
     
     var hasCachedSnapshot: Bool = false
     private(set) var state: VisitState
     
-    init(visitable: Visitable, options: VisitOptions, webView: WebView) {
+    init(visitable: Visitable, options: VisitOptions, bridge: WebViewBridge) {
         self.visitable = visitable
         self.location = visitable.visitableURL!
         self.options = options
-        self.webView = webView
+        self.bridge = bridge
         self.state = .initialized
     }
 
@@ -46,7 +47,7 @@ class Visit: NSObject {
         guard state == .started else { return }
         
         if !requestFinished {
-            finishRequest(at: Date())
+            finishRequest()
         }
         
         state = .completed
@@ -76,14 +77,14 @@ class Visit: NSObject {
     private var requestStarted = false
     private var requestFinished = false
 
-    func startRequest(at date: Date) {
+    func startRequest() {
         guard !requestStarted else { return }
         
         requestStarted = true
         delegate?.visitRequestDidStart(self)
     }
 
-    func finishRequest(at date: Date) {
+    func finishRequest() {
         guard requestStarted, !requestFinished else { return }
         
         requestFinished = true

@@ -15,7 +15,7 @@ struct JavaScriptExpression {
     }
     
     private func wrap(function: String, encodedArguments arguments: String) -> String {
-        return """
+        """
         (function(result) {
           try {
             result.value = \(function)(\(arguments))
