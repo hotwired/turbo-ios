@@ -13,17 +13,34 @@
 		C153F00F2578057900926D30 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C153F00D2578057900926D30 /* Main.storyboard */; };
 		C153F0112578057A00926D30 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C153F0102578057A00926D30 /* Assets.xcassets */; };
 		C153F0142578057A00926D30 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C153F0122578057A00926D30 /* LaunchScreen.storyboard */; };
+		C153F02E25780F6900926D30 /* Turbo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C153F02D25780F6900926D30 /* Turbo.framework */; };
+		C153F02F25780F6900926D30 /* Turbo.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C153F02D25780F6900926D30 /* Turbo.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		C153F03025780F6900926D30 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				C153F02F25780F6900926D30 /* Turbo.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		C153F0042578057900926D30 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		C153F0072578057900926D30 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = ../AppDelegate.swift; sourceTree = "<group>"; };
-		C153F0092578057900926D30 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SceneDelegate.swift; path = ../SceneDelegate.swift; sourceTree = "<group>"; };
-		C153F00B2578057900926D30 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = ../ViewController.swift; sourceTree = "<group>"; };
+		C153F0042578057900926D30 /* Turbo Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Turbo Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C153F0072578057900926D30 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		C153F0092578057900926D30 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		C153F00B2578057900926D30 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C153F00E2578057900926D30 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		C153F0102578057A00926D30 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../Assets.xcassets; sourceTree = "<group>"; };
+		C153F0102578057A00926D30 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C153F0132578057A00926D30 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		C153F0152578057A00926D30 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Info.plist; sourceTree = "<group>"; };
+		C153F0152578057A00926D30 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C153F02D25780F6900926D30 /* Turbo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Turbo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +48,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C153F02E25780F6900926D30 /* Turbo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,13 +60,14 @@
 			children = (
 				C153F0062578057900926D30 /* Demo */,
 				C153F0052578057900926D30 /* Products */,
+				C153F02C25780F6900926D30 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
 		C153F0052578057900926D30 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C153F0042578057900926D30 /* Demo.app */,
+				C153F0042578057900926D30 /* Turbo Demo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -64,7 +83,15 @@
 				C153F0122578057A00926D30 /* LaunchScreen.storyboard */,
 				C153F0152578057A00926D30 /* Info.plist */,
 			);
-			path = Demo;
+			name = Demo;
+			sourceTree = "<group>";
+		};
+		C153F02C25780F6900926D30 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C153F02D25780F6900926D30 /* Turbo.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -77,6 +104,7 @@
 				C153F0002578057900926D30 /* Sources */,
 				C153F0012578057900926D30 /* Frameworks */,
 				C153F0022578057900926D30 /* Resources */,
+				C153F03025780F6900926D30 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -84,7 +112,7 @@
 			);
 			name = Demo;
 			productName = Demo;
-			productReference = C153F0042578057900926D30 /* Demo.app */;
+			productReference = C153F0042578057900926D30 /* Turbo Demo.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -152,7 +180,6 @@
 				C153F00E2578057900926D30 /* Base */,
 			);
 			name = Main.storyboard;
-			path = ..;
 			sourceTree = "<group>";
 		};
 		C153F0122578057A00926D30 /* LaunchScreen.storyboard */ = {
@@ -161,7 +188,6 @@
 				C153F0132578057A00926D30 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
-			path = ..;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -296,7 +322,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.basecamp.turbo.Demo;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Turbo Demo";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -315,7 +341,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.basecamp.turbo.Demo;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Turbo Demo";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
