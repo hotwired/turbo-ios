@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		C153F0082578057900926D30 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153F0072578057900926D30 /* AppDelegate.swift */; };
 		C153F00A2578057900926D30 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153F0092578057900926D30 /* SceneDelegate.swift */; };
-		C153F00C2578057900926D30 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153F00B2578057900926D30 /* ViewController.swift */; };
 		C153F00F2578057900926D30 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C153F00D2578057900926D30 /* Main.storyboard */; };
 		C153F0112578057A00926D30 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C153F0102578057A00926D30 /* Assets.xcassets */; };
 		C153F0142578057A00926D30 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C153F0122578057A00926D30 /* LaunchScreen.storyboard */; };
@@ -35,12 +34,12 @@
 		C153F0042578057900926D30 /* Turbo Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Turbo Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C153F0072578057900926D30 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C153F0092578057900926D30 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		C153F00B2578057900926D30 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C153F00E2578057900926D30 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C153F0102578057A00926D30 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C153F0132578057A00926D30 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C153F0152578057A00926D30 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C153F02D25780F6900926D30 /* Turbo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Turbo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C153F0332578302F00926D30 /* Turbo Demo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Turbo Demo.entitlements"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,9 +74,9 @@
 		C153F0062578057900926D30 /* Demo */ = {
 			isa = PBXGroup;
 			children = (
+				C153F0332578302F00926D30 /* Turbo Demo.entitlements */,
 				C153F0072578057900926D30 /* AppDelegate.swift */,
 				C153F0092578057900926D30 /* SceneDelegate.swift */,
-				C153F00B2578057900926D30 /* ViewController.swift */,
 				C153F00D2578057900926D30 /* Main.storyboard */,
 				C153F0102578057A00926D30 /* Assets.xcassets */,
 				C153F0122578057A00926D30 /* LaunchScreen.storyboard */,
@@ -165,7 +164,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C153F00C2578057900926D30 /* ViewController.swift in Sources */,
 				C153F0082578057900926D30 /* AppDelegate.swift in Sources */,
 				C153F00A2578057900926D30 /* SceneDelegate.swift in Sources */,
 			);
@@ -314,6 +312,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Turbo Demo.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2WNYUYRS7G;
 				INFOPLIST_FILE = Info.plist;
@@ -323,8 +322,10 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.basecamp.turbo.Demo;
 				PRODUCT_NAME = "Turbo Demo";
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,6";
 			};
 			name = Debug;
 		};
@@ -333,6 +334,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Turbo Demo.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2WNYUYRS7G;
 				INFOPLIST_FILE = Info.plist;
@@ -342,8 +344,10 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.basecamp.turbo.Demo;
 				PRODUCT_NAME = "Turbo Demo";
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,6";
 			};
 			name = Release;
 		};
