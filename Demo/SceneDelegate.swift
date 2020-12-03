@@ -1,10 +1,6 @@
 import UIKit
 import Turbo
 
-struct Demos {
-    static let simple = URL(string: "https://turbo-native-simple-demo.glitch.me")!
-}
-
 final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     
@@ -24,7 +20,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let _ = (scene as? UIWindowScene) else { return }
         
-        let viewController = VisitableViewController(url: Demos.simple)
+        let viewController = VisitableViewController(url: Demo.current)
         navigationController.viewControllers = [viewController]
         window?.rootViewController = navigationController
         self.session.visit(viewController)
