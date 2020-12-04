@@ -1,6 +1,6 @@
 # Path Configuration
 
-The "path configuration" is a feature that simplifies mapping various urls to "path properties". When possible, it's preferred to get data for a page from the page itself through the DOM or a library like [Strata](https://github.com/basecamp/strata). However, certain properties you need to know *before* the page loads. This might be anything you want, from the title, the background color, the presentation, or which view controller to load. Using a path configuration is completely optional and not required to use Turbo iOS.
+The "path configuration" is a feature that simplifies mapping various urls to "path properties". When possible, it's preferred to get data for a page from the page itself through the DOM or a library like [Strata](https://github.com/basecamp/strata). However, certain properties you need to know *before* the page loads. This can be anything you want from the title, the background color, the presentation, or which view controller to load. Using a path configuration is completely optional and not required to use Turbo iOS.
 
 The path configuration itself is a JSON file with the following structure:
 
@@ -63,6 +63,48 @@ Path properties are the core of the path configuration. The `rules` key of the J
 
 You can lookup the properties for a URL by using the URL itself or the `url.path` value. Currently, the path configuration only looks at the path component of the URL, but likely we'll add support for other components in the future. The path configuration finds all matching rules in order, and then merges them into one dictionary, with later rules overriding earlier ones. This way you can group similar properties together.
 
+Given the following rules:
+
+```json
+[
+    {
+      "patterns": [
+        "/new$",
+        "/edit$"
+      ],
+      "properties": {
+        "presentation": "modal"
+      }
+    },
+    {
+      "patterns": [
+        "/messages/new$",
+      ],
+      "properties": {
+        "appearance": "dark"
+      }
+    },
+  ]
+```
+
+The url `example.com/new` will only match the first rule and return: 
+
+```json
+{ 
+  "presentation": "modal" 
+}
+```
+
+The url `example.com/messages/new` however would match both the first and second rule, and return the combined properties of:
+
+```json
+{ 
+  "presentation": "modal", 
+  "appearance": "dark" 
+}
+```
+
+When the `Session` proposes a visit, it looks up the path properties for the proposed visit url if it has a `pathConfiguration` and it passes those path properties to your app in the `VisitProposal` via `proposal.properties`. This is for convenience, but you can also use the path configuration directly and do the same lookup in your application code.
 
 ## Settings
 
@@ -71,15 +113,8 @@ The path configuration optionally can have a top-level `settings` dictionary. Th
 It can be accessed like this:
 
 ```swift
-let pathConfiguration = PathConfiguration()
-if let someFlag = pathConfiguration.settings["enable-foo"] as? Bool {
-  // Do something with `someFlag` boolean value
+if let enableFeatureX = pathConfiguration.settings["enable-feature-x"] as? Bool {
+  // Do something with `enableFeatureX` boolean value
 }
 ```
-
-
-## Usage
-
-When the `Session` proposes a visit, it looks up the path properties for the proposed visit url, and it passes those path properties to your app in the `session(_:didProposeVisit:)` method. Access the properties via `proposal.properties`. This is for convenience, but you can also use the path configuration directly and do the same lookup in your application code.
-
 

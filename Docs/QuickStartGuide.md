@@ -2,7 +2,7 @@
 
 This guide will walk you through creating a minimal Turbo for iOS application.
 
-We’ll use the demo app’s server in our examples, but you can adjust the URL below to point to your own application. See [Running the Demo](../README.md#running-the-demo) for instructions on starting the demo app.
+We’ll use the demo app’s server in our examples, but you can adjust the URL below to point to your own application. See [Demo docs](../Docs/README.md) for more details
 
 Note that for the sake of brevity, these examples use a `UINavigationController` and implement everything inside the AppDelegate. In a real application, you may not want to use a navigation controller, and you should consider factoring these responsibilities out of the AppDelegate and into separate classes.
 

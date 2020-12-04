@@ -3,6 +3,7 @@ import UIKit
 public protocol SessionDelegate: AnyObject {
     func session(_ session: Session, didProposeVisit proposal: VisitProposal)
     func session(_ session: Session, didFailRequestForVisitable visitable: Visitable, error: Error)
+    
     func session(_ session: Session, openExternalURL url: URL)
     func session(_ session: Session, didReceiveAuthenticationChallenge challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void)
 
