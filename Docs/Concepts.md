@@ -13,10 +13,10 @@ To create a `Session`, first create a [WKWebViewConfiguration](https://developer
 The `Session`’s delegate must implement the following method.
 
 ```swift
-func session(session: Session, didProposeVisitToURL url: URL, options: VisitOptions, properties: PathProperties)
+func session(session: Session, didProposeVisit: VisitProposal)
 ```
 
-Turbo for iOS calls the `session:didProposeVisitToURL:options:properties:` method before every [application visit](https://github.com/turbolinks/turbolinks/blob/master/README.md#application-visits), such as when you tap a Turbo-enabled link or call `Turbolinks.visit(...)` in your web application. Implement this method to choose how to handle the specified URL and action.
+Turbo for iOS calls the `session(_:didProposeVisit:)` method before every [application visit](https://github.com/turbolinks/turbolinks/blob/master/README.md#application-visits), such as when you tap a Turbo-enabled link or call `Turbolinks.visit(...)` in your web application. Implement this method to choose how to handle the specified URL and action. This is called a *proposal* since your application is not required to do complete the visit.
 
 See [Responding to Visit Proposals](#responding-to-visit-proposals) for more details.
 
@@ -58,16 +58,14 @@ To visit a URL with Turbolinks, first instantiate a Visitable view controller. T
 For example, to create, display, and visit Turbolinks’ built-in VisitableViewController in a UINavigationController-based application, you might write:
 
 ```swift
-let visitable = VisitableViewController()
-visitable.URL = NSURL(string: "http://localhost:9292/")!
-
+let visitable = VisitableViewController(url: URL(string: "http://localhost:9292/")!)
 navigationController.pushViewController(visitable, animated: true)
 session.visit(visitable)
 ```
 
 ## Responding to Visit Proposals
 
-When you tap a Turbolinks-enabled link, the link’s URL and action make their way from the web view to the Session as a proposed visit. Your Session’s delegate must implement the `session:didProposeVisitToURL:withAction:` method to choose how to act on each proposal.
+When you tap a Turbolinks-enabled link, the link’s URL and action make their way from the web view to the Session as a proposed visit. Your Session’s delegate must implement the `session:didProposeVisit:` method to choose how to act on each proposal.
 
 Normally you’ll respond to a visit proposal by simply initiating a visit and loading the URL with Turbolinks. See [Initiating a Visit](#initiating-a-visit) for more details.
 

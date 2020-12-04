@@ -44,7 +44,8 @@ public final class PathConfiguration {
     /// Returns a merged dictionary containing all the properties
     /// that match this url
     /// Note: currently only looks at path, not query, but most likely will
-    /// add query support in the future
+    /// add query support in the future, so it's best to always use this over the path variant
+    /// unless you're sure you'll never need to reference other parts of the URL in the future
     public func properties(for url: URL) -> PathProperties {
         properties(for: url.path)
     }

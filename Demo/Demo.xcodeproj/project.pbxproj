@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C10DF228257AB81D009412E7 /* path-configuration.json in Resources */ = {isa = PBXBuildFile; fileRef = C10DF227257AB81D009412E7 /* path-configuration.json */; };
 		C153F0082578057900926D30 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153F0072578057900926D30 /* AppDelegate.swift */; };
 		C153F00A2578057900926D30 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153F0092578057900926D30 /* SceneDelegate.swift */; };
 		C153F00F2578057900926D30 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C153F00D2578057900926D30 /* Main.storyboard */; };
@@ -33,6 +34,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C10DF227257AB81D009412E7 /* path-configuration.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "path-configuration.json"; sourceTree = "<group>"; };
 		C153F0042578057900926D30 /* Turbo Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Turbo Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C153F0072578057900926D30 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C153F0092578057900926D30 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -78,15 +80,16 @@
 		C153F0062578057900926D30 /* Demo */ = {
 			isa = PBXGroup;
 			children = (
-				C153F0332578302F00926D30 /* Turbo Demo.entitlements */,
 				C175FE772579905300C8DF50 /* Demo.swift */,
 				C153F0072578057900926D30 /* AppDelegate.swift */,
 				C153F0092578057900926D30 /* SceneDelegate.swift */,
 				C153F03425784BEA00926D30 /* NumbersViewController.swift */,
-				C153F00D2578057900926D30 /* Main.storyboard */,
 				C153F0102578057A00926D30 /* Assets.xcassets */,
+				C153F00D2578057900926D30 /* Main.storyboard */,
 				C153F0122578057A00926D30 /* LaunchScreen.storyboard */,
 				C153F0152578057A00926D30 /* Info.plist */,
+				C153F0332578302F00926D30 /* Turbo Demo.entitlements */,
+				C10DF227257AB81D009412E7 /* path-configuration.json */,
 			);
 			name = Demo;
 			sourceTree = "<group>";
@@ -158,6 +161,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C153F0142578057A00926D30 /* LaunchScreen.storyboard in Resources */,
+				C10DF228257AB81D009412E7 /* path-configuration.json in Resources */,
 				C153F0112578057A00926D30 /* Assets.xcassets in Resources */,
 				C153F00F2578057900926D30 /* Main.storyboard in Resources */,
 			);

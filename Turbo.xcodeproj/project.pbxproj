@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C10DF22A257ABD3D009412E7 /* VisitProposal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10DF229257ABD3D009412E7 /* VisitProposal.swift */; };
 		C149E3582575780900158E8C /* Turbo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C149E34E2575780900158E8C /* Turbo.framework */; };
 		C149E38C2575847700158E8C /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = C149E3792575847700158E8C /* JSON.swift */; };
 		C149E38D2575847700158E8C /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = C149E37A2575847700158E8C /* Logging.swift */; };
@@ -62,6 +63,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C10DF229257ABD3D009412E7 /* VisitProposal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitProposal.swift; sourceTree = "<group>"; };
 		C149E34E2575780900158E8C /* Turbo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Turbo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C149E3522575780900158E8C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C149E3572575780900158E8C /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -206,6 +208,7 @@
 				C149E37D2575847700158E8C /* VisitAction.swift */,
 				C149E3812575847700158E8C /* VisitOptions.swift */,
 				C149E3C8257589C700158E8C /* VisitResponse.swift */,
+				C10DF229257ABD3D009412E7 /* VisitProposal.swift */,
 			);
 			path = Visit;
 			sourceTree = "<group>";
@@ -410,6 +413,7 @@
 				C149E39D2575847800158E8C /* JavaScriptExpression.swift in Sources */,
 				C149E38C2575847700158E8C /* JSON.swift in Sources */,
 				C149E3BE257586EE00158E8C /* ColdBootVisit.swift in Sources */,
+				C10DF22A257ABD3D009412E7 /* VisitProposal.swift in Sources */,
 				C149E39C2575847800158E8C /* TurboError.swift in Sources */,
 				C149E38D2575847700158E8C /* Logging.swift in Sources */,
 			);

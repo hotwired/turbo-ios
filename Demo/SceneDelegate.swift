@@ -4,18 +4,16 @@ import Turbo
 final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     
-    private var session: Session!
-    private lazy var navigationController = UINavigationController()
-    
-    override init() {
-        super.init()
-        setup()
-    }
-    
-    private func setup() {
-        session = Session()
+    private lazy var session: Session = {
+        let session = Session()
         session.delegate = self
-    }
+        session.pathConfiguration = PathConfiguration(sources: [
+            .file(Bundle.main.url(forResource: "path-configuration", withExtension: "json")!)
+        ])
+        return session
+    }()
+    
+    private lazy var navigationController = UINavigationController()
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let _ = (scene as? UIWindowScene) else { return }
@@ -57,14 +55,14 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 }
 
 extension SceneDelegate: SessionDelegate {
+    func session(_ session: Session, didProposeVisit proposal: VisitProposal) {
+        route(url: proposal.url, options: proposal.options, properties: proposal.properties)
+    }
+    
     func session(_ session: Session, didFailRequestForVisitable visitable: Visitable, error: Error) {
         let alert = UIAlertController(title: "Visit failed!", message: error.localizedDescription, preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         navigationController.present(alert, animated: true)
-    }
-    
-    func session(_ session: Session, didProposeVisitToURL url: URL, options: VisitOptions, properties: PathProperties) {
-        route(url: url, options: options, properties: properties)
     }
 }

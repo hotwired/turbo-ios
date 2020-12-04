@@ -249,8 +249,9 @@ extension Session: VisitableDelegate {
 
 extension Session: WebViewDelegate {
     func webView(_ bridge: WebViewBridge, didProposeVisitToLocation location: URL, options: VisitOptions) {
-        let properties = pathConfiguration?[location.path] ?? [:]
-        delegate?.session(self, didProposeVisitToURL: location, options: options, properties: properties)
+        let properties = pathConfiguration?.properties(for: location) ?? [:]
+        let proposal = VisitProposal(url: location, options: options, properties: properties)
+        delegate?.session(self, didProposeVisit: proposal)
     }
 
     func webViewDidInvalidatePage(_ bridge: WebViewBridge) {
