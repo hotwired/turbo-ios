@@ -113,7 +113,6 @@ class SessionSpec: QuickSpec {
         server.addGETHandler(forBasePath: "/", directoryPath: Bundle(for: SessionSpec.self).resourcePath!, indexFilename: "index.html", cacheAge: 0, allowRangeRequests: true)
         
         server.addHandler(forMethod: "GET", path: "/invalid", request: GCDWebServerRequest.self) { request in
-            print("[web-server] request: \(request.method) \(request.path)")
             return GCDWebServerResponse(statusCode: 404)
         }
         

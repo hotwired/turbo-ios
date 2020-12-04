@@ -50,7 +50,7 @@ class TestSessionDelegate: NSObject, SessionDelegate {
         failedRequestError = error
     }
     
-    func session(_ session: Session, didProposeVisitToURL URL: URL, options: VisitOptions, properties: PathProperties) {
+    func session(_ session: Session, didProposeVisit proposal: VisitProposal) {
         sessionDidProposeVisitCalled = true
     }
 }

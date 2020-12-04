@@ -175,6 +175,7 @@
 				C1D008332575960900A9CE85 /* Fixtures */,
 				C1D008352575960900A9CE85 /* Server */,
 				C149E3D725758D6800158E8C /* Test.swift */,
+				C149E3DE25758D6800158E8C /* SessionSpec.swift */,
 				C149E3DF25758D6800158E8C /* ColdBootVisitSpec.swift */,
 				C149E3DC25758D6800158E8C /* JavaScriptExpressionSpec.swift */,
 				C149E3DD25758D6800158E8C /* JavaScriptVisitSpec.swift */,
@@ -183,7 +184,6 @@
 				C149E3DA25758D6800158E8C /* PathConfigurationSpec.swift */,
 				C149E3D925758D6800158E8C /* PathRuleSpec.swift */,
 				C149E3E025758D6800158E8C /* ScriptMessageSpec.swift */,
-				C149E3DE25758D6800158E8C /* SessionSpec.swift */,
 				C149E35E2575780900158E8C /* Info.plist */,
 			);
 			path = Tests;

@@ -5,7 +5,7 @@ import Nimble
 class VisitOptionsSpec: QuickSpec {
     override func spec() {
         describe("Decodable") {
-            it("sets advance action when not provided") {
+            it("defaults to advance action when not provided") {
                 let json = "{}".data(using: .utf8)!
                 
                 do {
