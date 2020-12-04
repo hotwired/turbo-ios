@@ -1,5 +1,7 @@
 import UIKit
 
+/// A simple native table view controller to demonstrate loading non-Turbo screens
+/// for a visit proposal
 final class NumbersViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()

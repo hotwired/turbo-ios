@@ -14,11 +14,11 @@
     },
     {
       "patterns": [
-        "/sign_in",
+        "/numbers"
       ],
       "properties": {
-        "appearance": "dark"
+        "view-controller": "numbers"
       }
-    },
+    }
   ]
 }

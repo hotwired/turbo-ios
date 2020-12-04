@@ -6,6 +6,6 @@ struct Demo {
     
     /// Update this to choose which demo is run
     static var current: URL {
-        local
+        basic
     }
 }
