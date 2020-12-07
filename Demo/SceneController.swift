@@ -1,4 +1,5 @@
 import UIKit
+import WebKit
 import Turbo
 
 final class SceneController: UIResponder {
@@ -83,7 +84,10 @@ final class SceneController: UIResponder {
     private lazy var modalSession = makeSession()
     
     private func makeSession() -> Session {
-        let session = Session()
+        let configuration = WKWebViewConfiguration()
+        configuration.applicationNameForUserAgent = "Turbo Native iOS"
+        
+        let session = Session(webViewConfiguration: configuration)
         session.delegate = self
         session.pathConfiguration = pathConfiguration
         return session
