@@ -24,7 +24,16 @@ final class SceneController: UIResponder {
     
     private func route(url: URL, options: VisitOptions, properties: PathProperties) {
         // This is a simplified version of how you might build out the routing
-        // and navigation functions of your app
+        // and navigation functions of your app. In a real app, these would be separate objects
+        
+        // Dismiss any modals when receiving a new navigation
+        if navigationController.presentedViewController != nil {
+            navigationController.dismiss(animated: true)
+        }
+        
+        // - Create view controller appropriate for url/properties
+        // - Navigate to that with the correct presentation
+        // - Initiate the visit with Turbo
         let viewController = makeViewController(for: url, properties: properties)
         navigate(to: viewController, action: options.action, properties: properties)
         visit(viewController: viewController, modal: isModal(properties))
