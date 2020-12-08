@@ -1,7 +1,7 @@
 import UIKit
 import Turbo
 
-final class ViewController: VisitableViewController {
+final class ViewController: VisitableViewController, ErrorPresenter {
     override func viewDidLoad() {
         super.viewDidLoad()
         

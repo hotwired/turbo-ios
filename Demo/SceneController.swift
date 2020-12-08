@@ -87,6 +87,16 @@ final class SceneController: UIResponder {
         return presentation == "modal"
     }
     
+    // MARK: - Authentication
+    
+    private func promptForAuthentication() {
+        navigationController.popViewController(animated: false)
+        
+        let authURL = Demo.current.appendingPathComponent("/signin")
+        let properties = pathConfiguration.properties(for: authURL)
+        route(url: authURL, options: VisitOptions(), properties: properties)
+    }
+    
     // MARK: - Sessions
     
     private lazy var session = makeSession()
@@ -125,9 +135,14 @@ extension SceneController: SessionDelegate {
     }
     
     func session(_ session: Session, didFailRequestForVisitable visitable: Visitable, error: Error) {
-        let alert = UIAlertController(title: "Visit failed!", message: error.localizedDescription, preferredStyle: .alert)
-        
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        navigationController.present(alert, animated: true)
+        if let turboError = error as? TurboError, case let .http(statusCode) = turboError, statusCode == 401 {
+            promptForAuthentication()
+        } else if let errorPresenter = visitable as? ErrorPresenter {
+            errorPresenter.presentError(error)
+        } else {
+            let alert = UIAlertController(title: "Visit failed!", message: error.localizedDescription, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            navigationController.present(alert, animated: true)
+        }
     }
 }

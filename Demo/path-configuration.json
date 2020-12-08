@@ -6,7 +6,8 @@
     {
       "patterns": [
         "/new$",
-        "/edit$"
+        "/edit$",
+        "/signin$"
       ],
       "properties": {
         "presentation": "modal"

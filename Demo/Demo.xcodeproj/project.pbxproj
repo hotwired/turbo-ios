@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C106CBE3257FF87700498F6F /* ErrorPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C106CBE2257FF87700498F6F /* ErrorPresenter.swift */; };
 		C10DF228257AB81D009412E7 /* path-configuration.json in Resources */ = {isa = PBXBuildFile; fileRef = C10DF227257AB81D009412E7 /* path-configuration.json */; };
 		C10DF242257AD845009412E7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10DF241257AD845009412E7 /* ViewController.swift */; };
 		C153F0082578057900926D30 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153F0072578057900926D30 /* AppDelegate.swift */; };
@@ -35,6 +36,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C106CBE2257FF87700498F6F /* ErrorPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorPresenter.swift; sourceTree = "<group>"; };
 		C10DF227257AB81D009412E7 /* path-configuration.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "path-configuration.json"; sourceTree = "<group>"; };
 		C10DF241257AD845009412E7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C153F0042578057900926D30 /* Turbo Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Turbo Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -87,6 +89,7 @@
 				C153F0092578057900926D30 /* SceneController.swift */,
 				C10DF241257AD845009412E7 /* ViewController.swift */,
 				C153F03425784BEA00926D30 /* NumbersViewController.swift */,
+				C106CBE2257FF87700498F6F /* ErrorPresenter.swift */,
 				C153F0102578057A00926D30 /* Assets.xcassets */,
 				C153F00D2578057900926D30 /* Main.storyboard */,
 				C153F0122578057A00926D30 /* LaunchScreen.storyboard */,
@@ -182,6 +185,7 @@
 				C153F0082578057900926D30 /* AppDelegate.swift in Sources */,
 				C175FE782579905300C8DF50 /* Demo.swift in Sources */,
 				C153F00A2578057900926D30 /* SceneController.swift in Sources */,
+				C106CBE3257FF87700498F6F /* ErrorPresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
