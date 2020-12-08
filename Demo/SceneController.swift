@@ -1,11 +1,13 @@
 import UIKit
 import WebKit
+import SafariServices
 import Turbo
 
 final class SceneController: UIResponder {
     private static var sharedProcessPool = WKProcessPool()
     
     var window: UIWindow?
+    private let rootURL = Demo.current
     private var navigationController: UINavigationController!
     
     // MARK: - Setup
@@ -99,7 +101,7 @@ final class SceneController: UIResponder {
     // MARK: - Authentication
     
     private func promptForAuthentication() {
-        let authURL = Demo.current.appendingPathComponent("/signin")
+        let authURL = rootURL.appendingPathComponent("/signin")
         let properties = pathConfiguration.properties(for: authURL)
         route(url: authURL, options: VisitOptions(), properties: properties)
     }
@@ -124,7 +126,7 @@ final class SceneController: UIResponder {
     
     private lazy var pathConfiguration = PathConfiguration(sources: [
         .file(Bundle.main.url(forResource: "path-configuration", withExtension: "json")!),
-        .server(Demo.current.appendingPathComponent("path-configuration.json"))
+        .server(rootURL.appendingPathComponent("path-configuration.json"))
     ])
 }
 
@@ -133,7 +135,7 @@ extension SceneController: UIWindowSceneDelegate {
         guard let _ = scene as? UIWindowScene else { return }
         
         configureRootViewController()
-        route(url: Demo.current, options: VisitOptions(action: .replace), properties: [:])
+        route(url: rootURL, options: VisitOptions(action: .replace), properties: [:])
     }
 }
 
@@ -151,6 +153,37 @@ extension SceneController: SessionDelegate {
             let alert = UIAlertController(title: "Visit failed!", message: error.localizedDescription, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             navigationController.present(alert, animated: true)
+        }
+    }
+    
+    func sessionDidLoadWebView(_ session: Session) {
+        session.webView.navigationDelegate = self
+    }
+}
+
+extension SceneController: WKNavigationDelegate {
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        if navigationAction.navigationType == .linkActivated {
+            // Any link that's not on the same domain as the Turbo root url will go through here
+            // Other links on the domain, but that have an extension that is non-html will also go here
+            // You can decide how to handle those, by default if you're not the navigationDelegate
+            // the Session will open them in the default browser
+            
+            let url = navigationAction.request.url!
+            
+            // For this demo, we'll load JPGs from our domain in a SafariViewController so you
+            // don't need to leave the app. You might expand this in your app
+            // to open all audio/video/images in a native media viewer
+            if url.host == rootURL.host, url.pathExtension == "jpg" {
+                let safariViewController = SFSafariViewController(url: url)
+                navigationController.present(safariViewController, animated: true)
+            } else {
+                UIApplication.shared.open(url)
+            }
+            
+            decisionHandler(.cancel)
+        } else {
+            decisionHandler(.allow)
         }
     }
 }
