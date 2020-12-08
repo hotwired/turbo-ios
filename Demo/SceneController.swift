@@ -171,10 +171,10 @@ extension SceneController: WKNavigationDelegate {
             
             let url = navigationAction.request.url!
             
-            // For this demo, we'll load JPGs from our domain in a SafariViewController so you
+            // For this demo, we'll load files from our domain in a SafariViewController so you
             // don't need to leave the app. You might expand this in your app
             // to open all audio/video/images in a native media viewer
-            if url.host == rootURL.host, url.pathExtension == "jpg" {
+            if url.host == rootURL.host, !url.pathExtension.isEmpty {
                 let safariViewController = SFSafariViewController(url: url)
                 navigationController.present(safariViewController, animated: true)
             } else {
