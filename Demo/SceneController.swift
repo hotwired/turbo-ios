@@ -3,6 +3,8 @@ import WebKit
 import Turbo
 
 final class SceneController: UIResponder {
+    private static var sharedProcessPool = WKProcessPool()
+    
     var window: UIWindow?
     private var navigationController: UINavigationController!
     
@@ -29,6 +31,13 @@ final class SceneController: UIResponder {
         // Dismiss any modals when receiving a new navigation
         if navigationController.presentedViewController != nil {
             navigationController.dismiss(animated: true)
+        }
+        
+        // Special case of navigating home, issue a reload
+        if url.path == "/", !navigationController.viewControllers.isEmpty {
+            navigationController.popViewController(animated: false)
+            session.reload()
+            return
         }
         
         // - Create view controller appropriate for url/properties
@@ -90,8 +99,6 @@ final class SceneController: UIResponder {
     // MARK: - Authentication
     
     private func promptForAuthentication() {
-        navigationController.popViewController(animated: false)
-        
         let authURL = Demo.current.appendingPathComponent("/signin")
         let properties = pathConfiguration.properties(for: authURL)
         route(url: authURL, options: VisitOptions(), properties: properties)
@@ -105,6 +112,7 @@ final class SceneController: UIResponder {
     private func makeSession() -> Session {
         let configuration = WKWebViewConfiguration()
         configuration.applicationNameForUserAgent = "Turbo Native iOS"
+        configuration.processPool = Self.sharedProcessPool
         
         let session = Session(webViewConfiguration: configuration)
         session.delegate = self
