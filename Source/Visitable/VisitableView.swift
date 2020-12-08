@@ -60,7 +60,7 @@ open class VisitableView: UIView {
     }
 
     open var isRefreshing: Bool {
-        return refreshControl.isRefreshing
+        refreshControl.isRefreshing
     }
 
     private func installRefreshControl() {
