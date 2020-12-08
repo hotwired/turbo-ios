@@ -74,7 +74,7 @@ final class SceneController: UIResponder {
             navigationController.present(modalNavController, animated: animated)
         } else if action == .replace {
             let viewControllers = Array(navigationController.viewControllers.dropLast()) + [viewController]
-            navigationController.setViewControllers(viewControllers, animated: animated)
+            navigationController.setViewControllers(viewControllers, animated: false)
         } else {
             navigationController.pushViewController(viewController, animated: animated)
         }
