@@ -1,6 +1,6 @@
 (() => {
-  // NativeBridge sends messages between native app and Turbo JS
-  class NativeBridge {
+  // Bridge between Turbo JS and native code
+  class TurboNative {
     constructor(controller, messageHandler) {
       this.controller = controller
       this.messageHandler = messageHandler
@@ -20,8 +20,8 @@
       if (this.controller.startVisitToLocation) {
         this.controller.startVisitToLocation(location, restorationIdentifier, options)
       } else {
-        // Temporarily support old API
-        this.controller.startVisitToLocationWithAction(location, options.action)
+        // Turbolinks 5
+        this.controller.startVisitToLocationWithAction(location, options.action, restorationIdentifier)
       }
     }
 
@@ -58,11 +58,6 @@
     }
 
     // Adapter interface
-
-    // Temporary adapter for new API
-    visitProposedToLocationWithAction(location, action) {
-      this.visitProposedToLocation(location, { action })
-    }
 
     visitProposedToLocation(location, options) {
       this.postMessage("visitProposed", { location: location.absoluteURL, options: options })
@@ -108,7 +103,13 @@
     log(message) {
       this.postMessage("log", { message: message })
     }
-
+      
+    // Turbolinks 5 compatibility
+    
+    visitProposedToLocationWithAction(location, action) {
+      this.visitProposedToLocation(location, { action })
+    }
+      
     // Private
 
     postMessage(name, data = {}) {
@@ -129,7 +130,9 @@
     }
   }
 
-  window.turboNative = new NativeBridge(Turbolinks.controller, webkit.messageHandlers.turbo)
+  // Prefer Turbo 7, but support Turbolinks 5
+  const webController = window.Turbo ? Turbo.controller : Turbolinks.controller
+  window.turboNative = new TurboNative(webController, webkit.messageHandlers.turbo)
 
   addEventListener("error", event => {
     const error = event.message + " (" + event.filename + ":" + event.lineno + ":" + event.colno + ")"
