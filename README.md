@@ -44,9 +44,17 @@ Then run `pod install`.
 
 ## Getting Started
 
-We recommend playing with the demo app first to get familiar with the framework. To run the demo, clone this repo and open `Demo/Demo.xcworkspace` in Xcode and run the Demo target. See [Demo/README.md](Demo/README.md) for more details about the demo. When you’re ready to start your own application, see our [Quick Start Guide](Docs/QuickStartGuide.md) for step-by-step instructions to lay the foundation and then read the rest of the [documentation](Docs)
+We recommend playing with the demo app first to get familiar with the framework. To run the demo, clone this repo and open `Demo/Demo.xcworkspace` in Xcode and run the Demo target. See [Demo/README.md](Demo/README.md) for more details about the demo. When you’re ready to start your own application, see our [Quick Start Guide](Docs/QuickStartGuide.md) for step-by-step instructions to lay the foundation and then read the rest of the documentation.
 
-## Contributing to Turbo fo iOS
+## Documentation
+
+- [Quick Start](Docs/QuickStartGuide.md)
+- [Overview](Docs/Overview.md)
+- [Authentication](Docs/Authentication.md)
+- [Path Configuration](Docs/PathConfiguration.md)
+- [Migration](Docs/Migration.md)
+
+## Contributing to Turbo for iOS
 
 Turbo for iOS is open-source software, freely distributable under the terms of an [MIT-style license](LICENSE). The [source code is hosted on GitHub](https://github.com/basecamp/turbo-ios).
 Development is sponsored by [Basecamp](https://basecamp.com/).
