@@ -5,6 +5,10 @@ final class ViewController: VisitableViewController, ErrorPresenter {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if #available(iOS 14.0, *) {
+            navigationItem.backButtonDisplayMode = .minimal
+        }
+        
         view.backgroundColor = .systemBackground
         
         if presentingViewController != nil {
