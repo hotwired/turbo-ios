@@ -586,7 +586,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.basecamp.Turbo;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.hotwire.turbo;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -612,7 +612,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.basecamp.Turbo;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.hotwire.turbo;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -638,7 +638,7 @@
 					"@loader_path/Frameworks",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.basecamp.TurboTests;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.hotwire.turbo.tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -664,7 +664,7 @@
 					"@loader_path/Frameworks",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.basecamp.TurboTests;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.hotwire.turbo.tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
