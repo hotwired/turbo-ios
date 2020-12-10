@@ -1,13 +1,18 @@
 import UIKit
 
 protocol ErrorPresenter: UIViewController {
-    func presentError(_ error: Error)
+    typealias Handler = () -> Void
+
+    func presentError(_ error: Error, handler: @escaping Handler)
 }
 
 extension ErrorPresenter {
-    func presentError(_ error: Error) {
+    func presentError(_ error: Error, handler: @escaping Handler) {
         let errorViewController = ErrorViewController()
-        errorViewController.configure(with: error)
+        errorViewController.configure(with: error) { [unowned self] in
+            self.removeErrorViewController(errorViewController)
+            handler()
+        }
         
         let errorView = errorViewController.view!
         errorView.translatesAutoresizingMaskIntoConstraints = false
@@ -22,9 +27,17 @@ extension ErrorPresenter {
         ])
         errorViewController.didMove(toParent: self)
     }
+    
+    private func removeErrorViewController(_ errorViewController: UIViewController) {
+        errorViewController.willMove(toParent: nil)
+        errorViewController.view.removeFromSuperview()
+        errorViewController.removeFromParent()
+    }
 }
 
 final class ErrorViewController: UIViewController {
+    var handler: ErrorPresenter.Handler?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -33,7 +46,7 @@ final class ErrorViewController: UIViewController {
     private func setup() {
         view.backgroundColor = .systemBackground
         
-        let vStack = UIStackView(arrangedSubviews: [titleLabel, bodyLabel])
+        let vStack = UIStackView(arrangedSubviews: [titleLabel, bodyLabel, button])
         vStack.translatesAutoresizingMaskIntoConstraints = false
         vStack.axis = .vertical
         vStack.spacing = 16
@@ -45,10 +58,17 @@ final class ErrorViewController: UIViewController {
         ])
     }
     
-    func configure(with error: Error) {
+    func configure(with error: Error, handler: @escaping ErrorPresenter.Handler) {
         titleLabel.text = "Error loading page"
         bodyLabel.text = error.localizedDescription
+        self.handler = handler
     }
+    
+    @objc func performAction(_ sender: UIButton) {
+        handler?()
+    }
+    
+    // MARK: - Views
     
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -66,5 +86,12 @@ final class ErrorViewController: UIViewController {
         label.textAlignment = .center
 
         return label
+    }()
+    
+    private let button: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Retry", for: .normal)
+        button.addTarget(self, action: #selector(performAction(_:)), for: .touchUpInside)
+        return button
     }()
 }

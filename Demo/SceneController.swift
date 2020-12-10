@@ -148,7 +148,9 @@ extension SceneController: SessionDelegate {
         if let turboError = error as? TurboError, case let .http(statusCode) = turboError, statusCode == 401 {
             promptForAuthentication()
         } else if let errorPresenter = visitable as? ErrorPresenter {
-            errorPresenter.presentError(error)
+            errorPresenter.presentError(error) { [weak self] in
+                self?.session.reload()
+            }
         } else {
             let alert = UIAlertController(title: "Visit failed!", message: error.localizedDescription, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
