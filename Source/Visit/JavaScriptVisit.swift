@@ -60,7 +60,7 @@ extension JavaScriptVisit: WebViewVisitDelegate {
     func webView(_ webView: WebViewBridge, didFailRequestForVisitWithIdentifier identifier: String, statusCode: Int) {
         guard identifier == self.identifier else { return }
         
-        fail(with: TurboError.http(statusCode: statusCode))
+        fail(with: TurboError(statusCode: statusCode))
     }
     
     func webView(_ webView: WebViewBridge, didFinishRequestForVisitWithIdentifier identifier: String, date: Date) {
