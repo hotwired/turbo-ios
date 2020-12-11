@@ -1,6 +1,6 @@
 # Migrating from Turbolinks.framework to Turbo.framework
 
-Though Turbo iOS is a brand-new repo, it is not a major change from the old Turbolinks iOS framework. Most of the code is the same, but has been improved, refactored, and better tested. It is compatible both with Turbolinks 5 and Turbo 7 JS on the server. There are some breaking API changes, but mostly in name.
+Though Turbo iOS is a new a framework, it is not a major change from the old Turbolinks iOS framework. Most of the code is the same, but has been improved, refactored, and better tested. It is compatible both with Turbolinks 5 and Turbo 7 JS on the server. There are some breaking API changes, but mostly in name.
 
 Follow these steps, and you should be up and running in no time. I was able to update Basecamp 3 and HEY in about 15 minutes to give you an idea of the scope
 
