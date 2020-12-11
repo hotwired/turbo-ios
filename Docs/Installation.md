@@ -1,13 +1,13 @@
 # Installation
 
-We recommend Carthage as that's what we use for our apps and what we're most familiar with.
+Turbo iOS supports the following methods for installation:
 
 ## Carthage
 
 Add the following to your `Cartfile`:
 
 ```
-github "basecamp/turbo-ios" ~> 7.0.0
+github "hotwired/turbo-ios" ~> 7.0.0
 ```
 
 ## CocoaPods
@@ -16,7 +16,7 @@ Add the following to your `Podfile`:
 
 ```ruby
 use_frameworks!
-pod 'Turbo', :git => 'https://github.com/basecamp/turbo-ios.git'
+pod 'Turbo', :git => 'https://github.com/hotwired/turbo-ios.git'
 ```
 
 Then run `pod install`.
@@ -26,7 +26,7 @@ Then run `pod install`.
 Add Turbo as a dependency through Xcode or directly to a Package.swift:
 
 ```
-.package(url: "https://github.com/basecamp/turbo-ios", from: "7.0.0")
+.package(url: "https://github.com/hotwired/turbo-ios", from: "7.0.0")
 ```
 
 ## Manual

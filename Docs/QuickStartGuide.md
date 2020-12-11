@@ -4,7 +4,7 @@ This is a quick start guide to creating the most minimal Turbo iOS application f
 
 1. First, create a new iOS app from the Xcode File > New > Project menu and choose the default iOS "App" template.
 
-2. Select your app's main top-level project, go to the Swift Packages tab and add the Turbo iOS dependency by entering in `https://github.com/basecamp/turbo-ios`.
+2. Select your app's main top-level project, go to the Swift Packages tab and add the Turbo iOS dependency by entering in `https://github.com/hotwired/turbo-ios`.
 
 3. Open the `SceneDelegate`, and replace the entire file with this code:
 ```swift
