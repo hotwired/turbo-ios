@@ -17,6 +17,8 @@ final class SceneController: UIResponder {
             fatalError()
         }
         
+        window.tintColor = UIColor(named: "Tint")
+        
         if let navController = window.rootViewController as? UINavigationController {
             navigationController = navController
         } else {
