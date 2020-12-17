@@ -46,15 +46,18 @@ final class ErrorViewController: UIViewController {
     private func setup() {
         view.backgroundColor = .systemBackground
         
-        let vStack = UIStackView(arrangedSubviews: [titleLabel, bodyLabel, button])
+        let vStack = UIStackView(arrangedSubviews: [imageView, titleLabel, bodyLabel, button])
         vStack.translatesAutoresizingMaskIntoConstraints = false
         vStack.axis = .vertical
         vStack.spacing = 16
+        vStack.alignment = .center
         
         view.addSubview(vStack)
         NSLayoutConstraint.activate([
             vStack.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             vStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            vStack.leadingAnchor.constraint(greaterThanOrEqualTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 32),
+            vStack.trailingAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -32),
         ])
     }
     
@@ -70,6 +73,15 @@ final class ErrorViewController: UIViewController {
     
     // MARK: - Views
     
+    private let imageView: UIImageView = {
+        let configuration = UIImage.SymbolConfiguration(pointSize: 38, weight: .semibold)
+        let image = UIImage(systemName: "exclamationmark.triangle", withConfiguration: configuration)
+        let imageView = UIImageView(image: image)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return imageView
+    }()
+    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -84,6 +96,7 @@ final class ErrorViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.preferredFont(forTextStyle: .body)
         label.textAlignment = .center
+        label.numberOfLines = 0
 
         return label
     }()
@@ -92,6 +105,8 @@ final class ErrorViewController: UIViewController {
         let button = UIButton(type: .system)
         button.setTitle("Retry", for: .normal)
         button.addTarget(self, action: #selector(performAction(_:)), for: .touchUpInside)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17)
+        
         return button
     }()
 }
