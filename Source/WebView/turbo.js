@@ -1,15 +1,44 @@
 (() => {
-  // Bridge between Turbo JS and native code
+  // Bridge between Turbo JS and native code. Built for Turbo 7
+  // with backwards compatibility for Turbolinks 5
   class TurboNative {
-    constructor(controller, messageHandler) {
-      this.controller = controller
-      this.messageHandler = messageHandler
-      controller.adapter = this
+    constructor(messageHandler) {
+      this.messageHandler = webkit.messageHandlers.turbo
+      this.registerAdapter()
+     }
+
+    registerAdapter() {
+      if (window.Turbo) {
+        if (Turbo.controller) {
+          Turbo.controller.adapter = this
+        } else {
+          window.Turbo.registerAdapter(this)
+        }
+      } else if (window.Turbolinks) {
+        Turbolinks.controller.adapter = this
+      } else {
+        this.pageLoadFailed()
+      }
     }
 
     pageLoaded() {
-      const restorationIdentifier = this.controller.restorationIdentifier
-      this.postMessageAfterNextRepaint("pageLoaded", { restorationIdentifier: restorationIdentifier })
+      let restorationIdentifier = ""
+
+      if (window.Turbo) {
+        if (Turbo.navigator) {
+          restorationIdentifier = Turbo.navigator.currentVisit.restorationIdentifier
+        } else {
+          restorationIdentifier = Turbo.controller.restorationIdentifier
+        }
+      } else if (window.Turbolinks) {
+        restorationIdentifier = Turbolinks.controller.restorationIdentifier
+      }
+
+       this.postMessageAfterNextRepaint("pageLoaded", { restorationIdentifier: restorationIdentifier })
+    }
+
+    pageLoadFailed() {
+      this.postMessage("pageLoadFailed")
     }
 
     errorRaised(error) {
@@ -17,11 +46,20 @@
     }
 
     visitLocationWithOptionsAndRestorationIdentifier(location, options, restorationIdentifier) {
-      if (this.controller.startVisitToLocation) {
-        this.controller.startVisitToLocation(location, restorationIdentifier, options)
-      } else {
-        // Turbolinks 5
-        this.controller.startVisitToLocationWithAction(location, options.action, restorationIdentifier)
+      if (window.Turbo) {
+        if (Turbo.controller) {
+          Turbo.controller.startVisitToLocation(location, restorationIdentifier, options)
+        } else if (Turbo.navigator) {
+          Turbo.navigator.startVisit(location, restorationIdentifier, options)
+        }
+      } else if (window.Turbolinks) {
+        if (Turbolinks.controller.startVisit) {
+          // Turbolinks 5.3
+          Turbolinks.controller.startVisit(location, restorationIdentifier, options)
+        } else {
+          // Turbolinks 5
+          Turbolinks.controller.startVisitToLocationWithAction(location, options.action, restorationIdentifier)
+        }
       }
     }
 
@@ -61,6 +99,11 @@
 
     visitProposedToLocation(location, options) {
       this.postMessage("visitProposed", { location: location.absoluteURL, options: options })
+    }
+
+    // Turbolinks 5 compatibility
+    visitProposedToLocationWithAction(location, action) {
+      this.visitProposedToLocation(location, { action })
     }
 
     visitStarted(visit) {
@@ -104,12 +147,6 @@
       this.postMessage("log", { message: message })
     }
       
-    // Turbolinks 5 compatibility
-    
-    visitProposedToLocationWithAction(location, action) {
-      this.visitProposedToLocation(location, { action })
-    }
-      
     // Private
 
     postMessage(name, data = {}) {
@@ -130,14 +167,11 @@
     }
   }
 
-  // Prefer Turbo 7, but support Turbolinks 5
-  const webController = window.Turbo ? Turbo.controller : Turbolinks.controller
-  window.turboNative = new TurboNative(webController, webkit.messageHandlers.turbo)
-
   addEventListener("error", event => {
     const error = event.message + " (" + event.filename + ":" + event.lineno + ":" + event.colno + ")"
     window.turboNative.errorRaised(error)
   }, false)
 
+  window.turboNative = new TurboNative()
   window.turboNative.pageLoaded()
 })()
