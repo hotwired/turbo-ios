@@ -263,6 +263,16 @@ extension Session: WebViewDelegate {
         visitable.showVisitableActivityIndicator()
         reload()
     }
+    
+    /// Initial page load failed, this will happen when we couldn't find Turbo JS on the page
+    func webView(_ webView: WebViewBridge, didFailInitialPageLoadWithError error: Error) {
+        guard let currentVisit = self.currentVisit, !initialized else { return }
+        
+        initialized = false
+        currentVisit.cancel()
+        visitDidFail(currentVisit)
+        visit(currentVisit, requestDidFailWithError: error)
+    }
 
     func webView(_ bridge: WebViewBridge, didFailJavaScriptEvaluationWithError error: Error) {
         guard let currentVisit = self.currentVisit, initialized else { return }

@@ -3,6 +3,7 @@ import WebKit
 protocol WebViewDelegate: AnyObject {
     func webView(_ webView: WebViewBridge, didProposeVisitToLocation location: URL, options: VisitOptions)
     func webViewDidInvalidatePage(_ webView: WebViewBridge)
+    func webView(_ webView: WebViewBridge, didFailInitialPageLoadWithError: Error)
     func webView(_ webView: WebViewBridge, didFailJavaScriptEvaluationWithError error: Error)
 }
 
@@ -108,6 +109,8 @@ extension WebViewBridge: ScriptMessageHandlerDelegate {
         switch message.name {
         case .pageLoaded:
             pageLoadDelegate?.webView(self, didLoadPageWithRestorationIdentifier: message.restorationIdentifier!)
+        case .pageLoadFailed:
+            delegate?.webView(self, didFailInitialPageLoadWithError: TurboError.pageLoadFailure)
         case .pageInvalidated:
             delegate?.webViewDidInvalidatePage(self)
         case .visitProposed:

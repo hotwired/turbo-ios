@@ -49,6 +49,7 @@ extension ScriptMessage {
 extension ScriptMessage {
     enum Name: String {
         case pageLoaded
+        case pageLoadFailed
         case errorRaised
         case visitProposed
         case visitStarted

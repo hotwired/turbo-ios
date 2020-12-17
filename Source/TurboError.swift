@@ -5,6 +5,7 @@ public enum TurboError: LocalizedError, Equatable {
     case networkFailure
     case timeoutFailure
     case contentTypeMismatch
+    case pageLoadFailure
     case http(statusCode: Int)
     
     init(statusCode: Int) {
@@ -28,6 +29,8 @@ public enum TurboError: LocalizedError, Equatable {
             return "A network timeout occurred."
         case .contentTypeMismatch:
             return "The server return an invalid content type."
+        case .pageLoadFailure:
+            return "The page could not be loaded due to a configuration error."
         case .http(let statusCode):
             return "There was an HTTP error (\(statusCode))."
         }
