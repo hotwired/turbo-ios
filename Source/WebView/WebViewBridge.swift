@@ -128,7 +128,7 @@ extension WebViewBridge: ScriptMessageHandlerDelegate {
             visitDelegate?.webView(self, didCompleteVisitWithIdentifier: message.identifier!, restorationIdentifier: message.restorationIdentifier!)
         case .errorRaised:
             let error = message.data["error"] as? String
-            debugLog("JavaScript error: %@", error ?? "<unknown error>")
+            debugLog("JavaScript error: \(String(describing: error))")
         case .log:
             guard let msg = message.data["message"] as? String else { return }
             debugLog("[Bridge] ← log: \(msg)")
