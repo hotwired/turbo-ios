@@ -2,7 +2,7 @@
   // Bridge between Turbo JS and native code. Built for Turbo 7
   // with backwards compatibility for Turbolinks 5
   class TurboNative {
-    constructor(messageHandler) {
+    constructor() {
       this.messageHandler = webkit.messageHandlers.turbo
       this.registerAdapter()
      }
@@ -12,7 +12,7 @@
         if (Turbo.controller) {
           Turbo.controller.adapter = this
         } else {
-          window.Turbo.registerAdapter(this)
+          Turbo.registerAdapter(this)
         }
       } else if (window.Turbolinks) {
         Turbolinks.controller.adapter = this
@@ -26,7 +26,7 @@
 
       if (window.Turbo) {
         if (Turbo.navigator) {
-          restorationIdentifier = Turbo.navigator.currentVisit.restorationIdentifier
+          restorationIdentifier = Turbo.navigator.restorationIdentifier
         } else {
           restorationIdentifier = Turbo.controller.restorationIdentifier
         }
@@ -34,7 +34,7 @@
         restorationIdentifier = Turbolinks.controller.restorationIdentifier
       }
 
-       this.postMessageAfterNextRepaint("pageLoaded", { restorationIdentifier: restorationIdentifier })
+       this.postMessageAfterNextRepaint("pageLoaded", { restorationIdentifier })
     }
 
     pageLoadFailed() {
@@ -146,7 +146,7 @@
     log(message) {
       this.postMessage("log", { message: message })
     }
-      
+
     // Private
 
     postMessage(name, data = {}) {
