@@ -9,11 +9,7 @@
 
     registerAdapter() {
       if (window.Turbo) {
-        if (Turbo.controller) {
-          Turbo.controller.adapter = this
-        } else {
-          Turbo.registerAdapter(this)
-        }
+        Turbo.registerAdapter(this)
       } else if (window.Turbolinks) {
         Turbolinks.controller.adapter = this
       } else {
@@ -25,11 +21,7 @@
       let restorationIdentifier = ""
 
       if (window.Turbo) {
-        if (Turbo.navigator) {
-          restorationIdentifier = Turbo.navigator.restorationIdentifier
-        } else {
-          restorationIdentifier = Turbo.controller.restorationIdentifier
-        }
+        restorationIdentifier = Turbo.navigator.restorationIdentifier
       } else if (window.Turbolinks) {
         restorationIdentifier = Turbolinks.controller.restorationIdentifier
       }
@@ -47,18 +39,14 @@
 
     visitLocationWithOptionsAndRestorationIdentifier(location, options, restorationIdentifier) {
       if (window.Turbo) {
-        if (Turbo.controller) {
-          Turbo.controller.startVisitToLocation(location, restorationIdentifier, options)
-        } else if (Turbo.navigator) {
-          Turbo.navigator.startVisit(location, restorationIdentifier, options)
-        }
+        Turbo.navigator.startVisit(location, restorationIdentifier, options)
       } else if (window.Turbolinks) {
-        if (Turbolinks.controller.startVisit) {
-          // Turbolinks 5.3
-          Turbolinks.controller.startVisit(location, restorationIdentifier, options)
-        } else {
+        if (Turbolinks.controller.startVisitToLocationWithAction) {
           // Turbolinks 5
           Turbolinks.controller.startVisitToLocationWithAction(location, options.action, restorationIdentifier)
+        } else {
+          // Turbolinks 5.3
+          Turbolinks.controller.startVisitToLocation(location, restorationIdentifier, options)
         }
       }
     }
@@ -101,7 +89,7 @@
       this.postMessage("visitProposed", { location: location.absoluteURL, options: options })
     }
 
-    // Turbolinks 5 compatibility
+    // Turbolinks 5
     visitProposedToLocationWithAction(location, action) {
       this.visitProposedToLocation(location, { action })
     }
