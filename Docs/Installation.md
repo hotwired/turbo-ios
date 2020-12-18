@@ -7,7 +7,7 @@ Turbo iOS supports the following methods for installation:
 Add the following to your `Cartfile`:
 
 ```
-github "hotwired/turbo-ios" ~> 7.0.0
+github "hotwired/turbo-ios" ~> 7.0.0-beta.1
 ```
 
 ## CocoaPods
@@ -16,7 +16,7 @@ Add the following to your `Podfile`:
 
 ```ruby
 use_frameworks!
-pod 'Turbo', :git => 'https://github.com/hotwired/turbo-ios.git'
+pod 'Turbo', :git => 'https://github.com/hotwired/turbo-ios.git', :tag => '7.0.0-beta.1'
 ```
 
 Then run `pod install`.
@@ -26,7 +26,7 @@ Then run `pod install`.
 Add Turbo as a dependency through Xcode or directly to a Package.swift:
 
 ```
-.package(url: "https://github.com/hotwired/turbo-ios", from: "7.0.0")
+.package(url: "https://github.com/hotwired/turbo-ios", from: "7.0.0-beta.1")
 ```
 
 ## Manual
