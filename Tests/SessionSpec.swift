@@ -32,7 +32,6 @@ class SessionSpec: QuickSpec {
         }
         
         afterEach {
-            // Ensure no messages come through later
             session.webView.configuration.userContentController.removeScriptMessageHandler(forName: "turbo")
         }
         
@@ -73,9 +72,20 @@ class SessionSpec: QuickSpec {
                     expect(sessionDelegate.sessionDidFinishRequestCalled).toEventually(beTrue(), timeout: timeout)
                     expect(sessionDelegate.sessionDidFailRequestCalled) == false
                 }
+                
+                it("configures JavaScript bridge") {
+                    expect(sessionDelegate.sessionDidLoadWebViewCalled).toEventually(beTrue(), timeout: timeout)
+
+                    waitUntil { done in
+                        session.webView.evaluateJavaScript("Turbo.navigator.adapter == window.turboNative") { result, error in
+                            XCTAssertEqual(result as? Bool, true)
+                            done()
+                        }
+                    }
+                }
             }
             
-            context("when visit fails") {
+            context("when visit fails from http error") {
                 beforeEach {
                     let visitable = TestVisitable(url: self.url("/invalid"))
                     session.visit(visitable)
@@ -99,6 +109,63 @@ class SessionSpec: QuickSpec {
                     expect(sessionDelegate.sessionDidFinishRequestCalled).toEventually(beTrue(), timeout: timeout)
                 }
             }
+            
+            context("when visit fails from missing library") {
+                beforeEach {
+                    let visitable = TestVisitable(url: self.url("/missing-library"))
+                    session.visit(visitable)
+                }
+                
+                it("calls sessionDidFailRequest delegate method") {
+                    expect(sessionDelegate.sessionDidFailRequestCalled).toEventually(beTrue(), timeout: timeout)
+                }
+                
+                it("provides an page load error") {
+                    expect(sessionDelegate.failedRequestError).toEventuallyNot(beNil(), timeout: timeout)
+                    guard let error = sessionDelegate.failedRequestError else {
+                        fail("Should have gotten an error")
+                        return
+                    }
+                    
+                    expect(error).to(matchError(TurboError.pageLoadFailure))
+                }
+                
+                it("calls sessionDidFinishRequest delegate method") {
+                    expect(sessionDelegate.sessionDidFinishRequestCalled).toEventually(beTrue(), timeout: timeout)
+                }
+            }
+            
+            describe("Turbolinks 5 compatibility") {
+                it("loads the page and sets the adapter") {
+                    let visitable = TestVisitable(url: self.url("/turbolinks"))
+                    session.visit(visitable)
+                    
+                    expect(sessionDelegate.sessionDidLoadWebViewCalled).toEventually(beTrue(), timeout: timeout)
+                    
+                    waitUntil { done in
+                        session.webView.evaluateJavaScript("Turbolinks.controller.adapter === window.turboNative") { result, error in
+                            XCTAssertEqual(result as? Bool, true)
+                            done()
+                        }
+                    }
+                }
+            }
+            
+            describe("Turbolinks 5.3 compatibility") {
+                it("loads the page and sets the adapter") {
+                    let visitable = TestVisitable(url: self.url("/turbolinks-5.3"))
+                    session.visit(visitable)
+                    
+                    expect(sessionDelegate.sessionDidLoadWebViewCalled).toEventually(beTrue(), timeout: timeout)
+                    
+                    waitUntil { done in
+                        session.webView.evaluateJavaScript("Turbolinks.controller.adapter === window.turboNative") { result, error in
+                            XCTAssertEqual(result as? Bool, true)
+                            done()
+                        }
+                    }
+                }
+            }
         }
     }
     
@@ -110,10 +177,25 @@ class SessionSpec: QuickSpec {
     }
     
     private func startServer() {
-        server.addGETHandler(forBasePath: "/", directoryPath: Bundle(for: SessionSpec.self).resourcePath!, indexFilename: "index.html", cacheAge: 0, allowRangeRequests: true)
+        let bundle = Bundle(for: SessionSpec.self)
+        let resources = bundle.resourcePath!
         
-        server.addHandler(forMethod: "GET", path: "/invalid", request: GCDWebServerRequest.self) { request in
-            return GCDWebServerResponse(statusCode: 404)
+        server.addGETHandler(forBasePath: "/", directoryPath: resources, indexFilename: "turbo.html", cacheAge: 0, allowRangeRequests: true)
+
+        server.addHandler(forMethod: "GET", path: "/turbolinks", request: GCDWebServerRequest.self) { _ in
+            GCDWebServerDataResponse(data: try! Data(contentsOf: bundle.url(forResource: "turbolinks", withExtension: "html")!), contentType: "text/html")
+        }
+        
+        server.addHandler(forMethod: "GET", path: "/turbolinks-5.3", request: GCDWebServerRequest.self) { _ in
+            GCDWebServerDataResponse(data: try! Data(contentsOf: bundle.url(forResource: "turbolinks-5.3", withExtension: "html")!), contentType: "text/html")
+        }
+        
+        server.addHandler(forMethod: "GET", path: "/missing-library", request: GCDWebServerRequest.self) { _ in
+            GCDWebServerDataResponse(html: "<html></html>")
+        }
+        
+        server.addHandler(forMethod: "GET", path: "/invalid", request: GCDWebServerRequest.self) { _ in
+            GCDWebServerResponse(statusCode: 404)
         }
         
         server.start(withPort: 8080, bonjourName: nil)

@@ -31,11 +31,10 @@ class ColdBootVisitSpec: QuickSpec {
             
             it("notifies the delegate the visit will start") {
                 expect(visitDelegate.didCall("visitWillStart(_:)")).toEventually(beTrue())
-                print(visitDelegate.methodsCalled)
             }
             
             it("kicks off the web view load") {
-                
+                expect(visit.navigation).toNot(beNil())
             }
             
             it("becomes the navigation delegate") {
@@ -45,13 +44,11 @@ class ColdBootVisitSpec: QuickSpec {
             it("notifies the delegate the visit did start") {
                 visit.start()
                 expect(visitDelegate.didCall("visitDidStart(_:)")).toEventually(beTrue())
-                print(visitDelegate.methodsCalled)
             }
             
             it("ignores the call if already started") {
                 visit.start()
                 expect(visitDelegate.methodsCalled.contains("visitDidStart(_:)")).toEventually(beTrue())
-                print(visitDelegate.methodsCalled)
 
                 visitDelegate.methodsCalled.remove("visitDidStart(_:)")
                 visit.start()
@@ -61,8 +58,7 @@ class ColdBootVisitSpec: QuickSpec {
     }
 }
 
-
-class TestVisitDelegate: VisitDelegate {
+private class TestVisitDelegate: VisitDelegate {
     var methodsCalled: Set<String> = []
     
     init() {
@@ -73,50 +69,54 @@ class TestVisitDelegate: VisitDelegate {
     }
     
     func visitDidInitializeWebView(_ visit: Visit) {
-        methodsCalled.insert(#function)
+        record(#function)
     }
     
     func visitWillStart(_ visit: Visit) {
-        methodsCalled.insert(#function)
+        record(#function)
     }
     
     func visitDidStart(_ visit: Visit) {
-        methodsCalled.insert(#function)
+        record(#function)
     }
     
     func visitDidComplete(_ visit: Visit) {
-        methodsCalled.insert(#function)
+        record(#function)
     }
     
     func visitDidFail(_ visit: Visit) {
-        methodsCalled.insert(#function)
+        record(#function)
     }
     
     func visitDidFinish(_ visit: Visit) {
-        methodsCalled.insert(#function)
+        record(#function)
     }
     
     func visitWillLoadResponse(_ visit: Visit) {
-        methodsCalled.insert(#function)
+        record(#function)
     }
     
     func visitDidRender(_ visit: Visit) {
-        methodsCalled.insert(#function)
+        record(#function)
     }
     
     func visitRequestDidStart(_ visit: Visit) {
-        methodsCalled.insert(#function)
+        record(#function)
     }
     
     func visit(_ visit: Visit, requestDidFailWithError error: Error) {
-        methodsCalled.insert(#function)
+        record(#function)
     }
     
     func visitRequestDidFinish(_ visit: Visit) {
-        methodsCalled.insert(#function)
+        record(#function)
     }
     
     func visit(_ visit: Visit, didReceiveAuthenticationChallenge challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
-        methodsCalled.insert(#function)
+        record(#function)
+    }
+    
+    private func record(_ string: String) {
+        methodsCalled.insert(string)
     }
 }

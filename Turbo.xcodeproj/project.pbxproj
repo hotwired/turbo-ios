@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		C10DF22A257ABD3D009412E7 /* VisitProposal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10DF229257ABD3D009412E7 /* VisitProposal.swift */; };
+		C13ABAF1259142200001E6F4 /* turbolinks-5.3.html in Resources */ = {isa = PBXBuildFile; fileRef = C13ABAF0259142200001E6F4 /* turbolinks-5.3.html */; };
+		C13ABAF72591422F0001E6F4 /* turbo.html in Resources */ = {isa = PBXBuildFile; fileRef = C13ABAF62591422F0001E6F4 /* turbo.html */; };
+		C13ABAFC259142AB0001E6F4 /* turbo-7.0.0-beta.1.js in Resources */ = {isa = PBXBuildFile; fileRef = C13ABAFA259142AB0001E6F4 /* turbo-7.0.0-beta.1.js */; };
+		C13ABAFD259142AB0001E6F4 /* turbolinks-5.2.0.js in Resources */ = {isa = PBXBuildFile; fileRef = C13ABAFB259142AB0001E6F4 /* turbolinks-5.2.0.js */; };
 		C149E3582575780900158E8C /* Turbo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C149E34E2575780900158E8C /* Turbo.framework */; };
 		C149E38C2575847700158E8C /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = C149E3792575847700158E8C /* JSON.swift */; };
 		C149E38D2575847700158E8C /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = C149E37A2575847700158E8C /* Logging.swift */; };
@@ -48,8 +52,8 @@
 		C1D0082B257594D500A9CE85 /* JavaScriptExpressionSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = C149E3DC25758D6800158E8C /* JavaScriptExpressionSpec.swift */; };
 		C1D0082C257594D500A9CE85 /* PathConfigurationLoaderSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = C149E3DB25758D6800158E8C /* PathConfigurationLoaderSpec.swift */; };
 		C1D008382575960900A9CE85 /* test-configuration.json in Resources */ = {isa = PBXBuildFile; fileRef = C1D008342575960900A9CE85 /* test-configuration.json */; };
-		C1D008392575960900A9CE85 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = C1D008362575960900A9CE85 /* index.html */; };
-		C1D0083A2575960900A9CE85 /* turbo.js in Resources */ = {isa = PBXBuildFile; fileRef = C1D008372575960900A9CE85 /* turbo.js */; };
+		C1D008392575960900A9CE85 /* turbolinks.html in Resources */ = {isa = PBXBuildFile; fileRef = C1D008362575960900A9CE85 /* turbolinks.html */; };
+		C1D0083A2575960900A9CE85 /* turbolinks-5.3.0-dev.js in Resources */ = {isa = PBXBuildFile; fileRef = C1D008372575960900A9CE85 /* turbolinks-5.3.0-dev.js */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +68,10 @@
 
 /* Begin PBXFileReference section */
 		C10DF229257ABD3D009412E7 /* VisitProposal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitProposal.swift; sourceTree = "<group>"; };
+		C13ABAF0259142200001E6F4 /* turbolinks-5.3.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "turbolinks-5.3.html"; sourceTree = "<group>"; };
+		C13ABAF62591422F0001E6F4 /* turbo.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = turbo.html; sourceTree = "<group>"; };
+		C13ABAFA259142AB0001E6F4 /* turbo-7.0.0-beta.1.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "turbo-7.0.0-beta.1.js"; sourceTree = "<group>"; };
+		C13ABAFB259142AB0001E6F4 /* turbolinks-5.2.0.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "turbolinks-5.2.0.js"; sourceTree = "<group>"; };
 		C149E34E2575780900158E8C /* Turbo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Turbo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C149E3522575780900158E8C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C149E3572575780900158E8C /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -107,8 +115,8 @@
 		C149E4062575928200158E8C /* OHHTTPStubs.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OHHTTPStubs.framework; path = Carthage/Build/iOS/OHHTTPStubs.framework; sourceTree = "<group>"; };
 		C149E4072575928200158E8C /* GCDWebServers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GCDWebServers.framework; path = Carthage/Build/iOS/GCDWebServers.framework; sourceTree = "<group>"; };
 		C1D008342575960900A9CE85 /* test-configuration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "test-configuration.json"; sourceTree = "<group>"; };
-		C1D008362575960900A9CE85 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
-		C1D008372575960900A9CE85 /* turbo.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = turbo.js; sourceTree = "<group>"; };
+		C1D008362575960900A9CE85 /* turbolinks.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = turbolinks.html; sourceTree = "<group>"; };
+		C1D008372575960900A9CE85 /* turbolinks-5.3.0-dev.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "turbolinks-5.3.0-dev.js"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -269,8 +277,12 @@
 		C1D008352575960900A9CE85 /* Server */ = {
 			isa = PBXGroup;
 			children = (
-				C1D008362575960900A9CE85 /* index.html */,
-				C1D008372575960900A9CE85 /* turbo.js */,
+				C13ABAFA259142AB0001E6F4 /* turbo-7.0.0-beta.1.js */,
+				C13ABAFB259142AB0001E6F4 /* turbolinks-5.2.0.js */,
+				C1D008362575960900A9CE85 /* turbolinks.html */,
+				C1D008372575960900A9CE85 /* turbolinks-5.3.0-dev.js */,
+				C13ABAF0259142200001E6F4 /* turbolinks-5.3.html */,
+				C13ABAF62591422F0001E6F4 /* turbo.html */,
 			);
 			path = Server;
 			sourceTree = "<group>";
@@ -379,9 +391,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C1D0083A2575960900A9CE85 /* turbo.js in Resources */,
+				C1D0083A2575960900A9CE85 /* turbolinks-5.3.0-dev.js in Resources */,
+				C13ABAF72591422F0001E6F4 /* turbo.html in Resources */,
+				C13ABAFC259142AB0001E6F4 /* turbo-7.0.0-beta.1.js in Resources */,
 				C1D008382575960900A9CE85 /* test-configuration.json in Resources */,
-				C1D008392575960900A9CE85 /* index.html in Resources */,
+				C13ABAFD259142AB0001E6F4 /* turbolinks-5.2.0.js in Resources */,
+				C13ABAF1259142200001E6F4 /* turbolinks-5.3.html in Resources */,
+				C1D008392575960900A9CE85 /* turbolinks.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
