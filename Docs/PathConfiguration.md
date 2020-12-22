@@ -1,6 +1,6 @@
 # Path Configuration
 
-The "path configuration" is a feature that simplifies mapping various urls to "path properties". When possible, it's preferred to get data for a page from the page itself through the DOM or a library like [Strata](https://github.com/basecamp/strata). However, certain properties you need to know *before* the page loads. This can be anything you want from the title, the background color, the presentation, or which view controller to load. Using a path configuration is completely optional and not required to use Turbo iOS.
+The "path configuration" is a feature that simplifies mapping various urls to "path properties". When possible, it's preferred to get data for a page from the page itself through the DOM or a library like Strada (see [advanced](Advanced.md)). However, certain properties you need to know *before* the page loads. This can be anything you want from the title, the background color, the presentation, or which view controller to load. Using a path configuration is completely optional and not required to use Turbo iOS.
 
 The path configuration itself is a JSON file with the following structure:
 

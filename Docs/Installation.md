@@ -15,7 +15,6 @@ github "hotwired/turbo-ios" ~> 7.0.0-beta.1
 Add the following to your `Podfile`:
 
 ```ruby
-use_frameworks!
 pod 'Turbo', :git => 'https://github.com/hotwired/turbo-ios.git', :tag => '7.0.0-beta.1'
 ```
 
