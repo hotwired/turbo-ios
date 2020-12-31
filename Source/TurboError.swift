@@ -28,7 +28,7 @@ public enum TurboError: LocalizedError, Equatable {
         case .timeoutFailure:
             return "A network timeout occurred."
         case .contentTypeMismatch:
-            return "The server return an invalid content type."
+            return "The server returned an invalid content type."
         case .pageLoadFailure:
             return "The page could not be loaded due to a configuration error."
         case .http(let statusCode):
