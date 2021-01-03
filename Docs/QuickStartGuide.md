@@ -2,7 +2,7 @@
 
 This is a quick start guide to creating the most minimal Turbo iOS application from scratch get up and running in a few minutes. This will support basic back/forward navigation, but will not be a fully functional application.
 
-1. First, create a new iOS app from the Xcode File > New > Project menu and choose the default iOS "App" template. Note: When using XCode >= 12, be sure to choose "UIKit App Delegate" under "Lifecycle" in the project creation dialog. 
+1. First, create a new iOS app from the Xcode File > New > Project menu and choose the default iOS "App" template. Note: When using XCode >= 12, be sure to choose "Storyboard" under "Lifecycle" and "UIKit App Delegate" under "Lifecycle" in the project creation dialog. 
 
 2. Select your app's main top-level project, go to the Swift Packages tab and add the Turbo iOS dependency by entering in `https://github.com/hotwired/turbo-ios`.
 
