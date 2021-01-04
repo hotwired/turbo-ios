@@ -40,7 +40,7 @@ extension MyObject: SessionDelegate {
 }
 ```
 
-Turbo iOS calls the `session(_:didProposeVisit:)` method before every [application visit](https://github.com/turbolinks/turbolinks/blob/master/README.md#application-visits), such as when you tap a Turbo-enabled link or call `Turbo.visit(...)` in your web application. Implement this method to choose how to handle the specified URL and action. This is called a *proposal* since your application is not required to do complete the visit.
+Turbo iOS calls the `session(_:didProposeVisit:)` method before every [application visit](https://github.com/turbolinks/turbolinks/blob/master/README.md#application-visits), such as when you tap a Turbo-enabled link or call `Turbo.visit(...)` in your web application. Implement this method to choose how to handle the specified URL and action. This is called a *proposal* since your application is not required to complete the visit.
 
 See [Responding to Visit Proposals](#responding-to-visit-proposals) for more details.
 
