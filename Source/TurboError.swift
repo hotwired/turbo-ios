@@ -1,6 +1,6 @@
 import Foundation
 
-// https://github.com/hotwired/turbo/blob/main/src/visit.ts#L56-L60
+// https://github.com/hotwired/turbo/blob/main/src/core/drive/visit.ts#L56-L60
 public enum TurboError: LocalizedError, Equatable {
     case networkFailure
     case timeoutFailure
