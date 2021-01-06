@@ -68,9 +68,9 @@ protocol Visitable {
 
 Turbo iOS provides a `VisitableViewController` class that implements the `Visitable` protocol for you and provides everything you need out of the box. This view controller displays the `VisitableView` as its single subview.
 
-Most applications will probably need want to subclass `VisitableViewController` to customize its layout or add additional views. For example, the bundled demo application has a [ViewController subclass](Demo/ViewController.swift) that can display a custom error view in place of the `VisitableView`.
+Most applications will probably need want to subclass `VisitableViewController` to customize its layout or add additional views. For example, the bundled demo application has a [ViewController subclass](../Demo/ViewController.swift) that can display a custom error view in place of the `VisitableView`.
 
-If your application’s design prevents you from subclassing `VisitableViewController`, you can implement the `Visitable` protocol yourself. See the [VisitableViewController implementation](Source/VisitableViewController.swift) for details.
+If your application’s design prevents you from subclassing `VisitableViewController`, you can implement the `Visitable` protocol yourself. See the [VisitableViewController implementation](../Source/Visitable/VisitableViewController.swift) for details.
 
 Note: custom `Visitable` view controllers must notify their delegate of their `viewWillAppear` and `viewDidAppear` methods through the `VisitableDelegate`'s `visitableViewWillAppear` and `visitableViewDidAppear` methods. The `Session` uses these hooks to know when it should move the WKWebView from one VisitableView to another.
 
