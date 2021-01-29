@@ -49,7 +49,7 @@ final class SceneController: UIResponder {
         // - Initiate the visit with Turbo
         let viewController = makeViewController(for: url, properties: properties)
         navigate(to: viewController, action: options.action, properties: properties)
-        visit(viewController: viewController, modal: isModal(properties))
+        visit(viewController: viewController, with: options, modal: isModal(properties))
     }
     
     private func makeViewController(for url: URL, properties: PathProperties = [:]) -> UIViewController {
@@ -65,7 +65,7 @@ final class SceneController: UIResponder {
         }
     }
     
-    private func visit(viewController: UIViewController, modal: Bool = false) {
+    private func visit(viewController: UIViewController, with options: VisitOptions, modal: Bool = false) {
         guard let visitable = viewController as? Visitable else { return }
         
         // Each Session corresponds to a single web view. A good rule of thumb
@@ -73,9 +73,9 @@ final class SceneController: UIResponder {
         // when presenting a modal. We keep that around for any modal presentations so
         // we don't have to create more than we need since each new session incurs a cold boot visit cost
         if modal {
-            modalSession.visit(visitable)
+            modalSession.visit(visitable, options: options)
         } else {
-            session.visit(visitable)
+            session.visit(visitable, options: options)
         }
     }
     
