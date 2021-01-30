@@ -62,6 +62,9 @@ public class Session: NSObject {
         }
         
         let visit = makeVisit(for: visitable, options: options ?? VisitOptions())
+        if self.webView.uiDelegate == nil && visit.visitable.visitableViewController is WKUIDelegate {
+            self.webView.uiDelegate = (visit.visitable.visitableViewController as! WKUIDelegate)
+        }
         currentVisit?.cancel()
         currentVisit = visit
 
@@ -333,3 +336,4 @@ extension Session: WKNavigationDelegate {
         }
     }
 }
+
