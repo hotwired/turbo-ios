@@ -10,4 +10,41 @@ A `UITabBarController` based app should work with a single session, but you may 
 
 ## Native <-> JavaScript Integration
 
-You can send messages from your native app to the web view by using `session.webView.evaluateJavaScript()` method. You can receive messages by adding a `WKScriptMessageHandler` to the web view and implementing the required protocols. That allows for two-way async communication. This is fine for simple tasks, but we've found we need something more comprehensive for our apps, which is why we created a new framework called Strada. This is a library in 3 parts (web, iOS, and Android) for integrating Turbo Native apps with their hosted web apps. This is separate and optional, but can dramatically improve the experience of your app. See the Strada repo for details (*coming soon*).
+You can send messages from your native app to the web view by using `session.webView.evaluateJavaScript()` method. You can receive messages by adding a `WKScriptMessageHandler` to the web view and implementing the required protocols. That allows for two-way async communication. 
+
+Here's a simple sketch of how this works. You can create your session with a `WKWebViewConfiguration` and in that configuration, you can setup your `WKScriptMessageHandler` which will be used to receive messages from the web app through JavaScript. When you receive a message, you can parse it and handle it however you need, optionally sending data back to the web app with the `webView.evaluateJavaScript()` method.
+
+```swift
+import Turbo
+import WebKit
+
+// WKScriptMessageHandler requires NSObject conformance
+class SessionController: NSObject {
+    lazy var session: Turbo.Session = {
+        let configuration = WKWebViewConfiguration()
+        
+        // Setup your session with a WKWebViewConfiguration and script message handler
+        configuration.userContentController.add(self, name: "nativeApp")
+        
+        let session = Turbo.Session(webViewConfiguration: configuration)
+        session.delegate = self
+        
+        return session
+    }()
+}
+
+extension SessionController: WKScriptMessageHandler {
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        // WebView JS sends a message with
+        // webkit.messageHandlers.nativeApp.postMessage(message)
+        
+        // Native app receives message and processes it as needed, maybe pass to another object
+        // message.body...
+        
+        // Native app can call more JS functions as needed
+        session.webView.evaluateJavaScript("someReplyMessage()")
+    }
+}
+```
+
+This is fine for simple tasks, but we've found we need something more comprehensive for our apps, which is why we created a new framework called Strada. This is a library in 3 parts (web, iOS, and Android) for integrating Turbo Native apps with their hosted web apps. This is separate and optional, but can dramatically improve the experience of your app. See the Strada repo for details (*coming soon*).
