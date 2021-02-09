@@ -86,7 +86,7 @@
     // Adapter interface
 
     visitProposedToLocation(location, options) {
-      this.postMessage("visitProposed", { location: location.absoluteURL, options: options })
+      this.postMessage("visitProposed", { location: location.toString(), options: options })
     }
 
     // Turbolinks 5
