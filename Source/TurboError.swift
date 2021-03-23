@@ -30,7 +30,7 @@ public enum TurboError: LocalizedError, Equatable {
         case .contentTypeMismatch:
             return "The server returned an invalid content type."
         case .pageLoadFailure:
-            return "The page could not be loaded due to a configuration error."
+            return "The page could not be loaded due to a configuration error, have you added window.Turbo or window.Turbolinks to the page?"
         case .http(let statusCode):
             return "There was an HTTP error (\(statusCode))."
         }
