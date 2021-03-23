@@ -40,7 +40,8 @@ extension SceneDelegate: SessionDelegate {
     }
     
     func session(_ session: Session, didFailRequestForVisitable visitable: Visitable, error: Error) {
-        print("didFailRequestForVisitable: \(error)")
+        let turboError = error as? TurboError
+        print("didFailRequestForVisitable: \(turboError?.errorDescription ?? error.localizedDescription)")
     }
 }
 ```
