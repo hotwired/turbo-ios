@@ -63,10 +63,12 @@ public class Session: NSObject {
         
         let visit = makeVisit(for: visitable, options: options ?? VisitOptions())
         currentVisit?.cancel()
-        currentVisit = visit
-
         visit.delegate = self
         visit.start()
+        
+        currentVisit = visit
+
+
     }
     
     private func makeVisit(for visitable: Visitable, options: VisitOptions) -> Visit {
