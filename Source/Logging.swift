@@ -6,17 +6,23 @@ func debugLog(_ item: Any, _ method: String = #function) {
     let timestamp = Date()
     
     if let message = item as? String {
-        print("\(timestamp) - \(message)")
+        log("\(timestamp) - \(message)")
     } else {
         // Support passing object directly instead of string to print class and function
         let component = String(describing: type(of: item))
-        print("\(timestamp) - [\(component)] \(method)")
+        log("\(timestamp) - [\(component)] \(method)")
     }
     #endif
 }
 
 func debugPrint(_ message: String) {
     #if DEBUG
-    print(message)
+    log(message)
     #endif
+}
+
+private func log(_ message: String) {
+    if !ProcessInfo.processInfo.arguments.contains("disableTurboLog") {
+        print(message)
+    }
 }
