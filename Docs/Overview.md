@@ -17,7 +17,7 @@ let session = Session()
 // custom user-agent
 let configuration = WKWebViewConfiguration()
 configuration.applicationNameForUserAgent = "MyApplication"
-let session = Session(configuration: configuration)
+let session = Session(webViewConfiguration: configuration)
 
 // 3. Finally, if you need full control, such as a WKWebView subclass, you can pass an initialized web view into the session
 let webView = WKWebView()
