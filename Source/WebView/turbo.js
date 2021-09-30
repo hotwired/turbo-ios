@@ -86,6 +86,13 @@
     // Adapter interface
 
     visitProposedToLocation(location, options) {
+      if (window.Turbo && typeof Turbo.navigator.locationWithActionIsSamePage === "function") {
+        if (Turbo.navigator.locationWithActionIsSamePage(location, options.action)) {
+          Turbo.navigator.view.scrollToAnchorFromLocation(location)
+          return
+        }
+      }
+
       this.postMessage("visitProposed", { location: location.toString(), options: options })
     }
 
