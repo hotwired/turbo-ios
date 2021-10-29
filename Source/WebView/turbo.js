@@ -167,6 +167,11 @@
     window.turboNative.errorRaised(error)
   }, false)
 
-  window.turboNative = new TurboNative()
-  window.turboNative.pageLoaded()
+  var setup = () => {
+    window.turboNative = new TurboNative()
+    window.turboNative.pageLoaded()
+  }
+
+  window.addEventListener("turbo:load", setup)
+  window.addEventListener("turbolinks:load", setup)
 })()
