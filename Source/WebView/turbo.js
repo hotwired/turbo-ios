@@ -13,6 +13,8 @@
         Turbo.registerAdapter(this)
       } else if (window.Turbolinks) {
         Turbolinks.controller.adapter = this
+      } else {
+        throw new Error("Failed to register the TurboNative adapter")
       }
     }
 
