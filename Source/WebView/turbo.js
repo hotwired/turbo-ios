@@ -172,8 +172,8 @@
     window.turboNative.registerAdapter()
     window.turboNative.pageLoaded()
 
-    document.removeEventListener("turbo:load")
-    document.removeEventListener("turbolinks:load")
+    document.removeEventListener("turbo:load", setup)
+    document.removeEventListener("turbolinks:load", setup)
   }
 
   const setupOnLoad = () => {
