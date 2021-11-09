@@ -64,7 +64,9 @@ extension TurboNavigationController {
         if let viewController = properties["view-controller"] as? String {
             switch viewController {
             case "numbers":
-                return NumbersViewController()
+                let numbersVC = NumbersViewController()
+                numbersVC.url = url
+                return numbersVC
             case "numbersDetail":
                 let alertController = UIAlertController(title: "Number", message: "\(url.path)", preferredStyle: .alert)
                 alertController.addAction(.init(title: "OK", style: .default, handler: nil))
