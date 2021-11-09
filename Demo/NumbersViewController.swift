@@ -3,6 +3,9 @@ import UIKit
 /// A simple native table view controller to demonstrate loading non-Turbo screens
 /// for a visit proposal
 final class NumbersViewController: UITableViewController {
+    
+    var url: URL!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -25,5 +28,11 @@ final class NumbersViewController: UITableViewController {
         cell.textLabel?.text = "Row \(number)"
 
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let turboNavController = navigationController as! TurboNavigationController
+        turboNavController.push(url: url.appendingPathComponent("\(indexPath.row + 1)"))
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }

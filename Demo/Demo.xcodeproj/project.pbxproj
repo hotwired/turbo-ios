@@ -19,6 +19,7 @@
 		C153F02F25780F6900926D30 /* Turbo.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C153F02D25780F6900926D30 /* Turbo.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C153F03525784BEA00926D30 /* NumbersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153F03425784BEA00926D30 /* NumbersViewController.swift */; };
 		C175FE782579905300C8DF50 /* Demo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C175FE772579905300C8DF50 /* Demo.swift */; };
+		CB4FB651273AE23B00119FD3 /* TurboNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4FB650273AE23B00119FD3 /* TurboNavigationController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -50,6 +51,7 @@
 		C153F0332578302F00926D30 /* Turbo Demo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Turbo Demo.entitlements"; sourceTree = "<group>"; };
 		C153F03425784BEA00926D30 /* NumbersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumbersViewController.swift; sourceTree = "<group>"; };
 		C175FE772579905300C8DF50 /* Demo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Demo.swift; sourceTree = "<group>"; };
+		CB4FB650273AE23B00119FD3 /* TurboNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TurboNavigationController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +86,7 @@
 		C153F0062578057900926D30 /* Demo */ = {
 			isa = PBXGroup;
 			children = (
+				CB4FB64F273AE22800119FD3 /* Navigation */,
 				C175FE772579905300C8DF50 /* Demo.swift */,
 				C153F0072578057900926D30 /* AppDelegate.swift */,
 				C153F0092578057900926D30 /* SceneController.swift */,
@@ -106,6 +109,14 @@
 				C153F02D25780F6900926D30 /* Turbo.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CB4FB64F273AE22800119FD3 /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				CB4FB650273AE23B00119FD3 /* TurboNavigationController.swift */,
+			);
+			path = Navigation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -183,6 +194,7 @@
 				C10DF242257AD845009412E7 /* ViewController.swift in Sources */,
 				C153F03525784BEA00926D30 /* NumbersViewController.swift in Sources */,
 				C153F0082578057900926D30 /* AppDelegate.swift in Sources */,
+				CB4FB651273AE23B00119FD3 /* TurboNavigationController.swift in Sources */,
 				C175FE782579905300C8DF50 /* Demo.swift in Sources */,
 				C153F00A2578057900926D30 /* SceneController.swift in Sources */,
 				C106CBE3257FF87700498F6F /* ErrorPresenter.swift in Sources */,
