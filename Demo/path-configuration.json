@@ -22,13 +22,13 @@
       }
     },
     {
-        "patterns": [
-          "/numbers/[0-9]+$"
-        ],
-        "properties": {
-          "view-controller": "numbersDetail",
-          "presentation": "modal"
-        }
-      },
+      "patterns": [
+        "/numbers/[0-9]+$"
+      ],
+      "properties": {
+        "view-controller": "numbersDetail",
+        "presentation": "modal"
+      }
+    },
   ]
 }
