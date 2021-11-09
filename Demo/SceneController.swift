@@ -37,7 +37,7 @@ final class SceneController: UIResponder {
     private func promptForAuthentication() {
         let authURL = rootURL.appendingPathComponent("/signin")
         let properties = pathConfiguration.properties(for: authURL)
-        route(url: authURL, options: VisitOptions(), properties: properties)
+        navigationController.route(url: authURL, options: VisitOptions(), properties: properties)
     }
     
     // MARK: - Sessions
@@ -69,13 +69,13 @@ extension SceneController: UIWindowSceneDelegate {
         guard let _ = scene as? UIWindowScene else { return }
         
         configureRootViewController()
-        route(url: rootURL, options: VisitOptions(action: .replace), properties: [:])
+        navigationController.route(url: rootURL, options: VisitOptions(action: .replace), properties: [:])
     }
 }
 
 extension SceneController: SessionDelegate {
     func session(_ session: Session, didProposeVisit proposal: VisitProposal) {
-        route(url: proposal.url, options: proposal.options, properties: proposal.properties)
+        navigationController.route(url: proposal.url, options: proposal.options, properties: proposal.properties)
     }
     
     func session(_ session: Session, didFailRequestForVisitable visitable: Visitable, error: Error) {
