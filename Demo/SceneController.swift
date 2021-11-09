@@ -60,7 +60,6 @@ final class SceneController: UIResponder {
     
     private lazy var pathConfiguration = PathConfiguration(sources: [
         .file(Bundle.main.url(forResource: "path-configuration", withExtension: "json")!),
-        .server(rootURL.appendingPathComponent("path-configuration.json"))
     ])
 }
 
