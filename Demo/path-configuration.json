@@ -15,11 +15,20 @@
     },
     {
       "patterns": [
-        "/numbers"
+        "/numbers$"
       ],
       "properties": {
         "view-controller": "numbers"
       }
-    }
+    },
+    {
+        "patterns": [
+          "/numbers/[0-9]+$"
+        ],
+        "properties": {
+          "view-controller": "numbersDetail",
+          "presentation": "modal"
+        }
+      },
   ]
 }

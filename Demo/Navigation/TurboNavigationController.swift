@@ -65,10 +65,10 @@ extension TurboNavigationController {
             switch viewController {
             case "numbers":
                 return NumbersViewController()
-            case "ReferenceViewController":
-                return ReferenceViewController()
-            case "ReferenceDetailViewController":
-                return ReferenceDetailViewController()
+            case "numbersDetail":
+                let alertController = UIAlertController(title: "Number", message: "\(url.path)", preferredStyle: .alert)
+                alertController.addAction(.init(title: "OK", style: .default, handler: nil))
+                return alertController
             default:
                 assertionFailure("Invalid view controller, defaulting to WebView")
             }
@@ -81,8 +81,12 @@ extension TurboNavigationController {
         // We support three types of navigation in the app: advance, replace, and modal
         
         if isModal(properties) {
-            let modalNavController = UINavigationController(rootViewController: viewController)
-            present(modalNavController, animated: animated)
+            if viewController is UIAlertController {
+                present(viewController, animated: animated, completion: nil)
+            } else {
+                let modalNavController = UINavigationController(rootViewController: viewController)
+                present(modalNavController, animated: animated)
+            }
         } else if action == .replace {
             let viewControllers = Array(viewControllers.dropLast()) + [viewController]
             setViewControllers(viewControllers, animated: false)

@@ -26,4 +26,10 @@ final class NumbersViewController: UITableViewController {
 
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let turboNavController = navigationController as! TurboNavigationController
+        turboNavController.push(url: URL(string: "/numbers/\(indexPath.row)")!)
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
 }
