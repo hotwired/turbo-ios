@@ -68,7 +68,7 @@ extension TurboNavigationController {
                 numbersVC.url = url
                 return numbersVC
             case "numbersDetail":
-                let alertController = UIAlertController(title: "Number", message: "\(url.path)", preferredStyle: .alert)
+                let alertController = UIAlertController(title: "Number", message: "\(url.lastPathComponent)", preferredStyle: .alert)
                 alertController.addAction(.init(title: "OK", style: .default, handler: nil))
                 return alertController
             default:
