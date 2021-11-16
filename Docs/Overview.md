@@ -125,7 +125,7 @@ func session(session: Session, didFailRequestForVisitable visitable: Visitable, 
 
 HTTP error codes are a good way for the server to communicate specific requirements to your Turbo Native application. For example, you might use a `401 Unauthorized` response as a signal to prompt the user for authentication.
 
-See the demo app’s [SceneDelegate](Demo/SceneDelegate.swift) for a detailed example of how to present error messages and perform authorization.
+See the demo app’s [SceneController](../Demo/SceneController.swift) for a detailed example of how to present error messages and perform authorization.
 
 ## Setting Visitable Titles
 
