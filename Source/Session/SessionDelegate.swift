@@ -10,6 +10,8 @@ public protocol SessionDelegate: AnyObject {
     func sessionDidLoadWebView(_ session: Session)
     func sessionDidStartRequest(_ session: Session)
     func sessionDidFinishRequest(_ session: Session)
+
+    func sessionWebViewProcessDidTerminate(_ session: Session)
 }
 
 public extension SessionDelegate {
