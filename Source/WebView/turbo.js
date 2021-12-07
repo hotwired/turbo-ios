@@ -1,10 +1,11 @@
 (() => {
+  const TURBO_LOAD_TIMEOUT = 4000
+
   // Bridge between Turbo JS and native code. Built for Turbo 7
   // with backwards compatibility for Turbolinks 5
   class TurboNative {
     constructor() {
       this.messageHandler = webkit.messageHandlers.turbo
-      this.registerAdapter()
      }
 
     registerAdapter() {
@@ -13,7 +14,7 @@
       } else if (window.Turbolinks) {
         Turbolinks.controller.adapter = this
       } else {
-        this.pageLoadFailed()
+        throw new Error("Failed to register the TurboNative adapter")
       }
     }
 
@@ -168,5 +169,29 @@
   }, false)
 
   window.turboNative = new TurboNative()
-  window.turboNative.pageLoaded()
+
+  const setup = function() {
+    window.turboNative.registerAdapter()
+    window.turboNative.pageLoaded()
+
+    document.removeEventListener("turbo:load", setup)
+    document.removeEventListener("turbolinks:load", setup)
+  }
+
+  const setupOnLoad = () => {
+    document.addEventListener("turbo:load", setup)
+    document.addEventListener("turbolinks:load", setup)
+
+    setTimeout(() => {
+      if (!window.Turbo && !window.Turbolinks) {
+        window.turboNative.pageLoadFailed()
+      }
+    }, TURBO_LOAD_TIMEOUT)
+  }
+
+  if (window.Turbo || window.Turbolinks) {
+    setup()
+  } else {
+    setupOnLoad()
+  }
 })()
