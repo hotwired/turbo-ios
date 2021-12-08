@@ -71,8 +71,12 @@ extension ColdBootVisit: WKNavigationDelegate {
                 fail(with: TurboError.http(statusCode: httpResponse.statusCode))
             }
         } else {
-            decisionHandler(.cancel)
-            fail(with: TurboError.http(statusCode: 0))
+            if (navigationResponse.response.url?.scheme == "blob") {
+                decisionHandler(.allow)
+            } else {
+                decisionHandler(.cancel)
+                fail(with: TurboError.http(statusCode: 0))
+            }
         }
     }
 
