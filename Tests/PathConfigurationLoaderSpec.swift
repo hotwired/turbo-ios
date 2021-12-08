@@ -34,7 +34,7 @@ class PathConfigurationLoaderSpec: QuickSpec {
                         config = conf
                     }
                     
-                    expect(config).toEventuallyNot(beNil())
+                    expect(config).toNot(beNil())
                     expect(config!.rules.count) == 4
                 }
             }

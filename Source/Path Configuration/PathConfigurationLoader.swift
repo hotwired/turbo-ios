@@ -131,8 +131,12 @@ final class PathConfigurationLoader {
     // MARK: - Delegate
     
     private func updateHandler(with config: PathConfigurationDecoder) {
-        DispatchQueue.main.async {
-            self.completionHandler?(config)
+        if Thread.isMainThread {
+            completionHandler?(config)
+        } else {
+            DispatchQueue.main.async { [weak self] in
+                self?.completionHandler?(config)
+            }
         }
     }
 }
