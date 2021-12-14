@@ -40,7 +40,13 @@
 
     visitLocationWithOptionsAndRestorationIdentifier(location, options, restorationIdentifier) {
       if (window.Turbo) {
-        Turbo.navigator.startVisit(location, restorationIdentifier, options)
+        if (Turbo.navigator.locationWithActionIsSamePage(new URL(location), options.action)) {
+          // Skip the same-page anchor scrolling behavior for visits initiated from the native
+          // side. The page content may be stale and we want a fresh request from the network.
+          Turbo.navigator.startVisit(location, restorationIdentifier, { "action": "replace" })
+        } else {
+          Turbo.navigator.startVisit(location, restorationIdentifier, options)
+        }
       } else if (window.Turbolinks) {
         if (Turbolinks.controller.startVisitToLocationWithAction) {
           // Turbolinks 5
