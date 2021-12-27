@@ -1,13 +1,13 @@
 # Installation
 
-Turbo iOS supports the following methods for installation:
+Turbo iOS supports many methods for installation. In every case you can get the version number from the [Releases](https://github.com/hotwired/turbo-ios/releases) on GitHub.
 
 ## Carthage
 
 Add the following to your `Cartfile`:
 
 ```
-github "hotwired/turbo-ios" ~> 7.0.0-beta.1
+github "hotwired/turbo-ios" ~> <latest-version>
 ```
 
 ## CocoaPods
@@ -15,7 +15,7 @@ github "hotwired/turbo-ios" ~> 7.0.0-beta.1
 Add the following to your `Podfile`:
 
 ```ruby
-pod 'Turbo', :git => 'https://github.com/hotwired/turbo-ios.git', :tag => '7.0.0-beta.1'
+pod 'Turbo', :git => 'https://github.com/hotwired/turbo-ios.git', :tag => '<latest-version>'
 ```
 
 Then run `pod install`.
@@ -25,7 +25,7 @@ Then run `pod install`.
 Add Turbo as a dependency through Xcode or directly to a Package.swift:
 
 ```
-.package(url: "https://github.com/hotwired/turbo-ios", from: "7.0.0-beta.1")
+.package(url: "https://github.com/hotwired/turbo-ios", from: "<latest-version>")
 ```
 
 ## Manual
