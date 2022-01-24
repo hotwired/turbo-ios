@@ -45,6 +45,9 @@ class TestSessionDelegate: NSObject, SessionDelegate {
         sessionDidFinishRequestCalled = true
     }
     
+    func sessionWebViewProcessDidTerminate(_ session: Session) {
+    }
+    
     func session(_ session: Session, didFailRequestForVisitable visitable: Visitable, error: Error) {
         sessionDidFailRequestCalled = true
         failedRequestError = error
