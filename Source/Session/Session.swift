@@ -297,6 +297,7 @@ extension Session: WKNavigationDelegate {
     
     public func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
         debugLog("[Session] webViewWebContentProcessDidTerminate")
+        delegate?.sessionWebViewProcessDidTerminate(self)
     }
     
     private func openExternalURL(_ url: URL) {
