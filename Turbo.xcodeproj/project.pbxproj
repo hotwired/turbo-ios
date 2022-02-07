@@ -54,6 +54,7 @@
 		C1D008382575960900A9CE85 /* test-configuration.json in Resources */ = {isa = PBXBuildFile; fileRef = C1D008342575960900A9CE85 /* test-configuration.json */; };
 		C1D008392575960900A9CE85 /* turbolinks.html in Resources */ = {isa = PBXBuildFile; fileRef = C1D008362575960900A9CE85 /* turbolinks.html */; };
 		C1D0083A2575960900A9CE85 /* turbolinks-5.3.0-dev.js in Resources */ = {isa = PBXBuildFile; fileRef = C1D008372575960900A9CE85 /* turbolinks-5.3.0-dev.js */; };
+		FCC9DFA827B1BE5100DAA0D0 /* Configure.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC9DFA727B1BE5100DAA0D0 /* Configure.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -117,6 +118,7 @@
 		C1D008342575960900A9CE85 /* test-configuration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "test-configuration.json"; sourceTree = "<group>"; };
 		C1D008362575960900A9CE85 /* turbolinks.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = turbolinks.html; sourceTree = "<group>"; };
 		C1D008372575960900A9CE85 /* turbolinks-5.3.0-dev.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "turbolinks-5.3.0-dev.js"; sourceTree = "<group>"; };
+		FCC9DFA727B1BE5100DAA0D0 /* Configure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configure.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +171,7 @@
 				C149E3C72575891C00158E8C /* Visitable */,
 				C149E3B62575863D00158E8C /* WebView */,
 				C149E3B52575862800158E8C /* Path Configuration */,
+				FCC9DFA727B1BE5100DAA0D0 /* Configure.swift */,
 				C149E3892575847700158E8C /* TurboError.swift */,
 				C149E37A2575847700158E8C /* Logging.swift */,
 				C149E3522575780900158E8C /* Info.plist */,
@@ -412,6 +415,7 @@
 				C149E3912575847800158E8C /* Session.swift in Sources */,
 				C149E38E2575847700158E8C /* SessionDelegate.swift in Sources */,
 				C149E39A2575847800158E8C /* VisitableViewController.swift in Sources */,
+				FCC9DFA827B1BE5100DAA0D0 /* Configure.swift in Sources */,
 				C149E3C9257589C700158E8C /* VisitResponse.swift in Sources */,
 				C149E39B2575847800158E8C /* ScriptMessage.swift in Sources */,
 				C149E3972575847800158E8C /* ScriptMessageHandler.swift in Sources */,
