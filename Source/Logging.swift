@@ -1,7 +1,5 @@
 import Foundation
 
-public typealias LoggingFunction = (String) -> Void
-
 struct Logging {
     static var logger: LoggingFunction?
     
@@ -17,15 +15,15 @@ struct Logging {
 }
 
 /// Simple function to help in debugging, a noop in Release builds
-func debugLog(_ item: Any, _ method: String = #function) {
+func debugLog(_ item: @escaping @autoclosure () -> Any, _ method: String = #function) {
     let formatMessage: () -> String = {
         var message: String
         
-        if let itemString = item as? String {
+        if let itemString = item() as? String {
             message = itemString
         } else {
             // Support passing object directly instead of string to print class and function
-            let component = String(describing: type(of: item))
+            let component = String(describing: type(of: item()))
             message = "[\(component)] \(method)"
         }
         
