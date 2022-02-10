@@ -38,10 +38,10 @@
 		C149E3BE257586EE00158E8C /* ColdBootVisit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C149E3BD257586EE00158E8C /* ColdBootVisit.swift */; };
 		C149E3C9257589C700158E8C /* VisitResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C149E3C8257589C700158E8C /* VisitResponse.swift */; };
 		C149E3E125758D6800158E8C /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = C149E3D725758D6800158E8C /* Test.swift */; };
-		C149E4082575928200158E8C /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C149E4042575928200158E8C /* Nimble.framework */; };
-		C149E4092575928200158E8C /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C149E4052575928200158E8C /* Quick.framework */; };
-		C149E40A2575928200158E8C /* OHHTTPStubs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C149E4062575928200158E8C /* OHHTTPStubs.framework */; };
-		C149E40B2575928200158E8C /* GCDWebServers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C149E4072575928200158E8C /* GCDWebServers.framework */; };
+		C149E4082575928200158E8C /* Nimble.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = C149E4042575928200158E8C /* Nimble.xcframework */; };
+		C149E4092575928200158E8C /* Quick.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = C149E4052575928200158E8C /* Quick.xcframework */; };
+		C149E40A2575928200158E8C /* OHHTTPStubs.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = C149E4062575928200158E8C /* OHHTTPStubs.xcframework */; };
+		C149E40B2575928200158E8C /* GCDWebServers.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = C149E4072575928200158E8C /* GCDWebServers.xcframework */; };
 		C1D00824257594D500A9CE85 /* ColdBootVisitSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = C149E3DF25758D6800158E8C /* ColdBootVisitSpec.swift */; };
 		C1D00825257594D500A9CE85 /* PathRuleSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = C149E3D925758D6800158E8C /* PathRuleSpec.swift */; };
 		C1D00826257594D500A9CE85 /* PathConfigurationSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = C149E3DA25758D6800158E8C /* PathConfigurationSpec.swift */; };
@@ -111,10 +111,10 @@
 		C149E3DE25758D6800158E8C /* SessionSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionSpec.swift; sourceTree = "<group>"; };
 		C149E3DF25758D6800158E8C /* ColdBootVisitSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColdBootVisitSpec.swift; sourceTree = "<group>"; };
 		C149E3E025758D6800158E8C /* ScriptMessageSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScriptMessageSpec.swift; sourceTree = "<group>"; };
-		C149E4042575928200158E8C /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
-		C149E4052575928200158E8C /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
-		C149E4062575928200158E8C /* OHHTTPStubs.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OHHTTPStubs.framework; path = Carthage/Build/iOS/OHHTTPStubs.framework; sourceTree = "<group>"; };
-		C149E4072575928200158E8C /* GCDWebServers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GCDWebServers.framework; path = Carthage/Build/iOS/GCDWebServers.framework; sourceTree = "<group>"; };
+		C149E4042575928200158E8C /* Nimble.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Nimble.xcframework; path = Carthage/Build/Nimble.xcframework; sourceTree = "<group>"; };
+		C149E4052575928200158E8C /* Quick.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Quick.xcframework; path = Carthage/Build/Quick.xcframework; sourceTree = "<group>"; };
+		C149E4062575928200158E8C /* OHHTTPStubs.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = OHHTTPStubs.xcframework; path = Carthage/Build/OHHTTPStubs.xcframework; sourceTree = "<group>"; };
+		C149E4072575928200158E8C /* GCDWebServers.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = GCDWebServers.xcframework; path = Carthage/Build/GCDWebServers.xcframework; sourceTree = "<group>"; };
 		C1D008342575960900A9CE85 /* test-configuration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "test-configuration.json"; sourceTree = "<group>"; };
 		C1D008362575960900A9CE85 /* turbolinks.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = turbolinks.html; sourceTree = "<group>"; };
 		C1D008372575960900A9CE85 /* turbolinks-5.3.0-dev.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "turbolinks-5.3.0-dev.js"; sourceTree = "<group>"; };
@@ -134,10 +134,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				C149E3582575780900158E8C /* Turbo.framework in Frameworks */,
-				C149E4082575928200158E8C /* Nimble.framework in Frameworks */,
-				C149E4092575928200158E8C /* Quick.framework in Frameworks */,
-				C149E40A2575928200158E8C /* OHHTTPStubs.framework in Frameworks */,
-				C149E40B2575928200158E8C /* GCDWebServers.framework in Frameworks */,
+				C149E4082575928200158E8C /* Nimble.xcframework in Frameworks */,
+				C149E4092575928200158E8C /* Quick.xcframework in Frameworks */,
+				C149E40A2575928200158E8C /* OHHTTPStubs.xcframework in Frameworks */,
+				C149E40B2575928200158E8C /* GCDWebServers.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,10 +261,10 @@
 		C149E4032575928200158E8C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C149E4072575928200158E8C /* GCDWebServers.framework */,
-				C149E4042575928200158E8C /* Nimble.framework */,
-				C149E4062575928200158E8C /* OHHTTPStubs.framework */,
-				C149E4052575928200158E8C /* Quick.framework */,
+				C149E4072575928200158E8C /* GCDWebServers.xcframework */,
+				C149E4042575928200158E8C /* Nimble.xcframework */,
+				C149E4062575928200158E8C /* OHHTTPStubs.xcframework */,
+				C149E4052575928200158E8C /* Quick.xcframework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -649,14 +649,14 @@
 				DEVELOPMENT_TEAM = 2WNYUYRS7G;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Carthage/Build",
 				);
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Carthage/Build",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = dev.hotwire.turbo.tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -675,14 +675,14 @@
 				DEVELOPMENT_TEAM = 2WNYUYRS7G;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Carthage/Build",
 				);
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Carthage/Build",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = dev.hotwire.turbo.tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
