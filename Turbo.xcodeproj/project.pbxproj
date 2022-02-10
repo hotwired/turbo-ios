@@ -55,6 +55,7 @@
 		C1D008392575960900A9CE85 /* turbolinks.html in Resources */ = {isa = PBXBuildFile; fileRef = C1D008362575960900A9CE85 /* turbolinks.html */; };
 		C1D0083A2575960900A9CE85 /* turbolinks-5.3.0-dev.js in Resources */ = {isa = PBXBuildFile; fileRef = C1D008372575960900A9CE85 /* turbolinks-5.3.0-dev.js */; };
 		FCC9DFA827B1BE5100DAA0D0 /* Configure.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC9DFA727B1BE5100DAA0D0 /* Configure.swift */; };
+		FCC9DFB727B5788200DAA0D0 /* ConfigureSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC9DFB627B5788200DAA0D0 /* ConfigureSpec.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,6 +120,7 @@
 		C1D008362575960900A9CE85 /* turbolinks.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = turbolinks.html; sourceTree = "<group>"; };
 		C1D008372575960900A9CE85 /* turbolinks-5.3.0-dev.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "turbolinks-5.3.0-dev.js"; sourceTree = "<group>"; };
 		FCC9DFA727B1BE5100DAA0D0 /* Configure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configure.swift; sourceTree = "<group>"; };
+		FCC9DFB627B5788200DAA0D0 /* ConfigureSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigureSpec.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,6 +197,7 @@
 				C149E3DA25758D6800158E8C /* PathConfigurationSpec.swift */,
 				C149E3D925758D6800158E8C /* PathRuleSpec.swift */,
 				C149E3E025758D6800158E8C /* ScriptMessageSpec.swift */,
+				FCC9DFB627B5788200DAA0D0 /* ConfigureSpec.swift */,
 				C149E35E2575780900158E8C /* Info.plist */,
 			);
 			path = Tests;
@@ -453,6 +456,7 @@
 				C1D0082B257594D500A9CE85 /* JavaScriptExpressionSpec.swift in Sources */,
 				C1D0082A257594D500A9CE85 /* VisitOptionsSpec.swift in Sources */,
 				C1D0082C257594D500A9CE85 /* PathConfigurationLoaderSpec.swift in Sources */,
+				FCC9DFB727B5788200DAA0D0 /* ConfigureSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
