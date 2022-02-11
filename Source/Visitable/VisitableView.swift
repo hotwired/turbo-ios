@@ -24,7 +24,7 @@ open class VisitableView: UIView {
     open func activateWebView(_ webView: WKWebView, forVisitable visitable: Visitable) {
         self.webView = webView
         self.visitable = visitable
-        addSubview(webView)
+        insertSubview(webView, at: 0)
         addFillConstraints(for: webView)
         installRefreshControl()
         showOrHideWebView()
@@ -67,13 +67,13 @@ open class VisitableView: UIView {
         guard let scrollView = webView?.scrollView, allowsPullToRefresh else { return }
         
         #if !targetEnvironment(macCatalyst)
-        scrollView.addSubview(refreshControl)
+        scrollView.refreshControl = refreshControl
         #endif
     }
 
     private func removeRefreshControl() {
         refreshControl.endRefreshing()
-        refreshControl.removeFromSuperview()
+        webView?.scrollView.refreshControl = nil
     }
 
     @objc func refresh(_ sender: AnyObject) {

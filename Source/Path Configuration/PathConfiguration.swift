@@ -2,7 +2,7 @@ import Foundation
 
 public typealias PathProperties = [String: AnyHashable]
 
-public protocol PathConfigurationDelegate: class {
+public protocol PathConfigurationDelegate: AnyObject {
     /// Notifies delegate when a path configuration has been updated with new data
     func pathConfigurationDidUpdate()
 }
