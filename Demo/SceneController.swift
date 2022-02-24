@@ -28,8 +28,7 @@ final class SceneController: UIResponder {
             window.rootViewController = turboNavController
         }
         
-        turboNavController.session = session
-        turboNavController.modalSession = modalSession
+        turboNavController.turboDelegate = self
     }
     
     // MARK: - Authentication
@@ -42,8 +41,8 @@ final class SceneController: UIResponder {
     
     // MARK: - Sessions
     
-    private lazy var session = makeSession()
-    private lazy var modalSession = makeSession()
+    private var session: Session?
+    private var modalSession: Session?
     
     private func makeSession() -> Session {
         let configuration = WKWebViewConfiguration()
@@ -61,6 +60,22 @@ final class SceneController: UIResponder {
     private lazy var pathConfiguration = PathConfiguration(sources: [
         .file(Bundle.main.url(forResource: "path-configuration", withExtension: "json")!),
     ])
+}
+
+extension SceneController: TurboNavigationControllerDelegate {
+    func getSession() -> Session {
+        if session == nil {
+            session = makeSession()
+        }
+        return session!
+    }
+    
+    func getModalSession() -> Session {
+        if modalSession == nil {
+            modalSession = makeSession()
+        }
+        return modalSession!
+    }
 }
 
 extension SceneController: UIWindowSceneDelegate {
@@ -82,7 +97,7 @@ extension SceneController: SessionDelegate {
             promptForAuthentication()
         } else if let errorPresenter = visitable as? ErrorPresenter {
             errorPresenter.presentError(error) { [weak self] in
-                self?.session.reload()
+                self?.getSession().reload()
             }
         } else {
             let alert = UIAlertController(title: "Visit failed!", message: error.localizedDescription, preferredStyle: .alert)
@@ -91,34 +106,27 @@ extension SceneController: SessionDelegate {
         }
     }
     
-    func sessionDidLoadWebView(_ session: Session) {
-        session.webView.navigationDelegate = self
-    }
-}
-
-extension SceneController: WKNavigationDelegate {
-    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        if navigationAction.navigationType == .linkActivated {
-            // Any link that's not on the same domain as the Turbo root url will go through here
-            // Other links on the domain, but that have an extension that is non-html will also go here
-            // You can decide how to handle those, by default if you're not the navigationDelegate
-            // the Session will open them in the default browser
-            
-            let url = navigationAction.request.url!
-            
-            // For this demo, we'll load files from our domain in a SafariViewController so you
-            // don't need to leave the app. You might expand this in your app
-            // to open all audio/video/images in a native media viewer
-            if url.host == rootURL.host, !url.pathExtension.isEmpty {
-                let safariViewController = SFSafariViewController(url: url)
-                navigationController.present(safariViewController, animated: true)
-            } else {
-                UIApplication.shared.open(url)
-            }
-            
-            decisionHandler(.cancel)
+    func session(_ session: Session, openExternalURL url: URL) {
+        // If you don't implement this delegate function then the default behavior will be
+        // open urls in the default iOS browser.
+        
+        // For this demo, we'll load files from our domain in a SafariViewController so you
+        // don't need to leave the app. You might expand this in your app
+        // to open all audio/video/images in a native media viewer.
+        
+        if url.host == rootURL.host, !url.pathExtension.isEmpty {
+            let safariViewController = SFSafariViewController(url: url)
+            navigationController.present(safariViewController, animated: true)
         } else {
-            decisionHandler(.allow)
+            UIApplication.shared.open(url)
+        }
+    }
+    
+    func sessionWebViewProcessDidTerminate(_ session: Session) {
+        if self.session == session {
+            self.session = nil
+        } else if modalSession == session {
+            modalSession = nil
         }
     }
 }

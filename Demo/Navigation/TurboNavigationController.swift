@@ -9,12 +9,26 @@ import Foundation
 import UIKit
 import Turbo
 
+protocol TurboNavigationControllerDelegate: AnyObject {
+    func getSession() -> Session
+    func getModalSession() -> Session
+}
+
 class TurboNavigationController : UINavigationController {
-    
-    var session: Session!
-    var modalSession: Session!
-    
+    weak var turboDelegate: TurboNavigationControllerDelegate?
+
+    private var session: Session? {
+        turboDelegate?.getSession()
+    }
+    private var modalSession: Session? {
+        turboDelegate?.getModalSession()
+    }
+
     func push(url: URL) {
+        guard let session = session else {
+            return
+        }
+        
         let properties = session.pathConfiguration?.properties(for: url) ?? [:]
         route(url: url,
               options: VisitOptions(action: .advance),
@@ -33,7 +47,7 @@ class TurboNavigationController : UINavigationController {
         // Special case of navigating home, issue a reload
         if url.path == "/", !viewControllers.isEmpty {
             popViewController(animated: false)
-            session.reload()
+            session?.reload()
             return
         }
         
@@ -105,9 +119,9 @@ extension TurboNavigationController {
         // when presenting a modal. We keep that around for any modal presentations so
         // we don't have to create more than we need since each new session incurs a cold boot visit cost
         if modal {
-            modalSession.visit(visitable, options: options)
+            modalSession?.visit(visitable, options: options)
         } else {
-            session.visit(visitable, options: options)
+            session?.visit(visitable, options: options)
         }
     }
 }
