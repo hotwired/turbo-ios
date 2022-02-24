@@ -25,7 +25,6 @@ public extension SessionDelegate {
     
     func sessionDidStartRequest(_ session: Session) {}
     func sessionDidFinishRequest(_ session: Session) {}
-    func sessionWebViewProcessDidTerminate(_ session: Session) {}
 
     func session(_ session: Session, didReceiveAuthenticationChallenge challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
         completionHandler(.performDefaultHandling, nil)
