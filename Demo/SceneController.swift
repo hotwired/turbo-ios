@@ -96,6 +96,7 @@ extension SceneController: SessionDelegate {
     }
     
     func sessionWebViewProcessDidTerminate(_ session: Session) {
+        session.reload()
     }
 }
 
