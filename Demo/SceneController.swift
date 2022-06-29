@@ -94,6 +94,10 @@ extension SceneController: SessionDelegate {
     func sessionDidLoadWebView(_ session: Session) {
         session.webView.navigationDelegate = self
     }
+    
+    func sessionWebViewProcessDidTerminate(_ session: Session) {
+        session.reload()
+    }
 }
 
 extension SceneController: WKNavigationDelegate {
