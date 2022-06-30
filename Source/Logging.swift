@@ -1,17 +1,22 @@
 import Foundation
 
+public struct TurboLog {
+    public static var debugLoggingEnabled = false
+}
+
 /// Simple function to help in debugging, a noop in Release builds
-func debugLog(_ text: String, _ arguments: [String: Any] = [:]) {
-    #if DEBUG
+func debugLog(_ message: String, _ arguments: [String: Any] = [:]) {
     let timestamp = Date()
     
-    print("\(timestamp) \(text) \(arguments)")
-    
-    #endif
+    log("\(timestamp) \(message) \(arguments)")
 }
 
 func debugPrint(_ message: String) {
-    #if DEBUG
-    print(message)
-    #endif
+    log(message)
+}
+
+private func log(_ message: String) {
+    if TurboLog.debugLoggingEnabled {
+        print(message)
+    }
 }
