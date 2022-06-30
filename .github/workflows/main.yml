@@ -18,7 +18,7 @@ jobs:
           carthage-
 
     - name: Build Dependencies
-      run: bin/carthage.sh bootstrap --cache-builds --platform ios
+      run: bin/carthage.sh bootstrap --cache-builds --use-xcframeworks --platform ios
       env:
         DEVELOPER_DIR: /Applications/Xcode_13.2.1.app
 
