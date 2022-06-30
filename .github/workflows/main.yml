@@ -12,17 +12,17 @@ jobs:
       uses: actions/cache@v2
       with:
         path: Carthage
-        key: carthage-xcode12.2-${{ hashFiles('Cartfile.resolved') }}
+        key: carthage-xcode13.2.1-${{ hashFiles('Cartfile.resolved') }}
         restore-keys: |
-          carthage-xcode12.2
+          carthage-xcode13.2.1
           carthage-
 
     - name: Build Dependencies
-      run: bin/carthage.sh bootstrap --cache-builds --platform ios
+      run: bin/carthage.sh bootstrap --cache-builds --use-xcframeworks --platform ios
       env:
-        DEVELOPER_DIR: /Applications/Xcode_12.2.app
+        DEVELOPER_DIR: /Applications/Xcode_13.2.1.app
 
     - name: Run Tests
-      run: xcodebuild -project Turbo.xcodeproj -scheme Turbo test -quiet -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 12'
+      run: xcodebuild -project Turbo.xcodeproj -scheme Turbo test -quiet -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 13'
       env:
-        DEVELOPER_DIR: /Applications/Xcode_12.2.app
+        DEVELOPER_DIR: /Applications/Xcode_13.2.1.app
