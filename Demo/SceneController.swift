@@ -96,7 +96,7 @@ extension SceneController: SessionDelegate {
     // don't want potentially stale cached snapshots to be used
     func sessionDidFinishFormSubmission(_ session: Session) {
         if (session == modalSession) {
-            session.clearSnapshotCache()
+            self.session.clearSnapshotCache()
         }
     }
     
