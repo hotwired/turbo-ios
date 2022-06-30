@@ -1,17 +1,18 @@
 import Foundation
 
-/// Simple function to help in debugging, a noop in Release builds
+/// Simple function to help in debugging.
+/// Add the `turbo:log` argument in Xcode to enable.
 func debugLog(_ text: String, _ arguments: [String: Any] = [:]) {
-    #if DEBUG
     let timestamp = Date()
-    
-    print("\(timestamp) \(text) \(arguments)")
-    
-    #endif
+    log("\(timestamp) \(text) \(arguments)")
 }
 
 func debugPrint(_ message: String) {
-    #if DEBUG
-    print(message)
-    #endif
+    log(message)
+}
+
+private func log(_ message: String) {
+    if ProcessInfo.processInfo.arguments.contains("turbo:log") {
+        print(message)
+    }
 }
