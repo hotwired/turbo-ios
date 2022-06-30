@@ -1,9 +1,14 @@
 import UIKit
+import Turbo
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        true
+        #if DEBUG
+        TurboLog.debugLoggingEnabled = true
+        #endif
+        
+        return true
     }
 
     // MARK: UISceneSession Lifecycle
