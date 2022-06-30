@@ -16,26 +16,26 @@ final class JavaScriptVisit: Visit {
     }
 
     override func startVisit() {
-        debugLog(self)
+        log("startVisit")
         bridge.visitDelegate = self
         bridge.visitLocation(location, options: options, restorationIdentifier: restorationIdentifier)
     }
 
     override func cancelVisit() {
-        debugLog(self)
+        log("cancelVisit")
         bridge.cancelVisit(withIdentifier: identifier)
         finishRequest()
     }
 
     override func failVisit() {
-        debugLog(self)
+        log("failVisit")
         finishRequest()
     }
 }
 
 extension JavaScriptVisit: WebViewVisitDelegate {
     func webView(_ webView: WebViewBridge, didStartVisitWithIdentifier identifier: String, hasCachedSnapshot: Bool) {
-        debugLog(self)
+        log("didStartVisitWithIdentifier", ["identifier": identifier, "hasCachedSnapshot": hasCachedSnapshot])
         self.identifier = identifier
         self.hasCachedSnapshot = hasCachedSnapshot
         
@@ -44,13 +44,13 @@ extension JavaScriptVisit: WebViewVisitDelegate {
     
     func webView(_ webView: WebViewBridge, didStartRequestForVisitWithIdentifier identifier: String, date: Date) {
         guard identifier == self.identifier else { return }
-        debugLog(self)
+        log("didFinishRequestForVisitWithIdentifier", ["identifier": identifier, "date": date])
         startRequest()
     }
     
     func webView(_ webView: WebViewBridge, didCompleteRequestForVisitWithIdentifier identifier: String) {
         guard identifier == self.identifier else { return }
-        debugLog(self)
+        log("didCompleteRequestForVisitWithIdentifier", ["identifier": identifier])
         
         if hasCachedSnapshot {
             delegate?.visitWillLoadResponse(self)
@@ -60,28 +60,33 @@ extension JavaScriptVisit: WebViewVisitDelegate {
     func webView(_ webView: WebViewBridge, didFailRequestForVisitWithIdentifier identifier: String, statusCode: Int) {
         guard identifier == self.identifier else { return }
         
+        log("didFailRequestForVisitWithIdentifier", ["identifier": identifier, "statusCode": statusCode])
         fail(with: TurboError(statusCode: statusCode))
     }
     
     func webView(_ webView: WebViewBridge, didFinishRequestForVisitWithIdentifier identifier: String, date: Date) {
         guard identifier == self.identifier else { return }
         
-        debugLog(self)
+        log("didFinishRequestForVisitWithIdentifier", ["identifier": identifier, "date": date])
         finishRequest()
     }
     
     func webView(_ webView: WebViewBridge, didRenderForVisitWithIdentifier identifier: String) {
         guard identifier == self.identifier else { return }
         
-        debugLog(self)
+        log("didRenderForVisitWithIdentifier", ["identifier": identifier])
         delegate?.visitDidRender(self)
     }
     
     func webView(_ webView: WebViewBridge, didCompleteVisitWithIdentifier identifier: String, restorationIdentifier: String) {
         guard identifier == self.identifier else { return }
         
-        debugLog(self)
+        log("didCompleteVisitWithIdentifier", ["identifier": identifier, "restorationIdentifier": restorationIdentifier])
         self.restorationIdentifier = restorationIdentifier
         complete()
+    }
+    
+    private func log(_ name: String, _ arguments: [String: Any] = [:]) {
+        debugLog("[JavascriptVisit] \(name) \(location.absoluteString)", arguments)
     }
 }

@@ -7,7 +7,7 @@ final class ColdBootVisit: Visit {
     private(set) var navigation: WKNavigation?
 
     override func startVisit() {
-        debugLog(self)
+        log("startVisit")
 
         webView.navigationDelegate = self
         bridge.pageLoadDelegate = self
@@ -23,17 +23,23 @@ final class ColdBootVisit: Visit {
     }
 
     override func cancelVisit() {
+        log("cancelVisit")
+        
         removeNavigationDelegate()
         webView.stopLoading()
         finishRequest()
     }
 
     override func completeVisit() {
+        log("completeVisit")
+        
         removeNavigationDelegate()
         delegate?.visitDidInitializeWebView(self)
     }
 
     override func failVisit() {
+        log("failVisit")
+        
         removeNavigationDelegate()
         finishRequest()
     }
@@ -41,6 +47,10 @@ final class ColdBootVisit: Visit {
     private func removeNavigationDelegate() {
         guard webView.navigationDelegate === self else { return }
         webView.navigationDelegate = nil
+    }
+    
+    private func log(_ name: String) {
+        debugLog("[ColdBootVisit] \(name) \(location.absoluteString)")
     }
 }
 
