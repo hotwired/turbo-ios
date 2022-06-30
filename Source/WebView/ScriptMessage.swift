@@ -59,6 +59,8 @@ extension ScriptMessage {
         case visitRequestFinished
         case visitRendered
         case visitCompleted
+        case formSubmissionStarted
+        case formSubmissionFinished
         case pageInvalidated
         case log
     }
