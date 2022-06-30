@@ -45,6 +45,12 @@ class TestSessionDelegate: NSObject, SessionDelegate {
         sessionDidFinishRequestCalled = true
     }
     
+    func sesssionDidStartFormSubmission(_ session: Session) {
+    }
+    
+    func sessionDidFinishFormSubmission(_ session: Session) {
+    }
+    
     func sessionWebViewProcessDidTerminate(_ session: Session) {
     }
     

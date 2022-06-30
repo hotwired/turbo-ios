@@ -86,6 +86,10 @@ public class Session: NSObject {
         visit(visitable)
         topmostVisit = currentVisit
     }
+    
+    public func clearSnapshotCache() {
+        bridge.clearSnapshotCache()
+    }
 
     // MARK: Visitable activation
 
@@ -255,6 +259,14 @@ extension Session: WebViewDelegate {
         let properties = pathConfiguration?.properties(for: location) ?? [:]
         let proposal = VisitProposal(url: location, options: options, properties: properties)
         delegate?.session(self, didProposeVisit: proposal)
+    }
+    
+    func webView(_ webView: WebViewBridge, didStartFormSubmissionToLocation location: URL) {
+        delegate?.sessionDidStartFormSubmission(self)
+    }
+    
+    func webView(_ webView: WebViewBridge, didFinishFormSubmissionToLocation location: URL) {
+        delegate?.sessionDidFinishFormSubmission(self)
     }
 
     func webViewDidInvalidatePage(_ bridge: WebViewBridge) {
