@@ -64,6 +64,8 @@ public class Session: NSObject {
         let visit = makeVisit(for: visitable, options: options ?? VisitOptions())
         currentVisit?.cancel()
         currentVisit = visit
+        
+        log("visit", ["location": visit.location, "options": visit.options, "reload": reload])
 
         visit.delegate = self
         visit.start()
@@ -296,11 +298,12 @@ extension Session: WKNavigationDelegate {
     }
     
     public func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
-        debugLog("[Session] webViewWebContentProcessDidTerminate")
+        log("webViewWebContentProcessDidTerminate")
         delegate?.sessionWebViewProcessDidTerminate(self)
     }
     
     private func openExternalURL(_ url: URL) {
+        log("openExternalURL", ["url": url])
         delegate?.session(self, openExternalURL: url)
     }
 
@@ -333,4 +336,8 @@ extension Session: WKNavigationDelegate {
             navigationAction.targetFrame?.isMainFrame ?? false
         }
     }
+}
+
+private func log(_ name: String, _ arguments: [String: Any] = [:]) {
+    debugLog("[Session] \(name)", arguments)
 }

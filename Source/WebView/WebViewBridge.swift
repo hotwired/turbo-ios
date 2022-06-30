@@ -84,7 +84,7 @@ final class WebViewBridge {
             return
         }
         
-        debugLog("[Bridge] → \(function)")
+        debugLog("[Bridge] → \(function) \(arguments)")
 
         webView.evaluateJavaScript(script) { result, error in
             debugLog("[Bridge] = \(function) evaluation complete")
@@ -103,7 +103,7 @@ extension WebViewBridge: ScriptMessageHandlerDelegate {
         guard let message = ScriptMessage(message: scriptMessage) else { return }
         
         if message.name != .log {
-            debugLog("[Bridge] ← \(message.name)")
+            debugLog("[Bridge] ← \(message.name) \(message.data)")
         }
         
         switch message.name {
