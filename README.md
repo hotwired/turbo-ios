@@ -40,6 +40,8 @@ The best way to get started with Turbo iOS to try out the demo app first to get 
 
 ## Contributing
 
+Read the [contributing guide](/CONTRIBUTING.md) to learn how to set up your development environment.
+
 Turbo iOS is open-source software, freely distributable under the terms of an [MIT-style license](LICENSE). The [source code is hosted on GitHub](https://github.com/hotwired/turbo-ios).
 Development is sponsored by [Basecamp](https://basecamp.com/).
 
