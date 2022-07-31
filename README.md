@@ -35,6 +35,7 @@ The best way to get started with Turbo iOS to try out the demo app first to get 
 - [Overview](Docs/Overview.md)
 - [Authentication](Docs/Authentication.md)
 - [Path Configuration](Docs/PathConfiguration.md)
+- [Turbo Configuration](Docs/Configuration.md)
 - [Migration](Docs/Migration.md)
 - [Advanced](Docs/Advanced.md)
 

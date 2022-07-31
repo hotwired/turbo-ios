@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		844BAE4B2897309A00124498 /* Turbo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844BAE4A2897309A00124498 /* Turbo.swift */; };
 		C10DF22A257ABD3D009412E7 /* VisitProposal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10DF229257ABD3D009412E7 /* VisitProposal.swift */; };
 		C13ABAF1259142200001E6F4 /* turbolinks-5.3.html in Resources */ = {isa = PBXBuildFile; fileRef = C13ABAF0259142200001E6F4 /* turbolinks-5.3.html */; };
 		C13ABAF72591422F0001E6F4 /* turbo.html in Resources */ = {isa = PBXBuildFile; fileRef = C13ABAF62591422F0001E6F4 /* turbo.html */; };
@@ -67,6 +68,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		844BAE4A2897309A00124498 /* Turbo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Turbo.swift; sourceTree = "<group>"; };
 		C10DF229257ABD3D009412E7 /* VisitProposal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitProposal.swift; sourceTree = "<group>"; };
 		C13ABAF0259142200001E6F4 /* turbolinks-5.3.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "turbolinks-5.3.html"; sourceTree = "<group>"; };
 		C13ABAF62591422F0001E6F4 /* turbo.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = turbo.html; sourceTree = "<group>"; };
@@ -169,8 +171,9 @@
 				C149E3C72575891C00158E8C /* Visitable */,
 				C149E3B62575863D00158E8C /* WebView */,
 				C149E3B52575862800158E8C /* Path Configuration */,
-				C149E3892575847700158E8C /* TurboError.swift */,
 				C149E37A2575847700158E8C /* Logging.swift */,
+				844BAE4A2897309A00124498 /* Turbo.swift */,
+				C149E3892575847700158E8C /* TurboError.swift */,
 				C149E3522575780900158E8C /* Info.plist */,
 			);
 			name = Turbo;
@@ -413,6 +416,7 @@
 				C149E38E2575847700158E8C /* SessionDelegate.swift in Sources */,
 				C149E39A2575847800158E8C /* VisitableViewController.swift in Sources */,
 				C149E3C9257589C700158E8C /* VisitResponse.swift in Sources */,
+				844BAE4B2897309A00124498 /* Turbo.swift in Sources */,
 				C149E39B2575847800158E8C /* ScriptMessage.swift in Sources */,
 				C149E3972575847800158E8C /* ScriptMessageHandler.swift in Sources */,
 				C149E3962575847800158E8C /* Visit.swift in Sources */,

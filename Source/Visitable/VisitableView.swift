@@ -82,6 +82,8 @@ open class VisitableView: UIView {
 
     // MARK: Activity Indicator
 
+    private var activityIndicatorViewStoppedAnimating = false
+
     open lazy var activityIndicatorView: UIActivityIndicatorView = {
         let view: UIActivityIndicatorView
         
@@ -108,12 +110,19 @@ open class VisitableView: UIView {
     open func showActivityIndicator() {
         guard !isRefreshing else { return }
 
-        activityIndicatorView.startAnimating()
-        bringSubviewToFront(activityIndicatorView)
+        perform(#selector(startAnimatingActivityIndicatorView), with: nil, afterDelay: Turbo.activityIndicatorViewDelay)
     }
 
     open func hideActivityIndicator() {
+        activityIndicatorViewStoppedAnimating = true
         activityIndicatorView.stopAnimating()
+    }
+
+    @objc private func startAnimatingActivityIndicatorView() {
+        guard !activityIndicatorViewStoppedAnimating else { return }
+
+        activityIndicatorView.startAnimating()
+        bringSubviewToFront(activityIndicatorView)
     }
 
     // MARK: Screenshots
