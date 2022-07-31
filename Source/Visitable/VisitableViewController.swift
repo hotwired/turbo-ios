@@ -8,21 +8,21 @@ open class VisitableViewController: UIViewController, Visitable {
         self.init()
         self.visitableURL = url
     }
-    
+
     // MARK: View Lifecycle
 
-    open override func viewDidLoad() {
+    override open func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
         installVisitableView()
     }
 
-    open override func viewWillAppear(_ animated: Bool) {
+    override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         visitableDelegate?.visitableViewWillAppear(self)
     }
 
-    open override func viewDidAppear(_ animated: Bool) {
+    override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         visitableDelegate?.visitableViewDidAppear(self)
     }
@@ -32,15 +32,15 @@ open class VisitableViewController: UIViewController, Visitable {
     open func visitableDidRender() {
         title = visitableView.webView?.title
     }
-    
+
     open func showVisitableActivityIndicator() {
         visitableView.showActivityIndicator()
     }
-    
+
     open func hideVisitableActivityIndicator() {
         visitableView.hideActivityIndicator()
     }
-    
+
     // MARK: Visitable View
 
     open private(set) lazy var visitableView: VisitableView! = {

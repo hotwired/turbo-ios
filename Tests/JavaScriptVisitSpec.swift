@@ -1,8 +1,6 @@
-import Quick
 import Nimble
+import Quick
 
 class JavaScriptVisitSpec: QuickSpec {
-    override func spec() {
-
-    }
+    override func spec() {}
 }

@@ -22,7 +22,7 @@ extension JSONCodable {
             return nil
         }
     }
-    
+
     func toJSON() -> Any {
         do {
             let encoder = JSONEncoder()

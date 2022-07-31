@@ -2,12 +2,12 @@ import UIKit
 import WebKit
 
 open class VisitableView: UIView {
-    public override init(frame: CGRect) {
+    override public init(frame: CGRect) {
         super.init(frame: frame)
         setup()
     }
-    
-    required public init?(coder aDecoder: NSCoder) {
+
+    public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
     }
@@ -65,7 +65,7 @@ open class VisitableView: UIView {
 
     private func installRefreshControl() {
         guard let scrollView = webView?.scrollView, allowsPullToRefresh else { return }
-        
+
         #if !targetEnvironment(macCatalyst)
         scrollView.addSubview(refreshControl)
         #endif
@@ -84,13 +84,13 @@ open class VisitableView: UIView {
 
     open lazy var activityIndicatorView: UIActivityIndicatorView = {
         let view: UIActivityIndicatorView
-        
+
         if #available(iOS 13.0, *) {
             view = UIActivityIndicatorView(style: .medium)
         } else {
             view = UIActivityIndicatorView(style: .white)
         }
-        
+
         view.translatesAutoresizingMaskIntoConstraints = false
         view.color = UIColor.gray
         view.hidesWhenStopped = true
@@ -132,7 +132,7 @@ open class VisitableView: UIView {
     }
 
     open func updateScreenshot() {
-        guard !isShowingScreenshot, let webView = self.webView, let screenshot = webView.snapshotView(afterScreenUpdates: false) else { return }
+        guard !isShowingScreenshot, let webView = webView, let screenshot = webView.snapshotView(afterScreenUpdates: false) else { return }
 
         screenshotView?.removeFromSuperview()
         screenshot.translatesAutoresizingMaskIntoConstraints = false
@@ -145,7 +145,7 @@ open class VisitableView: UIView {
             screenshot.heightAnchor.constraint(equalToConstant: screenshot.bounds.size.height)
         ])
 
-        screenshotView = screenshot        
+        screenshotView = screenshot
     }
 
     open func showScreenshot() {
@@ -166,7 +166,7 @@ open class VisitableView: UIView {
     }
 
     // MARK: - Constraints
-    
+
     private func addFillConstraints(for view: UIView) {
         NSLayoutConstraint.activate([
             view.leadingAnchor.constraint(equalTo: leadingAnchor),

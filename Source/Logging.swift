@@ -1,13 +1,13 @@
 import Foundation
 
-public struct TurboLog {
+public enum TurboLog {
     public static var debugLoggingEnabled = false
 }
 
 /// Simple function to help in debugging, a noop in Release builds
 func debugLog(_ message: String, _ arguments: [String: Any] = [:]) {
     let timestamp = Date()
-    
+
     log("\(timestamp) \(message) \(arguments)")
 }
 

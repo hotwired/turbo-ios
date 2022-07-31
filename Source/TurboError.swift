@@ -7,7 +7,7 @@ public enum TurboError: LocalizedError, Equatable {
     case contentTypeMismatch
     case pageLoadFailure
     case http(statusCode: Int)
-    
+
     init(statusCode: Int) {
         switch statusCode {
         case 0:
@@ -20,7 +20,7 @@ public enum TurboError: LocalizedError, Equatable {
             self = .http(statusCode: statusCode)
         }
     }
-    
+
     public var errorDescription: String? {
         switch self {
         case .networkFailure:

@@ -7,10 +7,10 @@ import WebKit
 /// when using modals or tabs
 public class Session: NSObject {
     public weak var delegate: SessionDelegate?
-    
+
     public let webView: WKWebView
     public var pathConfiguration: PathConfiguration?
-    
+
     private lazy var bridge = WebViewBridge(webView: webView)
     private var initialized = false
     private var refreshing = false
@@ -19,18 +19,18 @@ public class Session: NSObject {
     public convenience init(webViewConfiguration: WKWebViewConfiguration? = nil) {
         self.init(webView: WKWebView(frame: .zero, configuration: webViewConfiguration ?? WKWebViewConfiguration()))
     }
-    
+
     public init(webView: WKWebView) {
         self.webView = webView
         super.init()
         setup()
     }
-    
+
     private func setup() {
         webView.translatesAutoresizingMaskIntoConstraints = false
         bridge.delegate = self
     }
-    
+
     // MARK: Visiting
 
     private var currentVisit: Visit?
@@ -40,7 +40,7 @@ public class Session: NSObject {
     public var topmostVisitable: Visitable? {
         topmostVisit?.visitable
     }
-    
+
     /// The active visitable is the visitable that currently owns the web view
     public var activeVisitable: Visitable? {
         activatedVisitable
@@ -49,7 +49,7 @@ public class Session: NSObject {
     public func visit(_ visitable: Visitable, action: VisitAction) {
         visit(visitable, options: VisitOptions(action: action, response: nil))
     }
-    
+
     public func visit(_ visitable: Visitable, options: VisitOptions? = nil, reload: Bool = false) {
         guard visitable.visitableURL != nil else {
             fatalError("Visitable must provide a url!")
@@ -60,17 +60,17 @@ public class Session: NSObject {
         if reload {
             initialized = false
         }
-        
+
         let visit = makeVisit(for: visitable, options: options ?? VisitOptions())
         currentVisit?.cancel()
         currentVisit = visit
-        
+
         log("visit", ["location": visit.location, "options": visit.options, "reload": reload])
 
         visit.delegate = self
         visit.start()
     }
-    
+
     private func makeVisit(for visitable: Visitable, options: VisitOptions) -> Visit {
         if initialized {
             return JavaScriptVisit(visitable: visitable, options: options, bridge: bridge, restorationIdentifier: restorationIdentifier(for: visitable))
@@ -86,7 +86,7 @@ public class Session: NSObject {
         visit(visitable)
         topmostVisit = currentVisit
     }
-    
+
     public func clearSnapshotCache() {
         bridge.clearSnapshotCache()
     }
@@ -97,12 +97,12 @@ public class Session: NSObject {
 
     private func activateVisitable(_ visitable: Visitable) {
         guard !isActivatedVisitable(visitable) else { return }
-        
+
         deactivateActivatedVisitable()
         visitable.activateVisitableWebView(webView)
         activatedVisitable = visitable
     }
-    
+
     private func deactivateActivatedVisitable() {
         guard let visitable = activatedVisitable else { return }
         deactivateVisitable(visitable, showScreenshot: true)
@@ -119,7 +119,7 @@ public class Session: NSObject {
         visitable.deactivateVisitableWebView()
         activatedVisitable = nil
     }
-    
+
     private func isActivatedVisitable(_ visitable: Visitable) -> Bool {
         return visitable === activatedVisitable
     }
@@ -135,12 +135,12 @@ public class Session: NSObject {
     private func storeRestorationIdentifier(_ restorationIdentifier: String, forVisitable visitable: Visitable) {
         visitableRestorationIdentifiers.setObject(restorationIdentifier as NSString, forKey: visitable.visitableViewController)
     }
-    
+
     // MARK: - Navigation
 
     private func completeNavigationForCurrentVisit() {
         guard let visit = currentVisit else { return }
-        
+
         topmostVisit = visit
     }
 }
@@ -201,7 +201,7 @@ extension Session: VisitDelegate {
         refreshing = false
         visit.visitable.visitableDidRefresh()
     }
-    
+
     func visit(_ visit: Visit, didReceiveAuthenticationChallenge challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
         delegate?.session(self, didReceiveAuthenticationChallenge: challenge, completionHandler: completionHandler)
     }
@@ -209,16 +209,16 @@ extension Session: VisitDelegate {
 
 extension Session: VisitableDelegate {
     public func visitableViewWillAppear(_ visitable: Visitable) {
-        guard let topmostVisit = self.topmostVisit, let currentVisit = self.currentVisit else { return }
+        guard let topmostVisit = topmostVisit, let currentVisit = currentVisit else { return }
 
-        if visitable === topmostVisit.visitable && visitable.visitableViewController.isMovingToParent {
+        if visitable === topmostVisit.visitable, visitable.visitableViewController.isMovingToParent {
             // Back swipe gesture canceled
             if topmostVisit.state == .completed {
                 currentVisit.cancel()
             } else {
                 visit(visitable, action: .advance)
             }
-        } else if visitable === currentVisit.visitable && currentVisit.state == .started {
+        } else if visitable === currentVisit.visitable, currentVisit.state == .started {
             // Navigating forward - complete navigation early
             completeNavigationForCurrentVisit()
         } else if visitable !== topmostVisit.visitable {
@@ -228,13 +228,13 @@ extension Session: VisitableDelegate {
     }
 
     public func visitableViewDidAppear(_ visitable: Visitable) {
-        if let currentVisit = self.currentVisit, visitable === currentVisit.visitable {
+        if let currentVisit = currentVisit, visitable === currentVisit.visitable {
             // Appearing after successful navigation
             completeNavigationForCurrentVisit()
             if currentVisit.state != .failed {
                 activateVisitable(visitable)
             }
-        } else if let topmostVisit = self.topmostVisit, visitable === topmostVisit.visitable && topmostVisit.state == .completed {
+        } else if let topmostVisit = topmostVisit, visitable === topmostVisit.visitable, topmostVisit.state == .completed {
             // Reappearing after canceled navigation
             visit(visitable, action: .restore)
         }
@@ -260,11 +260,11 @@ extension Session: WebViewDelegate {
         let proposal = VisitProposal(url: location, options: options, properties: properties)
         delegate?.session(self, didProposeVisit: proposal)
     }
-    
+
     func webView(_ webView: WebViewBridge, didStartFormSubmissionToLocation location: URL) {
         delegate?.sessionDidStartFormSubmission(self)
     }
-    
+
     func webView(_ webView: WebViewBridge, didFinishFormSubmissionToLocation location: URL) {
         delegate?.sessionDidFinishFormSubmission(self)
     }
@@ -277,11 +277,11 @@ extension Session: WebViewDelegate {
         visitable.showVisitableActivityIndicator()
         reload()
     }
-    
+
     /// Initial page load failed, this will happen when we couldn't find Turbo JS on the page
     func webView(_ webView: WebViewBridge, didFailInitialPageLoadWithError error: Error) {
-        guard let currentVisit = self.currentVisit, !initialized else { return }
-        
+        guard let currentVisit = currentVisit, !initialized else { return }
+
         initialized = false
         currentVisit.cancel()
         visitDidFail(currentVisit)
@@ -289,8 +289,8 @@ extension Session: WebViewDelegate {
     }
 
     func webView(_ bridge: WebViewBridge, didFailJavaScriptEvaluationWithError error: Error) {
-        guard let currentVisit = self.currentVisit, initialized else { return }
-        
+        guard let currentVisit = currentVisit, initialized else { return }
+
         initialized = false
         currentVisit.cancel()
         visit(currentVisit.visitable)
@@ -298,7 +298,7 @@ extension Session: WebViewDelegate {
 }
 
 extension Session: WKNavigationDelegate {
-    public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> ()) {
+    public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         let navigationDecision = NavigationDecision(navigationAction: navigationAction)
         decisionHandler(navigationDecision.policy)
 
@@ -308,12 +308,12 @@ extension Session: WKNavigationDelegate {
             reload()
         }
     }
-    
+
     public func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
         log("webViewWebContentProcessDidTerminate")
         delegate?.sessionWebViewProcessDidTerminate(self)
     }
-    
+
     private func openExternalURL(_ url: URL) {
         log("openExternalURL", ["url": url])
         delegate?.session(self, openExternalURL: url)

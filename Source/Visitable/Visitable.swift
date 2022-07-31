@@ -10,10 +10,10 @@ public protocol VisitableDelegate: AnyObject {
 
 public protocol Visitable: AnyObject {
     var visitableViewController: UIViewController { get }
-    var visitableDelegate: VisitableDelegate? { get set } 
+    var visitableDelegate: VisitableDelegate? { get set }
     var visitableView: VisitableView! { get }
     var visitableURL: URL! { get }
-    
+
     func visitableDidRender()
     func showVisitableActivityIndicator()
     func hideVisitableActivityIndicator()
@@ -23,7 +23,7 @@ extension Visitable {
     public func reloadVisitable() {
         visitableDelegate?.visitableDidRequestReload(self)
     }
-    
+
     public func showVisitableActivityIndicator() {
         visitableView.showActivityIndicator()
     }
@@ -69,8 +69,8 @@ extension Visitable {
     }
 }
 
-extension Visitable where Self: UIViewController {
-    public var visitableViewController: UIViewController {
+public extension Visitable where Self: UIViewController {
+    var visitableViewController: UIViewController {
         self
     }
 }

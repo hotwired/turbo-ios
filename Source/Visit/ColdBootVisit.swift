@@ -24,7 +24,7 @@ final class ColdBootVisit: Visit {
 
     override func cancelVisit() {
         log("cancelVisit")
-        
+
         removeNavigationDelegate()
         webView.stopLoading()
         finishRequest()
@@ -32,14 +32,14 @@ final class ColdBootVisit: Visit {
 
     override func completeVisit() {
         log("completeVisit")
-        
+
         removeNavigationDelegate()
         delegate?.visitDidInitializeWebView(self)
     }
 
     override func failVisit() {
         log("failVisit")
-        
+
         removeNavigationDelegate()
         finishRequest()
     }
@@ -48,7 +48,7 @@ final class ColdBootVisit: Visit {
         guard webView.navigationDelegate === self else { return }
         webView.navigationDelegate = nil
     }
-    
+
     private func log(_ name: String) {
         debugLog("[ColdBootVisit] \(name) \(location.absoluteString)")
     }
@@ -74,14 +74,14 @@ extension ColdBootVisit: WKNavigationDelegate {
 
     func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
         if let httpResponse = navigationResponse.response as? HTTPURLResponse {
-            if httpResponse.statusCode >= 200 && httpResponse.statusCode < 300 {
+            if httpResponse.statusCode >= 200, httpResponse.statusCode < 300 {
                 decisionHandler(.allow)
             } else {
                 decisionHandler(.cancel)
                 fail(with: TurboError.http(statusCode: httpResponse.statusCode))
             }
         } else {
-            if (navigationResponse.response.url?.scheme == "blob") {
+            if navigationResponse.response.url?.scheme == "blob" {
                 decisionHandler(.allow)
             } else {
                 decisionHandler(.cancel)
@@ -99,7 +99,7 @@ extension ColdBootVisit: WKNavigationDelegate {
         guard navigation == self.navigation else { return }
         fail(with: error)
     }
-    
+
     func webView(_ webView: WKWebView, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
         delegate?.visit(self, didReceiveAuthenticationChallenge: challenge, completionHandler: completionHandler)
     }

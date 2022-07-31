@@ -16,10 +16,10 @@ class Visit: NSObject {
     let bridge: WebViewBridge
     var webView: WKWebView { bridge.webView }
     let location: URL
-    
+
     var hasCachedSnapshot: Bool = false
     private(set) var state: VisitState
-    
+
     init(visitable: Visitable, options: VisitOptions, bridge: WebViewBridge) {
         self.visitable = visitable
         self.location = visitable.visitableURL!
@@ -38,20 +38,20 @@ class Visit: NSObject {
 
     func cancel() {
         guard state == .started else { return }
-        
+
         state = .canceled
         cancelVisit()
     }
 
     func complete() {
         guard state == .started else { return }
-        
+
         if !requestFinished {
             finishRequest()
         }
-        
+
         state = .completed
-        
+
         completeVisit()
         delegate?.visitDidComplete(self)
         delegate?.visitDidFinish(self)
@@ -79,14 +79,14 @@ class Visit: NSObject {
 
     func startRequest() {
         guard !requestStarted else { return }
-        
+
         requestStarted = true
         delegate?.visitRequestDidStart(self)
     }
 
     func finishRequest() {
         guard requestStarted, !requestFinished else { return }
-        
+
         requestFinished = true
         delegate?.visitRequestDidFinish(self)
     }
