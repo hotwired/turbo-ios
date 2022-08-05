@@ -90,8 +90,8 @@ extension TurboNavigationController {
                 present(modalNavController, animated: animated)
             }
         } else if action == .replace {
-            viewControllers = Array(viewControllers.dropLast()) + [viewController]
-            setViewControllers(viewControllers, animated: false)
+            let controllers = Array(viewControllers.dropLast()) + [viewController]
+            setViewControllers(controllers, animated: false)
         } else {
             pushViewController(viewController, animated: animated)
         }
