@@ -119,10 +119,12 @@ extension SceneController: WKNavigationDelegate {
             
             let url = navigationAction.request.url!
             
+            let nativeExtensions = ["ics"]
+            
             // For this demo, we'll load files from our domain in a SafariViewController so you
             // don't need to leave the app. You might expand this in your app
             // to open all audio/video/images in a native media viewer
-            if url.host == rootURL.host, !url.pathExtension.isEmpty {
+            if url.host == rootURL.host, !url.pathExtension.isEmpty, !nativeExtensions.contains(url.pathExtension) {
                 let safariViewController = SFSafariViewController(url: url)
                 navigationController.present(safariViewController, animated: true)
             } else {
