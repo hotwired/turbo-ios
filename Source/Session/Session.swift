@@ -351,5 +351,5 @@ extension Session: WKNavigationDelegate {
 }
 
 private func log(_ name: String, _ arguments: [String: Any] = [:]) {
-    debugLog("[Session] \(name)", arguments)
+    debugLog("[Session] \(name) \(arguments)")
 }
