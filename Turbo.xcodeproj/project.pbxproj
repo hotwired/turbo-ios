@@ -38,10 +38,6 @@
 		C149E3BE257586EE00158E8C /* ColdBootVisit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C149E3BD257586EE00158E8C /* ColdBootVisit.swift */; };
 		C149E3C9257589C700158E8C /* VisitResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C149E3C8257589C700158E8C /* VisitResponse.swift */; };
 		C149E3E125758D6800158E8C /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = C149E3D725758D6800158E8C /* Test.swift */; };
-		C149E4082575928200158E8C /* Nimble.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = C149E4042575928200158E8C /* Nimble.xcframework */; };
-		C149E4092575928200158E8C /* Quick.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = C149E4052575928200158E8C /* Quick.xcframework */; };
-		C149E40A2575928200158E8C /* OHHTTPStubs.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = C149E4062575928200158E8C /* OHHTTPStubs.xcframework */; };
-		C149E40B2575928200158E8C /* GCDWebServers.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = C149E4072575928200158E8C /* GCDWebServers.xcframework */; };
 		C1D00824257594D500A9CE85 /* ColdBootVisitSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = C149E3DF25758D6800158E8C /* ColdBootVisitSpec.swift */; };
 		C1D00825257594D500A9CE85 /* PathRuleSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = C149E3D925758D6800158E8C /* PathRuleSpec.swift */; };
 		C1D00826257594D500A9CE85 /* PathConfigurationSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = C149E3DA25758D6800158E8C /* PathConfigurationSpec.swift */; };
@@ -56,6 +52,10 @@
 		C1D0083A2575960900A9CE85 /* turbolinks-5.3.0-dev.js in Resources */ = {isa = PBXBuildFile; fileRef = C1D008372575960900A9CE85 /* turbolinks-5.3.0-dev.js */; };
 		FCC9DFA827B1BE5100DAA0D0 /* Configure.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC9DFA727B1BE5100DAA0D0 /* Configure.swift */; };
 		FCC9DFB727B5788200DAA0D0 /* ConfigureSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC9DFB627B5788200DAA0D0 /* ConfigureSpec.swift */; };
+		E248C124286E0E83000F1A73 /* GCDWebServers.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = E248C11D286E0E26000F1A73 /* GCDWebServers.xcframework */; };
+		E248C125286E0E83000F1A73 /* Nimble.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = E248C11E286E0E26000F1A73 /* Nimble.xcframework */; };
+		E248C126286E0E83000F1A73 /* OHHTTPStubs.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = E248C11F286E0E26000F1A73 /* OHHTTPStubs.xcframework */; };
+		E248C127286E0E83000F1A73 /* Quick.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = E248C11C286E0E26000F1A73 /* Quick.xcframework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -112,15 +112,15 @@
 		C149E3DE25758D6800158E8C /* SessionSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionSpec.swift; sourceTree = "<group>"; };
 		C149E3DF25758D6800158E8C /* ColdBootVisitSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColdBootVisitSpec.swift; sourceTree = "<group>"; };
 		C149E3E025758D6800158E8C /* ScriptMessageSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScriptMessageSpec.swift; sourceTree = "<group>"; };
-		C149E4042575928200158E8C /* Nimble.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Nimble.xcframework; path = Carthage/Build/Nimble.xcframework; sourceTree = "<group>"; };
-		C149E4052575928200158E8C /* Quick.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Quick.xcframework; path = Carthage/Build/Quick.xcframework; sourceTree = "<group>"; };
-		C149E4062575928200158E8C /* OHHTTPStubs.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = OHHTTPStubs.xcframework; path = Carthage/Build/OHHTTPStubs.xcframework; sourceTree = "<group>"; };
-		C149E4072575928200158E8C /* GCDWebServers.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = GCDWebServers.xcframework; path = Carthage/Build/GCDWebServers.xcframework; sourceTree = "<group>"; };
+		FCC9DFA727B1BE5100DAA0D0 /* Configure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configure.swift; sourceTree = "<group>"; };
+		FCC9DFB627B5788200DAA0D0 /* ConfigureSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigureSpec.swift; sourceTree = "<group>"; };
 		C1D008342575960900A9CE85 /* test-configuration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "test-configuration.json"; sourceTree = "<group>"; };
 		C1D008362575960900A9CE85 /* turbolinks.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = turbolinks.html; sourceTree = "<group>"; };
 		C1D008372575960900A9CE85 /* turbolinks-5.3.0-dev.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "turbolinks-5.3.0-dev.js"; sourceTree = "<group>"; };
-		FCC9DFA727B1BE5100DAA0D0 /* Configure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configure.swift; sourceTree = "<group>"; };
-		FCC9DFB627B5788200DAA0D0 /* ConfigureSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigureSpec.swift; sourceTree = "<group>"; };
+		E248C11C286E0E26000F1A73 /* Quick.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Quick.xcframework; path = Carthage/Build/Quick.xcframework; sourceTree = "<group>"; };
+		E248C11D286E0E26000F1A73 /* GCDWebServers.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = GCDWebServers.xcframework; path = Carthage/Build/GCDWebServers.xcframework; sourceTree = "<group>"; };
+		E248C11E286E0E26000F1A73 /* Nimble.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Nimble.xcframework; path = Carthage/Build/Nimble.xcframework; sourceTree = "<group>"; };
+		E248C11F286E0E26000F1A73 /* OHHTTPStubs.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = OHHTTPStubs.xcframework; path = Carthage/Build/OHHTTPStubs.xcframework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,10 +136,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				C149E3582575780900158E8C /* Turbo.framework in Frameworks */,
-				C149E4082575928200158E8C /* Nimble.xcframework in Frameworks */,
-				C149E4092575928200158E8C /* Quick.xcframework in Frameworks */,
-				C149E40A2575928200158E8C /* OHHTTPStubs.xcframework in Frameworks */,
-				C149E40B2575928200158E8C /* GCDWebServers.xcframework in Frameworks */,
+				E248C124286E0E83000F1A73 /* GCDWebServers.xcframework in Frameworks */,
+				E248C125286E0E83000F1A73 /* Nimble.xcframework in Frameworks */,
+				E248C126286E0E83000F1A73 /* OHHTTPStubs.xcframework in Frameworks */,
+				E248C127286E0E83000F1A73 /* Quick.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -264,10 +264,10 @@
 		C149E4032575928200158E8C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C149E4072575928200158E8C /* GCDWebServers.xcframework */,
-				C149E4042575928200158E8C /* Nimble.xcframework */,
-				C149E4062575928200158E8C /* OHHTTPStubs.xcframework */,
-				C149E4052575928200158E8C /* Quick.xcframework */,
+				E248C11D286E0E26000F1A73 /* GCDWebServers.xcframework */,
+				E248C11E286E0E26000F1A73 /* Nimble.xcframework */,
+				E248C11F286E0E26000F1A73 /* OHHTTPStubs.xcframework */,
+				E248C11C286E0E26000F1A73 /* Quick.xcframework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

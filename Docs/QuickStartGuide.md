@@ -42,6 +42,10 @@ extension SceneDelegate: SessionDelegate {
     func session(_ session: Session, didFailRequestForVisitable visitable: Visitable, error: Error) {
         print("didFailRequestForVisitable: \(error)")
     }
+    
+    func sessionWebViewProcessDidTerminate(_ session: Session) {
+        session.reload()
+    }
 }
 ```
 
