@@ -8,6 +8,15 @@ One place you'll definitely want multiple sessions is for modals since non full-
 
 A `UITabBarController` based app should work with a single session, but you may want to use multiple session there as well. A good rule of thumb is that you'll likely want a separate session for each navigation context you have (most likely a session per `UINavigationController`).
 
+## Enable Debug Logging
+During development, you may want to see what `turbo-ios` is doing behind the scenes. To enable debug logging, you can set the `TurboLog.debugLoggingEnabled` flag to `true`. Debug logging should always be disabled in your production app. For example:
+
+```swift
+#if DEBUG
+TurboLog.debugLoggingEnabled = true
+#endif
+```
+
 ## Native <-> JavaScript Integration
 
 You can send messages from your native app to the web view by using `session.webView.evaluateJavaScript()` method. You can receive messages by adding a `WKScriptMessageHandler` to the web view and implementing the required protocols. That allows for two-way async communication. 

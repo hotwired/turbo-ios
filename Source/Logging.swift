@@ -1,22 +1,22 @@
 import Foundation
 
+public struct TurboLog {
+    public static var debugLoggingEnabled = false
+}
+
 /// Simple function to help in debugging, a noop in Release builds
-func debugLog(_ item: Any, _ method: String = #function) {
-    #if DEBUG
+func debugLog(_ message: String, _ arguments: [String: Any] = [:]) {
     let timestamp = Date()
     
-    if let message = item as? String {
-        print("\(timestamp) - \(message)")
-    } else {
-        // Support passing object directly instead of string to print class and function
-        let component = String(describing: type(of: item))
-        print("\(timestamp) - [\(component)] \(method)")
-    }
-    #endif
+    log("\(timestamp) \(message) \(arguments)")
 }
 
 func debugPrint(_ message: String) {
-    #if DEBUG
-    print(message)
-    #endif
+    log(message)
+}
+
+private func log(_ message: String) {
+    if TurboLog.debugLoggingEnabled {
+        print(message)
+    }
 }

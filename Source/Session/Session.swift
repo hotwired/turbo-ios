@@ -64,6 +64,8 @@ public class Session: NSObject {
         let visit = makeVisit(for: visitable, options: options ?? VisitOptions())
         currentVisit?.cancel()
         currentVisit = visit
+        
+        log("visit", ["location": visit.location, "options": visit.options, "reload": reload])
 
         visit.delegate = self
         visit.start()
@@ -83,6 +85,10 @@ public class Session: NSObject {
         initialized = false
         visit(visitable)
         topmostVisit = currentVisit
+    }
+    
+    public func clearSnapshotCache() {
+        bridge.clearSnapshotCache()
     }
 
     // MARK: Visitable activation
@@ -254,6 +260,14 @@ extension Session: WebViewDelegate {
         let proposal = VisitProposal(url: location, options: options, properties: properties)
         delegate?.session(self, didProposeVisit: proposal)
     }
+    
+    func webView(_ webView: WebViewBridge, didStartFormSubmissionToLocation location: URL) {
+        delegate?.sessionDidStartFormSubmission(self)
+    }
+    
+    func webView(_ webView: WebViewBridge, didFinishFormSubmissionToLocation location: URL) {
+        delegate?.sessionDidFinishFormSubmission(self)
+    }
 
     func webViewDidInvalidatePage(_ bridge: WebViewBridge) {
         guard let visitable = topmostVisitable else { return }
@@ -296,11 +310,12 @@ extension Session: WKNavigationDelegate {
     }
     
     public func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
-        debugLog("[Session] webViewWebContentProcessDidTerminate")
+        log("webViewWebContentProcessDidTerminate")
         delegate?.sessionWebViewProcessDidTerminate(self)
     }
     
     private func openExternalURL(_ url: URL) {
+        log("openExternalURL", ["url": url])
         delegate?.session(self, openExternalURL: url)
     }
 
@@ -333,4 +348,8 @@ extension Session: WKNavigationDelegate {
             navigationAction.targetFrame?.isMainFrame ?? false
         }
     }
+}
+
+private func log(_ name: String, _ arguments: [String: Any] = [:]) {
+    debugLog("[Session] \(name)", arguments)
 }

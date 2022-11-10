@@ -57,6 +57,12 @@
         }
       }
     }
+      
+    clearSnapshotCache() {
+      if (window.Turbo) {
+        Turbo.session.clearCache()
+      }
+    }
 
     // Current visit
 
@@ -139,6 +145,14 @@
 
     visitCompleted(visit) {
       this.postMessage("visitCompleted", { identifier: visit.identifier, restorationIdentifier: visit.restorationIdentifier })
+    }
+      
+    formSubmissionStarted(formSubmission) {
+      this.postMessage("formSubmissionStarted", { location: formSubmission.location.toString() })
+    }
+
+    formSubmissionFinished(formSubmission) {
+      this.postMessage("formSubmissionFinished", { location: formSubmission.location.toString() })
     }
 
     pageInvalidated() {

@@ -3,6 +3,8 @@ import WebKit
 protocol WebViewDelegate: AnyObject {
     func webView(_ webView: WebViewBridge, didProposeVisitToLocation location: URL, options: VisitOptions)
     func webViewDidInvalidatePage(_ webView: WebViewBridge)
+    func webView(_ webView: WebViewBridge, didStartFormSubmissionToLocation location: URL)
+    func webView(_ webView: WebViewBridge, didFinishFormSubmissionToLocation location: URL)
     func webView(_ webView: WebViewBridge, didFailInitialPageLoadWithError: Error)
     func webView(_ webView: WebViewBridge, didFailJavaScriptEvaluationWithError error: Error)
 }
@@ -69,6 +71,10 @@ final class WebViewBridge {
             restorationIdentifier
         ])
     }
+    
+    func clearSnapshotCache() {
+        callJavaScript(function: "window.turboNative.clearSnapshotCache")
+    }
 
     func cancelVisit(withIdentifier identifier: String) {
         callJavaScript(function: "window.turboNative.cancelVisitWithIdentifier", arguments: [identifier])
@@ -84,7 +90,7 @@ final class WebViewBridge {
             return
         }
         
-        debugLog("[Bridge] → \(function)")
+        debugLog("[Bridge] → \(function) \(arguments)")
 
         webView.evaluateJavaScript(script) { result, error in
             debugLog("[Bridge] = \(function) evaluation complete")
@@ -103,7 +109,7 @@ extension WebViewBridge: ScriptMessageHandlerDelegate {
         guard let message = ScriptMessage(message: scriptMessage) else { return }
         
         if message.name != .log {
-            debugLog("[Bridge] ← \(message.name)")
+            debugLog("[Bridge] ← \(message.name) \(message.data)")
         }
         
         switch message.name {
@@ -111,6 +117,10 @@ extension WebViewBridge: ScriptMessageHandlerDelegate {
             pageLoadDelegate?.webView(self, didLoadPageWithRestorationIdentifier: message.restorationIdentifier!)
         case .pageLoadFailed:
             delegate?.webView(self, didFailInitialPageLoadWithError: TurboError.pageLoadFailure)
+        case .formSubmissionStarted:
+            delegate?.webView(self, didStartFormSubmissionToLocation: message.location!)
+        case .formSubmissionFinished:
+            delegate?.webView(self, didFinishFormSubmissionToLocation: message.location!)
         case .pageInvalidated:
             delegate?.webViewDidInvalidatePage(self)
         case .visitProposed:

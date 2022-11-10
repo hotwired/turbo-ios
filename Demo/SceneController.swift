@@ -90,9 +90,22 @@ extension SceneController: SessionDelegate {
             navigationController.present(alert, animated: true)
         }
     }
+
+    // When a form submission completes in the modal session, we need to
+    // manually clear the snapshot cache in the default session, since we
+    // don't want potentially stale cached snapshots to be used
+    func sessionDidFinishFormSubmission(_ session: Session) {
+        if (session == modalSession) {
+            self.session.clearSnapshotCache()
+        }
+    }
     
     func sessionDidLoadWebView(_ session: Session) {
         session.webView.navigationDelegate = self
+    }
+    
+    func sessionWebViewProcessDidTerminate(_ session: Session) {
+        session.reload()
     }
 }
 

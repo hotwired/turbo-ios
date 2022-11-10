@@ -10,6 +10,8 @@ public protocol SessionDelegate: AnyObject {
     func sessionDidLoadWebView(_ session: Session)
     func sessionDidStartRequest(_ session: Session)
     func sessionDidFinishRequest(_ session: Session)
+    func sessionDidStartFormSubmission(_ session: Session)
+    func sessionDidFinishFormSubmission(_ session: Session)
 
     func sessionWebViewProcessDidTerminate(_ session: Session)
 }
@@ -25,6 +27,8 @@ public extension SessionDelegate {
     
     func sessionDidStartRequest(_ session: Session) {}
     func sessionDidFinishRequest(_ session: Session) {}
+    func sessionDidStartFormSubmission(_ session: Session) {}
+    func sessionDidFinishFormSubmission(_ session: Session) {}
     
     func session(_ session: Session, didReceiveAuthenticationChallenge challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
         completionHandler(.performDefaultHandling, nil)
