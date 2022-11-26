@@ -20,8 +20,8 @@ Turbo iOS is written in Swift 5.3 and requires iOS 12 or higher, but we'll most 
 **Note:** You should understand how Turbo works with web applications in the browser before attempting to use Turbo iOS. See the [Turbo 7 documentation](https://github.com/hotwired/turbo) for details. Ensure that your web app sets the `window.Turbo` global variable as it's required by the native apps:
 
 ```javascript
-import { Turbo } from "@hotwired/turbo-rails"
-window.Turbo = Turbo
+import * as Turbo from "@hotwired/turbo";
+window.Turbo = Turbo;
 ```
 
 ## Getting Started
