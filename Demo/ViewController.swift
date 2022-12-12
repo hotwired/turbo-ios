@@ -9,7 +9,7 @@ final class ViewController: VisitableViewController, ErrorPresenter {
             navigationItem.backButtonDisplayMode = .minimal
         }
         
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = visitableView.webView?.themeColor ?? .systemBackground
         
         if presentingViewController != nil {
             navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissModal))
