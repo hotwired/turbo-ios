@@ -101,7 +101,7 @@ final class ErrorViewController: UIViewController {
         return label
     }()
     
-    private let button: UIButton = {
+    private lazy var button: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Retry", for: .normal)
         button.addTarget(self, action: #selector(performAction(_:)), for: .touchUpInside)
