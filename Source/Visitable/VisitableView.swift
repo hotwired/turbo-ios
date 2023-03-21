@@ -83,14 +83,7 @@ open class VisitableView: UIView {
     // MARK: Activity Indicator
 
     open lazy var activityIndicatorView: UIActivityIndicatorView = {
-        let view: UIActivityIndicatorView
-        
-        if #available(iOS 13.0, *) {
-            view = UIActivityIndicatorView(style: .medium)
-        } else {
-            view = UIActivityIndicatorView(style: .white)
-        }
-        
+        let view = UIActivityIndicatorView(style: .medium)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.color = UIColor.gray
         view.hidesWhenStopped = true
