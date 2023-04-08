@@ -6,7 +6,7 @@ Pod::Spec.new do |spec|
   spec.homepage       = "https://turbo.hotwired.dev/"
   spec.license        = { :type => "MIT", :file => "LICENSE" }
   spec.author         = { "Zach Waugh" => "zwaugh@gmail.com" }
-  spec.platform       = :ios, "12.0"
+  spec.platform       = :ios, "14.0"
   spec.source         = { :git => "https://github.com/hotwired/turbo-ios.git", :tag => spec.version }
   spec.source_files   = "Source/**/*.swift"
   spec.resources      = "Source/**/*.js"
