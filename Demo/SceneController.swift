@@ -53,6 +53,9 @@ final class SceneController: UIResponder {
         let session = Session(webViewConfiguration: configuration)
         session.delegate = self
         session.pathConfiguration = pathConfiguration
+        if #available(iOS 16.4, *) {
+            session.webView.isInspectable = true
+        }
         return session
     }
     
