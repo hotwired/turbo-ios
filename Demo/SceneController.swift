@@ -49,8 +49,12 @@ final class SceneController: UIResponder {
         let configuration = WKWebViewConfiguration()
         configuration.applicationNameForUserAgent = "Turbo Native iOS"
         configuration.processPool = Self.sharedProcessPool
-        
-        let session = Session(webViewConfiguration: configuration)
+
+        let webView = WKWebView(frame: .zero, configuration: configuration)
+        if #available(iOS 16.4, *) {
+            webView.isInspectable = true
+        }
+        let session = Session(webView: webView)
         session.delegate = self
         session.pathConfiguration = pathConfiguration
         return session
