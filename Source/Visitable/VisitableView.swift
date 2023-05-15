@@ -1,6 +1,10 @@
 import UIKit
 import WebKit
 
+public protocol VisitableViewDelegate : AnyObject {
+    func didPullToRefresh(control: UIRefreshControl)
+}
+
 /// `VisitableView`'s purpose is to manage implementation details regarding visibility for:
 /// - a webView running Turbo
 /// - a screenshot container view
@@ -24,11 +28,12 @@ open class VisitableView: UIView {
     // MARK: Web View
 
     open weak var webView: WKWebView?
-    private weak var visitable: Visitable?
+    
+    private weak var delegate: VisitableViewDelegate?
 
-    open func activateWebView(_ webView: WKWebView, forVisitable visitable: Visitable) {
+    open func activateWebView(_ webView: WKWebView, delegate: VisitableViewDelegate) {
         self.webView = webView
-        self.visitable = visitable
+        self.delegate = delegate
         addSubview(webView)
         addFillConstraints(for: webView)
         installRefreshControl()
@@ -39,7 +44,6 @@ open class VisitableView: UIView {
         removeRefreshControl()
         webView?.removeFromSuperview()
         webView = nil
-        visitable = nil
     }
 
     private func showOrHideWebView() {
@@ -82,7 +86,7 @@ open class VisitableView: UIView {
     }
 
     @objc func refresh(_ sender: AnyObject) {
-        visitable?.visitableViewDidRequestRefresh()
+        delegate?.didPullToRefresh(control: refreshControl)
     }
 
     // MARK: Activity Indicator

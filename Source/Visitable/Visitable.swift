@@ -8,7 +8,7 @@ public protocol VisitableDelegate: AnyObject {
     func visitableDidRequestRefresh(_ visitable: Visitable)
 }
 
-public protocol Visitable: AnyObject {
+public protocol Visitable: AnyObject, VisitableViewDelegate {
     var visitableViewController: UIViewController { get }
     var visitableDelegate: VisitableDelegate? { get set } 
     var visitableView: VisitableView! { get }
@@ -17,6 +17,13 @@ public protocol Visitable: AnyObject {
     func visitableDidRender()
     func showVisitableActivityIndicator()
     func hideVisitableActivityIndicator()
+}
+
+// MARK: VisitableViewDelegate
+extension Visitable {
+    public func didPullToRefresh(control: UIRefreshControl) {
+        visitableDelegate?.visitableDidRequestRefresh(self)
+    }
 }
 
 extension Visitable {
@@ -33,7 +40,7 @@ extension Visitable {
     }
 
     func activateVisitableWebView(_ webView: WKWebView) {
-        visitableView.activateWebView(webView, forVisitable: self)
+        visitableView.activateWebView(webView, delegate: self)
     }
 
     func deactivateVisitableWebView() {
