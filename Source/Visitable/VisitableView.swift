@@ -1,7 +1,12 @@
 import UIKit
 import WebKit
 
+/// `VisitableView`'s purpose is to manage implementation details regarding visibility for:
+/// - a webView running Turbo
+/// - a screenshot container view
+/// - an activity indicator view
 open class VisitableView: UIView {
+    
     public override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
