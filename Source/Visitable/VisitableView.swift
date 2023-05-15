@@ -44,6 +44,7 @@ open class VisitableView: UIView {
         removeRefreshControl()
         webView?.removeFromSuperview()
         webView = nil
+        delegate = nil
     }
 
     private func showOrHideWebView() {
