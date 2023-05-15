@@ -18,7 +18,7 @@ open class VisitableView: UIView {
 
     // MARK: Web View
 
-    open var webView: WKWebView?
+    open weak var webView: WKWebView?
     private weak var visitable: Visitable?
 
     open func activateWebView(_ webView: WKWebView, forVisitable visitable: Visitable) {
