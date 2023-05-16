@@ -67,13 +67,13 @@ open class VisitableView: UIView {
         guard let scrollView = webView?.scrollView, allowsPullToRefresh else { return }
         
         #if !targetEnvironment(macCatalyst)
-        scrollView.addSubview(refreshControl)
+        scrollView.refreshControl = refreshControl
         #endif
     }
 
     private func removeRefreshControl() {
         refreshControl.endRefreshing()
-        refreshControl.removeFromSuperview()
+        webView?.scrollView.refreshControl = nil
     }
 
     @objc func refresh(_ sender: AnyObject) {
