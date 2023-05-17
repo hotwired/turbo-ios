@@ -45,6 +45,7 @@ open class VisitableView: UIView {
 
     open lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
+        refreshControl.translatesAutoresizingMaskIntoConstraints = false
         refreshControl.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
         return refreshControl
     }()
@@ -67,13 +68,21 @@ open class VisitableView: UIView {
         guard let scrollView = webView?.scrollView, allowsPullToRefresh else { return }
         
         #if !targetEnvironment(macCatalyst)
-        scrollView.refreshControl = refreshControl
+        scrollView.addSubview(refreshControl)
+
+        let height = refreshControl.frame.height > 0 ? refreshControl.frame.height : 60
+        
+        NSLayoutConstraint.activate([
+            refreshControl.centerXAnchor.constraint(equalTo: centerXAnchor),
+            refreshControl.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            refreshControl.heightAnchor.constraint(equalToConstant: height)
+        ])
         #endif
     }
 
     private func removeRefreshControl() {
         refreshControl.endRefreshing()
-        webView?.scrollView.refreshControl = nil
+        refreshControl.removeFromSuperview()
     }
 
     @objc func refresh(_ sender: AnyObject) {
