@@ -70,12 +70,14 @@ open class VisitableView: UIView {
         #if !targetEnvironment(macCatalyst)
         scrollView.addSubview(refreshControl)
 
-        let height = refreshControl.frame.height > 0 ? refreshControl.frame.height : 60
+        /// Infer refresh control's default height from its frame, if given.
+        /// Otherwise fallback to 60 (the default height).
+        let refreshControlHeight = refreshControl.frame.height > 0 ? refreshControl.frame.height : 60
         
         NSLayoutConstraint.activate([
             refreshControl.centerXAnchor.constraint(equalTo: centerXAnchor),
             refreshControl.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            refreshControl.heightAnchor.constraint(equalToConstant: height)
+            refreshControl.heightAnchor.constraint(equalToConstant: refreshControlHeight)
         ])
         #endif
     }
