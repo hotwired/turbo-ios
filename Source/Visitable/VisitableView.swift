@@ -45,6 +45,7 @@ open class VisitableView: UIView {
 
     open lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
+        refreshControl.translatesAutoresizingMaskIntoConstraints = false
         refreshControl.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
         return refreshControl
     }()
@@ -68,6 +69,16 @@ open class VisitableView: UIView {
         
         #if !targetEnvironment(macCatalyst)
         scrollView.addSubview(refreshControl)
+
+        /// Infer refresh control's default height from its frame, if given.
+        /// Otherwise fallback to 60 (the default height).
+        let refreshControlHeight = refreshControl.frame.height > 0 ? refreshControl.frame.height : 60
+        
+        NSLayoutConstraint.activate([
+            refreshControl.centerXAnchor.constraint(equalTo: centerXAnchor),
+            refreshControl.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            refreshControl.heightAnchor.constraint(equalToConstant: refreshControlHeight)
+        ])
         #endif
     }
 
