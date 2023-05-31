@@ -22,7 +22,7 @@ extension JSONCodable {
             return nil
         }
     }
-    
+
     func toJSON() -> Any {
         do {
             let encoder = JSONEncoder()
@@ -30,7 +30,9 @@ extension JSONCodable {
             return try JSONSerialization.jsonObject(with: data, options: [])
         } catch {
             debugPrint("[json] *** Error encoding JSON: \(error)")
-            return [:]
+            var emptyDict = Dictionary<String, String>()
+	    	    emptyDict = [:]
+            return emptyDict
         }
     }
 }
