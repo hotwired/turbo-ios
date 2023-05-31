@@ -31,7 +31,7 @@ extension JSONCodable {
         } catch {
             debugPrint("[json] *** Error encoding JSON: \(error)")
             var emptyDict = Dictionary<String, String>()
-	    	    emptyDict = [:]
+            emptyDict = [:]
             return emptyDict
         }
     }
