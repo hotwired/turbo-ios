@@ -30,9 +30,7 @@ extension JSONCodable {
             return try JSONSerialization.jsonObject(with: data, options: [])
         } catch {
             debugPrint("[json] *** Error encoding JSON: \(error)")
-            var emptyDict = Dictionary<String, String>()
-            emptyDict = [:]
-            return emptyDict
+            return Dictionary<String, String>()
         }
     }
 }
