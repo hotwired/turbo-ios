@@ -44,7 +44,7 @@ extension JavaScriptVisit: WebViewVisitDelegate {
     
     func webView(_ webView: WebViewBridge, didStartRequestForVisitWithIdentifier identifier: String, date: Date) {
         guard identifier == self.identifier else { return }
-        log("didFinishRequestForVisitWithIdentifier", ["identifier": identifier, "date": date])
+        log("didStartRequestForVisitWithIdentifier", ["identifier": identifier, "date": date])
         startRequest()
     }
     
