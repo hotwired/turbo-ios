@@ -23,6 +23,8 @@ final class PathConfigurationLoader {
                 loadFile(url)
             case .server(let url):
                 download(from: url)
+            case .serverRequest(let request):
+                download(with: request)
             }
         }
     }
@@ -32,12 +34,17 @@ final class PathConfigurationLoader {
     private func download(from url: URL) {
         precondition(!url.isFileURL, "URL provided for server is a file url")
         
+        download(with: URLRequest(url: url))
+    }
+    
+    private func download(with request: URLRequest) {
+        
         // Immediately load most recent cached version if available
         if let data = cachedData() {
             loadData(data)
         }
         
-        URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
+        URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
             guard let data = data,
                 let httpResponse = response as? HTTPURLResponse,
                 httpResponse.statusCode == 200

@@ -92,5 +92,6 @@ extension PathConfiguration {
         case data(Data)
         case file(URL)
         case server(URL)
+        case serverRequest(URLRequest)
     }
 }
