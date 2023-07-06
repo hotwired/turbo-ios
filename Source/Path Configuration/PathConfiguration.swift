@@ -7,6 +7,16 @@ public protocol PathConfigurationDelegate: AnyObject {
     func pathConfigurationDidUpdate()
 }
 
+public struct PathConfigurationLoaderOptions {
+    public init(urlSessionConfiguration: URLSessionConfiguration? = nil) {
+        self.urlSessionConfiguration = urlSessionConfiguration
+    }
+    
+    /// If present, the ``PathConfigurationLoader`` will initialize a new `URLSession` with
+    /// this configuration to make its network request
+    public let urlSessionConfiguration: URLSessionConfiguration?
+}
+
 public final class PathConfiguration {
     public weak var delegate: PathConfigurationDelegate?
     
@@ -26,8 +36,9 @@ public final class PathConfiguration {
     
     /// Multiple sources will be loaded in order
     /// Remote sources should be last since they're loaded async
-    public init(sources: [Source] = []) {
+    public init(sources: [Source] = [], options: PathConfigurationLoaderOptions? = nil) {
         self.sources = sources
+        self.options = options
         load()
     }
     
@@ -63,11 +74,13 @@ public final class PathConfiguration {
     }
     
     // MARK: - Loading
+    
+    private let options: PathConfigurationLoaderOptions?
 
     private var loader: PathConfigurationLoader?
-
+    
     private func load() {
-        loader = PathConfigurationLoader(sources: sources)
+        loader = PathConfigurationLoader(sources: sources, options: options)
         loader?.load { [weak self] config in
             self?.update(with: config)
         }
@@ -92,6 +105,5 @@ extension PathConfiguration {
         case data(Data)
         case file(URL)
         case server(URL)
-        case serverRequest(URLRequest)
     }
 }

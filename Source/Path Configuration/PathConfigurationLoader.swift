@@ -6,10 +6,12 @@ final class PathConfigurationLoader {
     private let cacheDirectory = "Turbo"
     private let configurationCacheFilename = "path-configuration.json"
     private let sources: [PathConfiguration.Source]
+    private let options: PathConfigurationLoaderOptions?
     private var completionHandler: PathConfigurationLoaderCompletionHandler?
     
-    init(sources: [PathConfiguration.Source]) {
+    init(sources: [PathConfiguration.Source], options: PathConfigurationLoaderOptions? = nil) {
         self.sources = sources
+        self.options = options
     }
     
     func load(then completion: @escaping PathConfigurationLoaderCompletionHandler) {
@@ -23,8 +25,6 @@ final class PathConfigurationLoader {
                 loadFile(url)
             case .server(let url):
                 download(from: url)
-            case .serverRequest(let request):
-                download(with: request)
             }
         }
     }
@@ -34,17 +34,14 @@ final class PathConfigurationLoader {
     private func download(from url: URL) {
         precondition(!url.isFileURL, "URL provided for server is a file url")
         
-        download(with: URLRequest(url: url))
-    }
-    
-    private func download(with request: URLRequest) {
-        
         // Immediately load most recent cached version if available
         if let data = cachedData() {
             loadData(data)
         }
         
-        URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
+        let session = options?.urlSessionConfiguration.map { URLSession(configuration: $0) } ?? URLSession.shared
+        
+        session.dataTask(with: url) { [weak self] data, response, error in
             guard let data = data,
                 let httpResponse = response as? HTTPURLResponse,
                 httpResponse.statusCode == 200
