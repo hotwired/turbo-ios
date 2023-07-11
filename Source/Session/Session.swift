@@ -78,6 +78,15 @@ public class Session: NSObject {
             return ColdBootVisit(visitable: visitable, options: options, bridge: bridge)
         }
     }
+    
+    /// Resets this session to a cold boot state.
+    /// The first subsequent visit after resetting will execute a full cold boot (reloading of all resources).
+    public func reset() {
+        currentVisit = nil
+        topmostVisit = nil
+        activatedVisitable = nil
+        initialized = false
+    }
 
     public func reload() {
         guard let visitable = topmostVisitable else { return }
