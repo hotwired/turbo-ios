@@ -23,6 +23,10 @@ protocol WebViewVisitDelegate: AnyObject {
     func webView(_ webView: WebViewBridge, didCompleteVisitWithIdentifier identifier: String, restorationIdentifier: String)
 }
 
+protocol WebViewJavaScriptDelegate: AnyObject {
+    func webView(_ webView: WebViewBridge, didReceiveJavaScriptError: String?, errorData: Data)
+}
+
 /// The WebViewBridge is an internal class used for bi-directional communication
 /// with the web view/JavaScript
 final class WebViewBridge {
@@ -31,6 +35,7 @@ final class WebViewBridge {
     weak var delegate: WebViewDelegate?
     weak var pageLoadDelegate: WebViewPageLoadDelegate?
     weak var visitDelegate: WebViewVisitDelegate?
+    weak var javaScriptDelegate: WebViewJavaScriptDelegate?
     
     let webView: WKWebView
     
@@ -142,6 +147,7 @@ extension WebViewBridge: ScriptMessageHandlerDelegate {
         case .errorRaised:
             let error = message.data["error"] as? String
             debugLog("JavaScript error: \(String(describing: error))")
+            javaScriptDelegate?.webView(self, didReceiveJavaScriptError: error, errorData: message.data)
         case .log:
             guard let msg = message.data["message"] as? String else { return }
             debugLog("[Bridge] ← log: \(msg)")
