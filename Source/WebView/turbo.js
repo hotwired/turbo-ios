@@ -173,10 +173,8 @@
     postMessageAfterNextRepaint(name, data) {
       // Post immediately if document is hidden or message may be queued by call to rAF
       if (document.hidden) {
-          console.log("🔒 Document is hidden")
         this.postMessage(name, data);
       } else {
-          console.log("🔒 Document is not hidden")
         var postMessage = this.postMessage.bind(this, name, data)
         requestAnimationFrame(() => {
           requestAnimationFrame(postMessage)
