@@ -14,6 +14,8 @@ public protocol SessionDelegate: AnyObject {
     func sessionDidFinishFormSubmission(_ session: Session)
 
     func sessionWebViewProcessDidTerminate(_ session: Session)
+    
+    func sessionEncounteredJavaScriptError(_ session: Session, errorMessage: String)
 }
 
 public extension SessionDelegate {

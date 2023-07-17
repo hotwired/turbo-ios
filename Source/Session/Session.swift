@@ -5,7 +5,7 @@ import WebKit
 /// a Turbo app in a web view. Each Session manages a single web view
 /// so you should create multiple sessions to have multiple web views, for example
 /// when using modals or tabs
-public class Session: NSObject {
+public class Session: NSObject, WebViewJavaScriptDelegate {
     public weak var delegate: SessionDelegate?
     
     public let webView: WKWebView
@@ -352,4 +352,11 @@ extension Session: WKNavigationDelegate {
 
 private func log(_ name: String, _ arguments: [String: Any] = [:]) {
     debugLog("[Session] \(name)", arguments)
+}
+
+extension Session {
+    func webView(_ webView: WebViewBridge, didReceiveJavaScriptError: String?, message: ScriptMessage) {
+        delegate?.sessionEncounteredJavaScriptError(self,
+                                                    errorMessage: didReceiveJavaScriptError ?? "(no description)")
+    }
 }
