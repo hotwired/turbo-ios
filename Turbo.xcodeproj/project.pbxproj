@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9B9CF5132A65EC0A0049BE3A /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = 9B9CF5122A65EC0A0049BE3A /* Nimble */; };
+		9B9CF51C2A65EC560049BE3A /* GCDWebServers.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = E248C11D286E0E26000F1A73 /* GCDWebServers.xcframework */; };
+		9B9CF51F2A65ECC20049BE3A /* Quick in Frameworks */ = {isa = PBXBuildFile; productRef = 9B9CF51E2A65ECC20049BE3A /* Quick */; };
+		9B9CF5222A65EDB60049BE3A /* OHHTTPStubsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9B9CF5212A65EDB60049BE3A /* OHHTTPStubsSwift */; };
 		C10DF22A257ABD3D009412E7 /* VisitProposal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10DF229257ABD3D009412E7 /* VisitProposal.swift */; };
 		C13ABAF1259142200001E6F4 /* turbolinks-5.3.html in Resources */ = {isa = PBXBuildFile; fileRef = C13ABAF0259142200001E6F4 /* turbolinks-5.3.html */; };
 		C13ABAF72591422F0001E6F4 /* turbo.html in Resources */ = {isa = PBXBuildFile; fileRef = C13ABAF62591422F0001E6F4 /* turbo.html */; };
@@ -50,10 +54,6 @@
 		C1D008382575960900A9CE85 /* test-configuration.json in Resources */ = {isa = PBXBuildFile; fileRef = C1D008342575960900A9CE85 /* test-configuration.json */; };
 		C1D008392575960900A9CE85 /* turbolinks.html in Resources */ = {isa = PBXBuildFile; fileRef = C1D008362575960900A9CE85 /* turbolinks.html */; };
 		C1D0083A2575960900A9CE85 /* turbolinks-5.3.0-dev.js in Resources */ = {isa = PBXBuildFile; fileRef = C1D008372575960900A9CE85 /* turbolinks-5.3.0-dev.js */; };
-		E248C124286E0E83000F1A73 /* GCDWebServers.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = E248C11D286E0E26000F1A73 /* GCDWebServers.xcframework */; };
-		E248C125286E0E83000F1A73 /* Nimble.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = E248C11E286E0E26000F1A73 /* Nimble.xcframework */; };
-		E248C126286E0E83000F1A73 /* OHHTTPStubs.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = E248C11F286E0E26000F1A73 /* OHHTTPStubs.xcframework */; };
-		E248C127286E0E83000F1A73 /* Quick.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = E248C11C286E0E26000F1A73 /* Quick.xcframework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,10 +113,7 @@
 		C1D008342575960900A9CE85 /* test-configuration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "test-configuration.json"; sourceTree = "<group>"; };
 		C1D008362575960900A9CE85 /* turbolinks.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = turbolinks.html; sourceTree = "<group>"; };
 		C1D008372575960900A9CE85 /* turbolinks-5.3.0-dev.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "turbolinks-5.3.0-dev.js"; sourceTree = "<group>"; };
-		E248C11C286E0E26000F1A73 /* Quick.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Quick.xcframework; path = Carthage/Build/Quick.xcframework; sourceTree = "<group>"; };
 		E248C11D286E0E26000F1A73 /* GCDWebServers.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = GCDWebServers.xcframework; path = Carthage/Build/GCDWebServers.xcframework; sourceTree = "<group>"; };
-		E248C11E286E0E26000F1A73 /* Nimble.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Nimble.xcframework; path = Carthage/Build/Nimble.xcframework; sourceTree = "<group>"; };
-		E248C11F286E0E26000F1A73 /* OHHTTPStubs.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = OHHTTPStubs.xcframework; path = Carthage/Build/OHHTTPStubs.xcframework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,10 +129,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				C149E3582575780900158E8C /* Turbo.framework in Frameworks */,
-				E248C124286E0E83000F1A73 /* GCDWebServers.xcframework in Frameworks */,
-				E248C125286E0E83000F1A73 /* Nimble.xcframework in Frameworks */,
-				E248C126286E0E83000F1A73 /* OHHTTPStubs.xcframework in Frameworks */,
-				E248C127286E0E83000F1A73 /* Quick.xcframework in Frameworks */,
+				9B9CF51F2A65ECC20049BE3A /* Quick in Frameworks */,
+				9B9CF51C2A65EC560049BE3A /* GCDWebServers.xcframework in Frameworks */,
+				9B9CF5222A65EDB60049BE3A /* OHHTTPStubsSwift in Frameworks */,
+				9B9CF5132A65EC0A0049BE3A /* Nimble in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,9 +256,6 @@
 			isa = PBXGroup;
 			children = (
 				E248C11D286E0E26000F1A73 /* GCDWebServers.xcframework */,
-				E248C11E286E0E26000F1A73 /* Nimble.xcframework */,
-				E248C11F286E0E26000F1A73 /* OHHTTPStubs.xcframework */,
-				E248C11C286E0E26000F1A73 /* Quick.xcframework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -314,6 +308,8 @@
 			dependencies = (
 			);
 			name = Turbo;
+			packageProductDependencies = (
+			);
 			productName = Turbo;
 			productReference = C149E34E2575780900158E8C /* Turbo.framework */;
 			productType = "com.apple.product-type.framework";
@@ -333,6 +329,9 @@
 			);
 			name = Tests;
 			packageProductDependencies = (
+				9B9CF5122A65EC0A0049BE3A /* Nimble */,
+				9B9CF51E2A65ECC20049BE3A /* Quick */,
+				9B9CF5212A65EDB60049BE3A /* OHHTTPStubsSwift */,
 			);
 			productName = TurboTests;
 			productReference = C149E3572575780900158E8C /* Tests.xctest */;
@@ -367,6 +366,9 @@
 			);
 			mainGroup = C149E3442575780900158E8C;
 			packageReferences = (
+				9B9CF5112A65EC0A0049BE3A /* XCRemoteSwiftPackageReference "nimble" */,
+				9B9CF51D2A65ECC20049BE3A /* XCRemoteSwiftPackageReference "quick" */,
+				9B9CF5202A65EDB60049BE3A /* XCRemoteSwiftPackageReference "OHHTTPStubs" */,
 			);
 			productRefGroup = C149E34F2575780900158E8C /* Products */;
 			projectDirPath = "";
@@ -722,6 +724,51 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		9B9CF5112A65EC0A0049BE3A /* XCRemoteSwiftPackageReference "nimble" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/basecamp/nimble.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
+		9B9CF51D2A65ECC20049BE3A /* XCRemoteSwiftPackageReference "quick" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/basecamp/quick.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
+		9B9CF5202A65EDB60049BE3A /* XCRemoteSwiftPackageReference "OHHTTPStubs" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/basecamp/OHHTTPStubs.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		9B9CF5122A65EC0A0049BE3A /* Nimble */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9B9CF5112A65EC0A0049BE3A /* XCRemoteSwiftPackageReference "nimble" */;
+			productName = Nimble;
+		};
+		9B9CF51E2A65ECC20049BE3A /* Quick */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9B9CF51D2A65ECC20049BE3A /* XCRemoteSwiftPackageReference "quick" */;
+			productName = Quick;
+		};
+		9B9CF5212A65EDB60049BE3A /* OHHTTPStubsSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9B9CF5202A65EDB60049BE3A /* XCRemoteSwiftPackageReference "OHHTTPStubs" */;
+			productName = OHHTTPStubsSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C149E3452575780900158E8C /* Project object */;
 }

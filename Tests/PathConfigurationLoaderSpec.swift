@@ -2,6 +2,7 @@ import XCTest
 import Quick
 import Nimble
 import OHHTTPStubs
+import OHHTTPStubsSwift
 @testable import Turbo
 
 class PathConfigurationLoaderSpec: QuickSpec {

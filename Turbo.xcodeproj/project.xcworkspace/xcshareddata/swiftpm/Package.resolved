@@ -1,0 +1,50 @@
+{
+  "pins" : [
+    {
+      "identity" : "cwlcatchexception",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/basecamp/CwlCatchException",
+      "state" : {
+        "revision" : "682841464136f8c66e04afe5dbd01ab51a3a56f2",
+        "version" : "2.1.0"
+      }
+    },
+    {
+      "identity" : "cwlpreconditiontesting",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/basecamp/CwlPreconditionTesting",
+      "state" : {
+        "revision" : "04d17abaaad3ad70160f315b742fea7268fb5e9e",
+        "version" : "2.0.1"
+      }
+    },
+    {
+      "identity" : "nimble",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/basecamp/nimble.git",
+      "state" : {
+        "revision" : "bb48b5c2cf07fdb972356b7ff5b7f2c9fd7e21e1",
+        "version" : "9.2.1"
+      }
+    },
+    {
+      "identity" : "ohhttpstubs",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/basecamp/OHHTTPStubs.git",
+      "state" : {
+        "revision" : "12f19662426d0434d6c330c6974d53e2eb10ecd9",
+        "version" : "9.1.0"
+      }
+    },
+    {
+      "identity" : "quick",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/basecamp/quick.git",
+      "state" : {
+        "revision" : "0f0214ed12bc8070b26ec4732b36db64dd994883",
+        "version" : "4.0.1"
+      }
+    }
+  ],
+  "version" : 2
+}

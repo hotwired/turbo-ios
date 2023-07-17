@@ -26,6 +26,10 @@ class TestVisitable: UIViewController, Visitable {
 }
 
 class TestSessionDelegate: NSObject, SessionDelegate {
+    func sessionEncounteredJavaScriptError(_ session: Turbo.Session, errorMessage: String) {
+        
+    }
+    
     var sessionDidLoadWebViewCalled = false
     var sessionDidStartRequestCalled = false
     var sessionDidFinishRequestCalled = false
