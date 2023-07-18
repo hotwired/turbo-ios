@@ -1,5 +1,5 @@
 (() => {
-  const TURBO_LOAD_TIMEOUT = 10000
+  const TURBO_LOAD_TIMEOUT = 30000
 
   // Bridge between Turbo JS and native code. Built for Turbo 7
   // with backwards compatibility for Turbolinks 5
