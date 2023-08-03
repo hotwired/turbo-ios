@@ -17,6 +17,8 @@ public protocol Visitable: AnyObject {
     func visitableDidRender()
     func showVisitableActivityIndicator()
     func hideVisitableActivityIndicator()
+    func activateVisitableWebView(_ webView: WKWebView)
+    func deactivateVisitableWebView()
 }
 
 extension Visitable {
@@ -32,11 +34,11 @@ extension Visitable {
         visitableView.hideActivityIndicator()
     }
 
-    func activateVisitableWebView(_ webView: WKWebView) {
+    public func activateVisitableWebView(_ webView: WKWebView) {
         visitableView.activateWebView(webView, forVisitable: self)
     }
 
-    func deactivateVisitableWebView() {
+    public func deactivateVisitableWebView() {
         visitableView.deactivateWebView()
     }
 
