@@ -6,6 +6,8 @@ public protocol VisitableDelegate: AnyObject {
     func visitableViewDidAppear(_ visitable: Visitable)
     func visitableDidRequestReload(_ visitable: Visitable)
     func visitableDidRequestRefresh(_ visitable: Visitable)
+    func visitableDidActivateWebView(_ webView: WKWebView)
+    func visitableDidDeactivateWebView(_ visitable: Visitable)
 }
 
 public protocol Visitable: AnyObject {
@@ -17,8 +19,6 @@ public protocol Visitable: AnyObject {
     func visitableDidRender()
     func showVisitableActivityIndicator()
     func hideVisitableActivityIndicator()
-    func activateVisitableWebView(_ webView: WKWebView)
-    func deactivateVisitableWebView()
 }
 
 extension Visitable {
@@ -34,12 +34,14 @@ extension Visitable {
         visitableView.hideActivityIndicator()
     }
 
-    public func activateVisitableWebView(_ webView: WKWebView) {
+    func activateVisitableWebView(_ webView: WKWebView) {
         visitableView.activateWebView(webView, forVisitable: self)
+        visitableDelegate?.visitableDidActivateWebView(webView)
     }
 
-    public func deactivateVisitableWebView() {
+    func deactivateVisitableWebView() {
         visitableView.deactivateWebView()
+        visitableDelegate?.visitableDidDeactivateWebView(self)
     }
 
     func updateVisitableScreenshot() {
