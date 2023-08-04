@@ -1,4 +1,5 @@
 import UIKit
+import WebKit
 @testable import Turbo
 
 class TestVisitable: UIViewController, Visitable {

@@ -1,5 +1,4 @@
 import UIKit
-import WebKit
 
 open class VisitableViewController: UIViewController, Visitable {
     open weak var visitableDelegate: VisitableDelegate?
