@@ -42,14 +42,6 @@ open class VisitableViewController: UIViewController, Visitable {
         visitableView.hideActivityIndicator()
     }
     
-    open func visitableDidActivateWebView(_ webView: WKWebView) {
-        // No-op
-    }
-    
-    open func visitableDidDeactivateWebView() {
-        // No-op
-    }
-    
     // MARK: Visitable View
 
     open private(set) lazy var visitableView: VisitableView! = {

@@ -34,6 +34,14 @@ extension Visitable {
     public func hideVisitableActivityIndicator() {
         visitableView.hideActivityIndicator()
     }
+    
+    public func visitableDidActivateWebView(_ webView: WKWebView) {
+        // No-op
+    }
+    
+    public func visitableDidDeactivateWebView() {
+        // No-op
+    }
 
     func activateVisitableWebView(_ webView: WKWebView) {
         visitableView.activateWebView(webView, forVisitable: self)
