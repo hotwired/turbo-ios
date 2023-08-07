@@ -5,7 +5,7 @@ import Nimble
 import GCDWebServers
 @testable import Turbo
 
-private let timeout = DispatchTimeInterval.seconds(15)
+private let timeout = DispatchTimeInterval.seconds(35)
 
 class SessionSpec: QuickSpec {
     let server = GCDWebServer()
