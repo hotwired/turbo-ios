@@ -1,4 +1,5 @@
 import UIKit
+import WebKit
 
 open class VisitableViewController: UIViewController, Visitable {
     open weak var visitableDelegate: VisitableDelegate?
@@ -39,6 +40,14 @@ open class VisitableViewController: UIViewController, Visitable {
     
     open func hideVisitableActivityIndicator() {
         visitableView.hideActivityIndicator()
+    }
+    
+    open func visitableDidActivateWebView(_ webView: WKWebView) {
+        // No-op
+    }
+    
+    open func visitableDidDeactivateWebView() {
+        // No-op
     }
     
     // MARK: Visitable View

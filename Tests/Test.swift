@@ -1,9 +1,12 @@
 import UIKit
+import WebKit
 @testable import Turbo
 
 class TestVisitable: UIViewController, Visitable {
     // MARK: - Tests
     var visitableDidRenderCalled = false
+    var visitableDidActivateWebViewWasCalled = false
+    var visitableDidDeactivateWebViewWasCalled = false
     
     // MARK: - Visitable
     var visitableDelegate: VisitableDelegate?
@@ -22,6 +25,14 @@ class TestVisitable: UIViewController, Visitable {
     
     func visitableDidRender() {
         visitableDidRenderCalled = true
+    }
+    
+    func visitableDidActivateWebView(_ webView: WKWebView) {
+        visitableDidActivateWebViewWasCalled = true
+    }
+    
+    func visitableDidDeactivateWebView() {
+        visitableDidDeactivateWebViewWasCalled = true
     }
 }
 
