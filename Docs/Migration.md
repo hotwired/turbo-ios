@@ -13,8 +13,8 @@ Follow these steps, and you should be up and running in no time. I was able to u
 
 
 ## Changes from turbolinks-ios
-1. Requires iOS 12 and later. Most likely we will also drop support for iOS 12 in the near future. 
-2. Fixed numerous scroll inset issues with the web view. Almost all of these culminated from underlying WebKit bug across versions iOS 10 and iOS 11. It seems they were all fixed in iOS 12, so that's why iOS 12 is now required. That means we could drop our hacks for getting the correct inset for the web view and rely on the iOS to do it automatically. The web view now sits full under the nav bar/tab bars and works as expected as far as scroll positioning and restoration
+1. Requires iOS 14 and later.
+2. Fixed numerous scroll inset issues with the web view. Almost all of these culminated from underlying WebKit bug across versions iOS 10 and iOS 11. It seems they were all fixed in iOS 12, so that's why iOS 12+ is now required. That means we could drop our hacks for getting the correct inset for the web view and rely on the iOS to do it automatically. The web view now sits full under the nav bar/tab bars and works as expected as far as scroll positioning and restoration
 
 
 ## Whats new in Turbo iOS?

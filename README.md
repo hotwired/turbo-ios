@@ -15,7 +15,7 @@
 
 ## Requirements
 
-Turbo iOS is written in Swift 5.3 and requires iOS 12 or higher, but we'll most likely drop iOS 12 in the near future. It supports web apps using either Turbo 7 or Turbolinks 5. The Turbo iOS framework has no dependencies.
+Turbo iOS is written in Swift 5.3 and requires iOS 14 or higher. It supports web apps using either Turbo 7 or Turbolinks 5. The Turbo iOS framework has no dependencies.
 
 **Note:** You should understand how Turbo works with web applications in the browser before attempting to use Turbo iOS. See the [Turbo 7 documentation](https://github.com/hotwired/turbo) for details. Ensure that your web app sets the `window.Turbo` global variable as it's required by the native apps:
 
