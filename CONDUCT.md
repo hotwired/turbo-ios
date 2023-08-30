@@ -67,9 +67,7 @@ members of the project's leadership.
 
 ## Project Maintainers
 
-* Zach Waugh <<zach@hey.com>>
-* Sam Stephenson <<sstephenson@gmail.com>>
-* Jeffrey Hardy <<packagethief@gmail.com>>
+* Jay Ohms <<jay@37signals.com>>
 
 ## Attribution
 
