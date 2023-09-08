@@ -68,6 +68,7 @@ members of the project's leadership.
 ## Project Maintainers
 
 * Jay Ohms <<jay@37signals.com>>
+* Joe Masilotti <<joe@masilotti.com>>
 
 ## Attribution
 
