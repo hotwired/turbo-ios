@@ -8,20 +8,6 @@ jobs:
     steps:
     - uses: actions/checkout@master
 
-    - name: Cache carthage
-      uses: actions/cache@v2
-      with:
-        path: Carthage
-        key: carthage-xcode13.2.1-${{ hashFiles('Cartfile.resolved') }}
-        restore-keys: |
-          carthage-xcode13.2.1
-          carthage-
-
-    - name: Build Dependencies
-      run: bin/carthage.sh bootstrap --cache-builds --use-xcframeworks --platform ios
-      env:
-        DEVELOPER_DIR: /Applications/Xcode_13.2.1.app
-
     - name: Run Tests
       run: xcodebuild -project Turbo.xcodeproj -scheme Turbo test -quiet -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 13'
       env:
