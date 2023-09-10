@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		84ACD7322AAE743300234C57 /* Turbo in Frameworks */ = {isa = PBXBuildFile; productRef = 84ACD7312AAE743300234C57 /* Turbo */; };
 		C106CBE3257FF87700498F6F /* ErrorPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C106CBE2257FF87700498F6F /* ErrorPresenter.swift */; };
 		C10DF228257AB81D009412E7 /* path-configuration.json in Resources */ = {isa = PBXBuildFile; fileRef = C10DF227257AB81D009412E7 /* path-configuration.json */; };
 		C10DF242257AD845009412E7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10DF241257AD845009412E7 /* ViewController.swift */; };
@@ -15,8 +16,6 @@
 		C153F00F2578057900926D30 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C153F00D2578057900926D30 /* Main.storyboard */; };
 		C153F0112578057A00926D30 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C153F0102578057A00926D30 /* Assets.xcassets */; };
 		C153F0142578057A00926D30 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C153F0122578057A00926D30 /* LaunchScreen.storyboard */; };
-		C153F02E25780F6900926D30 /* Turbo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C153F02D25780F6900926D30 /* Turbo.framework */; };
-		C153F02F25780F6900926D30 /* Turbo.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C153F02D25780F6900926D30 /* Turbo.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C153F03525784BEA00926D30 /* NumbersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153F03425784BEA00926D30 /* NumbersViewController.swift */; };
 		C175FE782579905300C8DF50 /* Demo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C175FE772579905300C8DF50 /* Demo.swift */; };
 		CB4FB651273AE23B00119FD3 /* TurboNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4FB650273AE23B00119FD3 /* TurboNavigationController.swift */; };
@@ -29,7 +28,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				C153F02F25780F6900926D30 /* Turbo.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -37,6 +35,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		84ACD72F2AAE733C00234C57 /* turbo-ios */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "turbo-ios"; path = ..; sourceTree = "<group>"; };
 		C106CBE2257FF87700498F6F /* ErrorPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorPresenter.swift; sourceTree = "<group>"; };
 		C10DF227257AB81D009412E7 /* path-configuration.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "path-configuration.json"; sourceTree = "<group>"; };
 		C10DF241257AD845009412E7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -47,7 +46,6 @@
 		C153F0102578057A00926D30 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C153F0132578057A00926D30 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C153F0152578057A00926D30 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C153F02D25780F6900926D30 /* Turbo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Turbo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C153F0332578302F00926D30 /* Turbo Demo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Turbo Demo.entitlements"; sourceTree = "<group>"; };
 		C153F03425784BEA00926D30 /* NumbersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumbersViewController.swift; sourceTree = "<group>"; };
 		C175FE772579905300C8DF50 /* Demo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Demo.swift; sourceTree = "<group>"; };
@@ -59,19 +57,35 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C153F02E25780F6900926D30 /* Turbo.framework in Frameworks */,
+				84ACD7322AAE743300234C57 /* Turbo in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		84ACD72E2AAE733C00234C57 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				84ACD72F2AAE733C00234C57 /* turbo-ios */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
+		84ACD7302AAE743000234C57 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		C153EFFB2578057900926D30 = {
 			isa = PBXGroup;
 			children = (
 				C153F0062578057900926D30 /* Demo */,
+				84ACD72E2AAE733C00234C57 /* Packages */,
 				C153F0052578057900926D30 /* Products */,
-				C153F02C25780F6900926D30 /* Frameworks */,
+				84ACD7302AAE743000234C57 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -103,14 +117,6 @@
 			name = Demo;
 			sourceTree = "<group>";
 		};
-		C153F02C25780F6900926D30 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				C153F02D25780F6900926D30 /* Turbo.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		CB4FB64F273AE22800119FD3 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
@@ -136,6 +142,9 @@
 			dependencies = (
 			);
 			name = Demo;
+			packageProductDependencies = (
+				84ACD7312AAE743300234C57 /* Turbo */,
+			);
 			productName = Demo;
 			productReference = C153F0042578057900926D30 /* Turbo Demo.app */;
 			productType = "com.apple.product-type.application";
@@ -407,6 +416,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		84ACD7312AAE743300234C57 /* Turbo */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Turbo;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C153EFFC2578057900926D30 /* Project object */;
 }

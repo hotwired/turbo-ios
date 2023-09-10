@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		84ACD73B2AAE7C1600234C57 /* OHHTTPStubs in Frameworks */ = {isa = PBXBuildFile; productRef = 84ACD73A2AAE7C1600234C57 /* OHHTTPStubs */; };
+		84ACD7482AAE818400234C57 /* Quick in Frameworks */ = {isa = PBXBuildFile; productRef = 84ACD7472AAE818400234C57 /* Quick */; };
+		84ACD74B2AAE819800234C57 /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = 84ACD74A2AAE819800234C57 /* Nimble */; };
 		C10DF22A257ABD3D009412E7 /* VisitProposal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10DF229257ABD3D009412E7 /* VisitProposal.swift */; };
 		C13ABAF1259142200001E6F4 /* turbolinks-5.3.html in Resources */ = {isa = PBXBuildFile; fileRef = C13ABAF0259142200001E6F4 /* turbolinks-5.3.html */; };
 		C13ABAF72591422F0001E6F4 /* turbo.html in Resources */ = {isa = PBXBuildFile; fileRef = C13ABAF62591422F0001E6F4 /* turbo.html */; };
@@ -50,10 +53,6 @@
 		C1D008382575960900A9CE85 /* test-configuration.json in Resources */ = {isa = PBXBuildFile; fileRef = C1D008342575960900A9CE85 /* test-configuration.json */; };
 		C1D008392575960900A9CE85 /* turbolinks.html in Resources */ = {isa = PBXBuildFile; fileRef = C1D008362575960900A9CE85 /* turbolinks.html */; };
 		C1D0083A2575960900A9CE85 /* turbolinks-5.3.0-dev.js in Resources */ = {isa = PBXBuildFile; fileRef = C1D008372575960900A9CE85 /* turbolinks-5.3.0-dev.js */; };
-		E248C124286E0E83000F1A73 /* GCDWebServers.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = E248C11D286E0E26000F1A73 /* GCDWebServers.xcframework */; };
-		E248C125286E0E83000F1A73 /* Nimble.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = E248C11E286E0E26000F1A73 /* Nimble.xcframework */; };
-		E248C126286E0E83000F1A73 /* OHHTTPStubs.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = E248C11F286E0E26000F1A73 /* OHHTTPStubs.xcframework */; };
-		E248C127286E0E83000F1A73 /* Quick.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = E248C11C286E0E26000F1A73 /* Quick.xcframework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,10 +112,6 @@
 		C1D008342575960900A9CE85 /* test-configuration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "test-configuration.json"; sourceTree = "<group>"; };
 		C1D008362575960900A9CE85 /* turbolinks.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = turbolinks.html; sourceTree = "<group>"; };
 		C1D008372575960900A9CE85 /* turbolinks-5.3.0-dev.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "turbolinks-5.3.0-dev.js"; sourceTree = "<group>"; };
-		E248C11C286E0E26000F1A73 /* Quick.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Quick.xcframework; path = Carthage/Build/Quick.xcframework; sourceTree = "<group>"; };
-		E248C11D286E0E26000F1A73 /* GCDWebServers.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = GCDWebServers.xcframework; path = Carthage/Build/GCDWebServers.xcframework; sourceTree = "<group>"; };
-		E248C11E286E0E26000F1A73 /* Nimble.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Nimble.xcframework; path = Carthage/Build/Nimble.xcframework; sourceTree = "<group>"; };
-		E248C11F286E0E26000F1A73 /* OHHTTPStubs.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = OHHTTPStubs.xcframework; path = Carthage/Build/OHHTTPStubs.xcframework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,10 +127,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				C149E3582575780900158E8C /* Turbo.framework in Frameworks */,
-				E248C124286E0E83000F1A73 /* GCDWebServers.xcframework in Frameworks */,
-				E248C125286E0E83000F1A73 /* Nimble.xcframework in Frameworks */,
-				E248C126286E0E83000F1A73 /* OHHTTPStubs.xcframework in Frameworks */,
-				E248C127286E0E83000F1A73 /* Quick.xcframework in Frameworks */,
+				84ACD74B2AAE819800234C57 /* Nimble in Frameworks */,
+				84ACD73B2AAE7C1600234C57 /* OHHTTPStubs in Frameworks */,
+				84ACD7482AAE818400234C57 /* Quick in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,10 +252,6 @@
 		C149E4032575928200158E8C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E248C11D286E0E26000F1A73 /* GCDWebServers.xcframework */,
-				E248C11E286E0E26000F1A73 /* Nimble.xcframework */,
-				E248C11F286E0E26000F1A73 /* OHHTTPStubs.xcframework */,
-				E248C11C286E0E26000F1A73 /* Quick.xcframework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -333,6 +323,9 @@
 			);
 			name = Tests;
 			packageProductDependencies = (
+				84ACD73A2AAE7C1600234C57 /* OHHTTPStubs */,
+				84ACD7472AAE818400234C57 /* Quick */,
+				84ACD74A2AAE819800234C57 /* Nimble */,
 			);
 			productName = TurboTests;
 			productReference = C149E3572575780900158E8C /* Tests.xctest */;
@@ -367,6 +360,9 @@
 			);
 			mainGroup = C149E3442575780900158E8C;
 			packageReferences = (
+				84ACD7392AAE7C1600234C57 /* XCRemoteSwiftPackageReference "OHHTTPStubs" */,
+				84ACD7462AAE818400234C57 /* XCRemoteSwiftPackageReference "Quick" */,
+				84ACD7492AAE819800234C57 /* XCRemoteSwiftPackageReference "Nimble" */,
 			);
 			productRefGroup = C149E34F2575780900158E8C /* Products */;
 			projectDirPath = "";
@@ -645,17 +641,13 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2WNYUYRS7G;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Tests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = dev.hotwire.turbo.tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -672,17 +664,13 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2WNYUYRS7G;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Tests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = dev.hotwire.turbo.tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -722,6 +710,51 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		84ACD7392AAE7C1600234C57 /* XCRemoteSwiftPackageReference "OHHTTPStubs" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AliSoftware/OHHTTPStubs";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
+		84ACD7462AAE818400234C57 /* XCRemoteSwiftPackageReference "Quick" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Quick/Quick";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+		84ACD7492AAE819800234C57 /* XCRemoteSwiftPackageReference "Nimble" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Quick/Nimble";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		84ACD73A2AAE7C1600234C57 /* OHHTTPStubs */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 84ACD7392AAE7C1600234C57 /* XCRemoteSwiftPackageReference "OHHTTPStubs" */;
+			productName = OHHTTPStubs;
+		};
+		84ACD7472AAE818400234C57 /* Quick */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 84ACD7462AAE818400234C57 /* XCRemoteSwiftPackageReference "Quick" */;
+			productName = Quick;
+		};
+		84ACD74A2AAE819800234C57 /* Nimble */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 84ACD7492AAE819800234C57 /* XCRemoteSwiftPackageReference "Nimble" */;
+			productName = Nimble;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C149E3452575780900158E8C /* Project object */;
 }

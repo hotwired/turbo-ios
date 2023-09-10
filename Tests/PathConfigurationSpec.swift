@@ -1,10 +1,11 @@
 import Quick
 import Nimble
+import Foundation
 @testable import Turbo
 
 class PathConfigurationSpec: QuickSpec {
     override func spec() {
-        let fileURL = Bundle(for: type(of: self)).url(forResource: "test-configuration", withExtension: "json")!
+        let fileURL = Bundle.module.url(forResource: "test-configuration", withExtension: "json", subdirectory: "Fixtures")!
         var configuration: PathConfiguration!
         
         beforeEach {
@@ -74,7 +75,7 @@ class PathConfigSpec: QuickSpec {
         describe("json") {
             context("with valid json") {
                 it("decodes successfully") {
-                    let fileURL = Bundle(for: type(of: self)).url(forResource: "test-configuration", withExtension: "json")!
+                    let fileURL = Bundle.module.url(forResource: "test-configuration", withExtension: "json", subdirectory: "Fixtures")!
 
                     do {
                         let data = try Data(contentsOf: fileURL)

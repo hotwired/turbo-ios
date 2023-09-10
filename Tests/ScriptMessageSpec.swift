@@ -9,8 +9,8 @@ class ScriptMessageSpec: QuickSpec {
         describe(".parse") {
             context("with valid data") {
                 it("returns message") {
-                    let data: [String: Any] = ["identifier": "123", "restorationIdentifier": "abc", "options": ["action": "advance"], "location": "http://turbo.test"]
-                    let script = FakeScriptMessage(body: ["name": "pageLoaded", "data": data])
+                    let data = ["identifier": "123", "restorationIdentifier": "abc", "options": ["action": "advance"], "location": "http://turbo.test"] as [String : Any]
+                    let script = FakeScriptMessage(body: ["name": "pageLoaded", "data": data] as [String : Any])
                     
                     guard let message = ScriptMessage(message: script) else {
                         fail("Error parsing script message")

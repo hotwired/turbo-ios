@@ -22,11 +22,20 @@ window.Turbo = Turbo
 
 ## Getting Started
 
-The best way to get started with Turbo iOS to try out the demo app first to get familiar with the framework. The demo app walks you through all the basic Turbo flows as well as some advanced features. To run the demo, clone this repo and open `Demo/Demo.xcworkspace` in Xcode and run the Demo target. See [Demo/README.md](Demo/README.md) for more details about the demo. When you’re ready to start your own application, read through the rest of the documentation.
+The best way to get started with Turbo iOS to try out the demo app first to get familiar with the framework. The demo app walks you through all the basic Turbo flows as well as some advanced features. To run the demo, clone this repo and open `Demo/Demo.xcodeproj` in Xcode and run the Demo target. See [Demo/README.md](Demo/README.md) for more details about the demo. When you’re ready to start your own application, read through the rest of the documentation.
+
+## Installation
+
+Add Turbo as a dependency through Xcode or directly to a Package.swift:
+
+```
+.package(url: "https://github.com/hotwired/turbo-ios", from: "<latest-version>")
+```
+
+You can also integrate the framework manually if your prefer, such as by adding the repo as a submodule, and linking `Turbo.framework` to your project.
 
 ## Documentation
 
-- [Installation](Docs/Installation.md)
 - [Quick Start](Docs/QuickStartGuide.md)
 - [Overview](Docs/Overview.md)
 - [Authentication](Docs/Authentication.md)
