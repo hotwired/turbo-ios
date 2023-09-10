@@ -9,6 +9,4 @@ jobs:
     - uses: actions/checkout@master
 
     - name: Run Tests
-      run: xcodebuild -project Turbo.xcodeproj -scheme Turbo test -quiet -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 13'
-      env:
-        DEVELOPER_DIR: /Applications/Xcode_13.2.1.app
+      run: xcodebuild -project Turbo.xcodeproj -scheme Turbo test -quiet -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 14'
