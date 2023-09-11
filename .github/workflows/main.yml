@@ -9,4 +9,4 @@ jobs:
     - uses: actions/checkout@master
 
     - name: Run Tests
-      run: xcodebuild -project Turbo.xcodeproj -scheme Turbo test -quiet -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 14'
+      run: xcodebuild -scheme Turbo test -quiet -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 14'
