@@ -16,7 +16,8 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/quick/quick", .upToNextMajor(from: "5.0.0")),
         .package(url: "https://github.com/quick/nimble", .upToNextMajor(from: "10.0.0")),
-        .package(url: "https://github.com/AliSoftware/OHHTTPStubs", .upToNextMajor(from: "9.0.0"))
+        .package(url: "https://github.com/AliSoftware/OHHTTPStubs", .upToNextMajor(from: "9.0.0")),
+        .package(url: "https://github.com/httpswift/swifter.git", .upToNextMajor(from: "1.5.0"))
     ],
     targets: [
         .target(
@@ -34,11 +35,13 @@ let package = Package(
                 "Turbo",
                 .product(name: "Quick", package: "quick"),
                 .product(name: "Nimble", package: "nimble"),
-                .product(name: "OHHTTPStubsSwift", package: "OHHTTPStubs")
+                .product(name: "OHHTTPStubsSwift", package: "OHHTTPStubs"),
+                .product(name: "Swifter", package: "Swifter")
             ],
             path: "Tests",
             resources: [
-                .copy("Fixtures")
+                .copy("Fixtures"),
+                .copy("Server")
             ]
         )
     ]
