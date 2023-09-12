@@ -2,13 +2,14 @@ import XCTest
 import Quick
 import Nimble
 import OHHTTPStubs
+import OHHTTPStubsSwift
 @testable import Turbo
 
 class PathConfigurationLoaderSpec: QuickSpec {
     override func spec() {
         let serverURL = URL(string: "http://turbo.test/configuration.json")!
-        let fileURL = Bundle(for: type(of: self)).url(forResource: "test-configuration", withExtension: "json")!
-        
+        let fileURL = Bundle.module.url(forResource: "test-configuration", withExtension: "json", subdirectory: "Fixtures")!
+
         describe("load") {
             context("data") {
                 it("automatically loads from passed in data and calls the handler") {
@@ -45,7 +46,7 @@ class PathConfigurationLoaderSpec: QuickSpec {
                 beforeEach {
                     loader = PathConfigurationLoader(sources: [.server(serverURL)])
                     stub(condition: { _ in true }) { _ in
-                        let json = ["rules": [["patterns": ["/new"], "properties": ["presentation": "test"]]]]
+                        let json = ["rules": [["patterns": ["/new"], "properties": ["presentation": "test"]] as [String : Any]]]
                         return HTTPStubsResponse(jsonObject: json, statusCode: 200, headers: [:])
                     }
                     
@@ -79,7 +80,7 @@ class PathConfigurationLoaderSpec: QuickSpec {
                     clearCache(loader.configurationCacheURL)
                     
                     stub(condition: { _ in true }) { _ in
-                        let json = ["rules": [["patterns": ["/new"], "properties": ["presentation": "test"]]]]
+                        let json = ["rules": [["patterns": ["/new"], "properties": ["presentation": "test"]] as [String : Any]]]
                         return HTTPStubsResponse(jsonObject: json, statusCode: 200, headers: [:])
                     }
                     
