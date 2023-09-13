@@ -22,6 +22,7 @@
 		E226F7842AB1BBF30059D594 /* TurboWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E226F7832AB1BBF30059D594 /* TurboWebViewController.swift */; };
 		E226F7872AB1BE030059D594 /* WKWebViewConfiguration+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = E226F7862AB1BE030059D594 /* WKWebViewConfiguration+App.swift */; };
 		E226F78A2AB1BF880059D594 /* FormComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E226F7892AB1BF880059D594 /* FormComponent.swift */; };
+		E226F78C2AB1CE2E0059D594 /* BridgeComponent+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = E226F78B2AB1CE2E0059D594 /* BridgeComponent+App.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -55,6 +56,7 @@
 		E226F7832AB1BBF30059D594 /* TurboWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TurboWebViewController.swift; sourceTree = "<group>"; };
 		E226F7862AB1BE030059D594 /* WKWebViewConfiguration+App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WKWebViewConfiguration+App.swift"; sourceTree = "<group>"; };
 		E226F7892AB1BF880059D594 /* FormComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormComponent.swift; sourceTree = "<group>"; };
+		E226F78B2AB1CE2E0059D594 /* BridgeComponent+App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BridgeComponent+App.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				E226F7892AB1BF880059D594 /* FormComponent.swift */,
+				E226F78B2AB1CE2E0059D594 /* BridgeComponent+App.swift */,
 			);
 			path = Strada;
 			sourceTree = "<group>";
@@ -232,6 +235,7 @@
 				C153F03525784BEA00926D30 /* NumbersViewController.swift in Sources */,
 				C153F0082578057900926D30 /* AppDelegate.swift in Sources */,
 				E226F78A2AB1BF880059D594 /* FormComponent.swift in Sources */,
+				E226F78C2AB1CE2E0059D594 /* BridgeComponent+App.swift in Sources */,
 				CB4FB651273AE23B00119FD3 /* TurboNavigationController.swift in Sources */,
 				E226F7872AB1BE030059D594 /* WKWebViewConfiguration+App.swift in Sources */,
 				C175FE782579905300C8DF50 /* Demo.swift in Sources */,
