@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import Turbo
+import Strada
 
 class TurboNavigationController : UINavigationController {
     
@@ -99,6 +100,13 @@ extension TurboNavigationController {
     
     private func visit(viewController: UIViewController, with options: VisitOptions, modal: Bool = false) {
         guard let visitable = viewController as? Visitable else { return }
+        
+        if let bridgeDestination = viewController as? TurboWebViewController & BridgeDestination {
+            let bridgeDelegate = BridgeDelegate(location: visitable.visitableURL.absoluteString,
+                                                destination: bridgeDestination,
+                                                componentTypes: BridgeComponent.allTypes)
+            bridgeDestination.bridgeDelegate = bridgeDelegate
+        }
         
         // Each Session corresponds to a single web view. A good rule of thumb
         // is to use a session per navigation stack. Here we're using a different session
