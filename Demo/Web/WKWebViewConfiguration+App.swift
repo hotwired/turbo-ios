@@ -8,8 +8,7 @@ enum WebViewPool {
 
 extension WKWebViewConfiguration {
     static var appConfiguration: WKWebViewConfiguration {
-        // TODO: Add strada components
-        let stradaSubstring = Strada.userAgentSubstring(for: [])
+        let stradaSubstring = Strada.userAgentSubstring(for: BridgeComponent.allTypes)
         let userAgent = "Turbo Native iOS \(stradaSubstring)"
         
         let configuration = WKWebViewConfiguration()
