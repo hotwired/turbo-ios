@@ -23,6 +23,7 @@
 		E226F7872AB1BE030059D594 /* WKWebViewConfiguration+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = E226F7862AB1BE030059D594 /* WKWebViewConfiguration+App.swift */; };
 		E226F78A2AB1BF880059D594 /* FormComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E226F7892AB1BF880059D594 /* FormComponent.swift */; };
 		E226F78C2AB1CE2E0059D594 /* BridgeComponent+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = E226F78B2AB1CE2E0059D594 /* BridgeComponent+App.swift */; };
+		E226F78E2AB1D2C20059D594 /* MenuComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E226F78D2AB1D2C20059D594 /* MenuComponent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -57,6 +58,7 @@
 		E226F7862AB1BE030059D594 /* WKWebViewConfiguration+App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WKWebViewConfiguration+App.swift"; sourceTree = "<group>"; };
 		E226F7892AB1BF880059D594 /* FormComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormComponent.swift; sourceTree = "<group>"; };
 		E226F78B2AB1CE2E0059D594 /* BridgeComponent+App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BridgeComponent+App.swift"; sourceTree = "<group>"; };
+		E226F78D2AB1D2C20059D594 /* MenuComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuComponent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +150,7 @@
 			children = (
 				E226F7892AB1BF880059D594 /* FormComponent.swift */,
 				E226F78B2AB1CE2E0059D594 /* BridgeComponent+App.swift */,
+				E226F78D2AB1D2C20059D594 /* MenuComponent.swift */,
 			);
 			path = Strada;
 			sourceTree = "<group>";
@@ -240,6 +243,7 @@
 				E226F7872AB1BE030059D594 /* WKWebViewConfiguration+App.swift in Sources */,
 				C175FE782579905300C8DF50 /* Demo.swift in Sources */,
 				C153F00A2578057900926D30 /* SceneController.swift in Sources */,
+				E226F78E2AB1D2C20059D594 /* MenuComponent.swift in Sources */,
 				C106CBE3257FF87700498F6F /* ErrorPresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
