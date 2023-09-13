@@ -7,7 +7,8 @@
       "patterns": [
         "/new$",
         "/edit$",
-        "/signin$"
+        "/signin$",
+        "/strada-form$"
       ],
       "properties": {
         "presentation": "modal"
