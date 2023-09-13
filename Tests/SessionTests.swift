@@ -134,13 +134,13 @@ class SessionTests: XCTestCase {
     // MARK: - Server
 
     @MainActor
-    private func visit(_ path: String) async {
+    private func visit(_ path: String) {
         let expectation = self.expectation(description: "Wait for request to load.")
         sessionDelegate.didChange = { expectation.fulfill() }
 
         let visitable = TestVisitable(url: url(path))
         session.visit(visitable)
-        await fulfillment(of: [expectation])
+        wait(for: [expectation])
     }
 
     private func url(_ path: String) -> URL {
