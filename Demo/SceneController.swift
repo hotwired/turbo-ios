@@ -2,6 +2,7 @@ import UIKit
 import WebKit
 import SafariServices
 import Turbo
+import Strada
 
 final class SceneController: UIResponder {
     private static var sharedProcessPool = WKProcessPool()
@@ -54,6 +55,10 @@ final class SceneController: UIResponder {
         if #available(iOS 16.4, *) {
             webView.isInspectable = true
         }
+        
+        // Initialize Strada bridge.
+        Bridge.initialize(webView)
+        
         let session = Session(webView: webView)
         session.delegate = self
         session.pathConfiguration = pathConfiguration
