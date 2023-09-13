@@ -19,6 +19,7 @@
 		C153F03525784BEA00926D30 /* NumbersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C153F03425784BEA00926D30 /* NumbersViewController.swift */; };
 		C175FE782579905300C8DF50 /* Demo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C175FE772579905300C8DF50 /* Demo.swift */; };
 		CB4FB651273AE23B00119FD3 /* TurboNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4FB650273AE23B00119FD3 /* TurboNavigationController.swift */; };
+		E226F7822AB1B7F20059D594 /* Strada in Frameworks */ = {isa = PBXBuildFile; productRef = E226F7812AB1B7F20059D594 /* Strada */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -58,6 +59,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				84ACD7322AAE743300234C57 /* Turbo in Frameworks */,
+				E226F7822AB1B7F20059D594 /* Strada in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -144,6 +146,7 @@
 			name = Demo;
 			packageProductDependencies = (
 				84ACD7312AAE743300234C57 /* Turbo */,
+				E226F7812AB1B7F20059D594 /* Strada */,
 			);
 			productName = Demo;
 			productReference = C153F0042578057900926D30 /* Turbo Demo.app */;
@@ -172,6 +175,9 @@
 				Base,
 			);
 			mainGroup = C153EFFB2578057900926D30;
+			packageReferences = (
+				E226F7802AB1B7F20059D594 /* XCRemoteSwiftPackageReference "strada-ios" */,
+			);
 			productRefGroup = C153F0052578057900926D30 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -417,10 +423,26 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		E226F7802AB1B7F20059D594 /* XCRemoteSwiftPackageReference "strada-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hotwired/strada-ios.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
 		84ACD7312AAE743300234C57 /* Turbo */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Turbo;
+		};
+		E226F7812AB1B7F20059D594 /* Strada */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E226F7802AB1B7F20059D594 /* XCRemoteSwiftPackageReference "strada-ios" */;
+			productName = Strada;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
