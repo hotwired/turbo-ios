@@ -76,7 +76,7 @@ extension TurboNavigationController {
             }
         }
             
-        return ViewController(url: url)
+        return TurboWebViewController(url: url)
     }
     
     private func navigate(to viewController: UIViewController, action: VisitAction, properties: PathProperties = [:], animated: Bool = true) {
