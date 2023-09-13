@@ -2,6 +2,8 @@ import Foundation
 import Strada
 import UIKit
 
+/// Bridge component to display a native bottom sheet menu,
+/// which will send the selected index of the tapped menu item back to the web.
 final class MenuComponent: BridgeComponent {
     override class var name: String { "menu" }
     
