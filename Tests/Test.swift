@@ -76,3 +76,65 @@ class TestSessionDelegate: NSObject, SessionDelegate {
         sessionDidProposeVisitCalled = true
     }
 }
+
+class TestVisitDelegate {
+    var methodsCalled: Set<String> = []
+
+    func didCall(_ method: String) -> Bool {
+        methodsCalled.contains(method)
+    }
+
+    private func record(_ string: String = #function) {
+        methodsCalled.insert(string)
+    }
+}
+
+extension TestVisitDelegate: VisitDelegate {
+    func visitDidInitializeWebView(_ visit: Visit) {
+        record()
+    }
+
+    func visitWillStart(_ visit: Visit) {
+        record()
+    }
+
+    func visitDidStart(_ visit: Visit) {
+        record()
+    }
+
+    func visitDidComplete(_ visit: Visit) {
+        record()
+    }
+
+    func visitDidFail(_ visit: Visit) {
+        record()
+    }
+
+    func visitDidFinish(_ visit: Visit) {
+        record()
+    }
+
+    func visitWillLoadResponse(_ visit: Visit) {
+        record()
+    }
+
+    func visitDidRender(_ visit: Visit) {
+        record()
+    }
+
+    func visitRequestDidStart(_ visit: Visit) {
+        record()
+    }
+
+    func visit(_ visit: Visit, requestDidFailWithError error: Error) {
+        record()
+    }
+
+    func visitRequestDidFinish(_ visit: Visit) {
+        record()
+    }
+
+    func visit(_ visit: Visit, didReceiveAuthenticationChallenge challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+        record()
+    }
+}
