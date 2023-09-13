@@ -37,12 +37,14 @@ class TestVisitable: UIViewController, Visitable {
 }
 
 class TestSessionDelegate: NSObject, SessionDelegate {
-    var sessionDidLoadWebViewCalled = false
+    var sessionDidLoadWebViewCalled = false { didSet { didChange?() }}
     var sessionDidStartRequestCalled = false
     var sessionDidFinishRequestCalled = false
     var failedRequestError: Error? = nil
-    var sessionDidFailRequestCalled = false
+    var sessionDidFailRequestCalled = false { didSet { didChange?() }}
     var sessionDidProposeVisitCalled = false
+
+    var didChange: (() -> Void)?
     
     func sessionDidLoadWebView(_ session: Session) {
         sessionDidLoadWebViewCalled = true
