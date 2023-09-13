@@ -47,11 +47,8 @@ final class SceneController: UIResponder {
     private lazy var modalSession = makeSession()
     
     private func makeSession() -> Session {
-        let configuration = WKWebViewConfiguration()
-        configuration.applicationNameForUserAgent = "Turbo Native iOS"
-        configuration.processPool = Self.sharedProcessPool
-
-        let webView = WKWebView(frame: .zero, configuration: configuration)
+        let webView = WKWebView(frame: .zero,
+                                configuration: .appConfiguration)
         if #available(iOS 16.4, *) {
             webView.isInspectable = true
         }
