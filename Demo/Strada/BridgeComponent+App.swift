@@ -5,7 +5,8 @@ extension BridgeComponent {
     static var allTypes: [BridgeComponent.Type] {
         [
             FormComponent.self,
-            MenuComponent.self
+            MenuComponent.self,
+            OverflowMenuComponent.self
         ]
     }
 }

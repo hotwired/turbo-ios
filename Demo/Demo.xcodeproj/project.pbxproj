@@ -24,6 +24,7 @@
 		E226F78A2AB1BF880059D594 /* FormComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E226F7892AB1BF880059D594 /* FormComponent.swift */; };
 		E226F78C2AB1CE2E0059D594 /* BridgeComponent+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = E226F78B2AB1CE2E0059D594 /* BridgeComponent+App.swift */; };
 		E226F78E2AB1D2C20059D594 /* MenuComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E226F78D2AB1D2C20059D594 /* MenuComponent.swift */; };
+		E226F7902AB1D7260059D594 /* OverflowMenuComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E226F78F2AB1D7260059D594 /* OverflowMenuComponent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -59,6 +60,7 @@
 		E226F7892AB1BF880059D594 /* FormComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormComponent.swift; sourceTree = "<group>"; };
 		E226F78B2AB1CE2E0059D594 /* BridgeComponent+App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BridgeComponent+App.swift"; sourceTree = "<group>"; };
 		E226F78D2AB1D2C20059D594 /* MenuComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuComponent.swift; sourceTree = "<group>"; };
+		E226F78F2AB1D7260059D594 /* OverflowMenuComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverflowMenuComponent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,9 +150,10 @@
 		E226F7882AB1BF210059D594 /* Strada */ = {
 			isa = PBXGroup;
 			children = (
-				E226F7892AB1BF880059D594 /* FormComponent.swift */,
 				E226F78B2AB1CE2E0059D594 /* BridgeComponent+App.swift */,
+				E226F7892AB1BF880059D594 /* FormComponent.swift */,
 				E226F78D2AB1D2C20059D594 /* MenuComponent.swift */,
+				E226F78F2AB1D7260059D594 /* OverflowMenuComponent.swift */,
 			);
 			path = Strada;
 			sourceTree = "<group>";
@@ -244,6 +247,7 @@
 				C175FE782579905300C8DF50 /* Demo.swift in Sources */,
 				C153F00A2578057900926D30 /* SceneController.swift in Sources */,
 				E226F78E2AB1D2C20059D594 /* MenuComponent.swift in Sources */,
+				E226F7902AB1D7260059D594 /* OverflowMenuComponent.swift in Sources */,
 				C106CBE3257FF87700498F6F /* ErrorPresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
