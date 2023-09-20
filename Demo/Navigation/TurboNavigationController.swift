@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import Turbo
+import Strada
 
 class TurboNavigationController : UINavigationController {
     
@@ -76,7 +77,7 @@ extension TurboNavigationController {
             }
         }
             
-        return ViewController(url: url)
+        return TurboWebViewController(url: url)
     }
     
     private func navigate(to viewController: UIViewController, action: VisitAction, properties: PathProperties = [:], animated: Bool = true) {
@@ -99,7 +100,6 @@ extension TurboNavigationController {
     
     private func visit(viewController: UIViewController, with options: VisitOptions, modal: Bool = false) {
         guard let visitable = viewController as? Visitable else { return }
-        
         // Each Session corresponds to a single web view. A good rule of thumb
         // is to use a session per navigation stack. Here we're using a different session
         // when presenting a modal. We keep that around for any modal presentations so
