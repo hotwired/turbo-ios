@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		840CB81E2AE708F400E7A422 /* AlertComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840CB81D2AE708F400E7A422 /* AlertComponent.swift */; };
 		84ACD7322AAE743300234C57 /* Turbo in Frameworks */ = {isa = PBXBuildFile; productRef = 84ACD7312AAE743300234C57 /* Turbo */; };
 		C106CBE3257FF87700498F6F /* ErrorPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C106CBE2257FF87700498F6F /* ErrorPresenter.swift */; };
 		C10DF228257AB81D009412E7 /* path-configuration.json in Resources */ = {isa = PBXBuildFile; fileRef = C10DF227257AB81D009412E7 /* path-configuration.json */; };
@@ -41,6 +42,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		840CB81D2AE708F400E7A422 /* AlertComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertComponent.swift; sourceTree = "<group>"; };
 		84ACD72F2AAE733C00234C57 /* turbo-ios */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "turbo-ios"; path = ..; sourceTree = "<group>"; };
 		C106CBE2257FF87700498F6F /* ErrorPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorPresenter.swift; sourceTree = "<group>"; };
 		C10DF227257AB81D009412E7 /* path-configuration.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "path-configuration.json"; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				E226F78B2AB1CE2E0059D594 /* BridgeComponent+App.swift */,
+				840CB81D2AE708F400E7A422 /* AlertComponent.swift */,
 				E226F7892AB1BF880059D594 /* FormComponent.swift */,
 				E226F78D2AB1D2C20059D594 /* MenuComponent.swift */,
 				E226F78F2AB1D7260059D594 /* OverflowMenuComponent.swift */,
@@ -242,6 +245,7 @@
 				C153F0082578057900926D30 /* AppDelegate.swift in Sources */,
 				E226F78A2AB1BF880059D594 /* FormComponent.swift in Sources */,
 				E226F78C2AB1CE2E0059D594 /* BridgeComponent+App.swift in Sources */,
+				840CB81E2AE708F400E7A422 /* AlertComponent.swift in Sources */,
 				CB4FB651273AE23B00119FD3 /* TurboNavigationController.swift in Sources */,
 				E226F7872AB1BE030059D594 /* WKWebViewConfiguration+App.swift in Sources */,
 				C175FE782579905300C8DF50 /* Demo.swift in Sources */,
