@@ -14,6 +14,7 @@ public class Session: NSObject {
     private lazy var bridge = WebViewBridge(webView: webView)
     private var initialized = false
     private var refreshing = false
+    private var needsReload = false
 
     /// Automatically creates a web view with the passed-in configuration
     public convenience init(webViewConfiguration: WKWebViewConfiguration? = nil) {
@@ -89,6 +90,10 @@ public class Session: NSObject {
     
     public func clearSnapshotCache() {
         bridge.clearSnapshotCache()
+    }
+
+    public func setNeedsReload() {
+        needsReload = true
     }
 
     // MARK: Visitable activation
@@ -228,6 +233,9 @@ extension Session: VisitableDelegate {
         } else if visitable !== topmostVisit.visitable {
             // Navigating backward
             visit(visitable, action: .restore)
+        } else if needsReload {
+            reload()
+            needsReload = false
         }
     }
 
