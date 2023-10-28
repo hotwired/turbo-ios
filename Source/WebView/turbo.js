@@ -109,6 +109,10 @@
       this.postMessage("visitProposed", { location: location.toString(), options: options })
     }
 
+    visitProposedToNonVisitableLocation(location) {
+      this.postMessage("visitProposed", { location: location.toString(), options: { } })
+    }
+
     // Turbolinks 5
     visitProposedToLocationWithAction(location, action) {
       this.visitProposedToLocation(location, { action })
