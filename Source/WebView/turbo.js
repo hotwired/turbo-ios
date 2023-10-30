@@ -109,7 +109,7 @@
       this.postMessage("visitProposed", { location: location.toString(), options: options })
     }
 
-    visitProposedToNonVisitableLocation(location) {
+    adapterVisitProposedToNonVisitableLocation(location) {
       this.postMessage("visitProposed", { location: location.toString(), options: { } })
     }
 
