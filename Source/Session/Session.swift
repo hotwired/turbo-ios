@@ -14,6 +14,9 @@ public class Session: NSObject {
     private lazy var bridge = WebViewBridge(webView: webView)
     private var initialized = false
     private var refreshing = false
+    
+    /// Options behave differently if a response is provided.
+    private let visitOptionsHandler = VisitOptionsHandler()
 
     /// Automatically creates a web view with the passed-in configuration
     public convenience init(webViewConfiguration: WKWebViewConfiguration? = nil) {
@@ -61,7 +64,8 @@ public class Session: NSObject {
             initialized = false
         }
         
-        let visit = makeVisit(for: visitable, options: options ?? VisitOptions())
+        let processedOptions = visitOptionsHandler.process(options)
+        let visit = makeVisit(for: visitable, options: processedOptions)
         currentVisit?.cancel()
         currentVisit = visit
         
