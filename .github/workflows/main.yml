@@ -13,4 +13,4 @@ jobs:
         xcode-version: latest-stable
 
     - name: Run Tests
-      run: xcodebuild test -scheme Turbo -destination "name=iPhone 15 Pro" | xcpretty -t && exit ${PIPESTATUS[0]}
+      run: xcodebuild test -scheme Turbo -destination "name=iPhone 15 Pro" | xcpretty && exit ${PIPESTATUS[0]}
