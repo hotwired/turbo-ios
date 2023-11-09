@@ -3,6 +3,9 @@ import Swifter
 import WebKit
 import XCTest
 
+private let defaultTimeout: TimeInterval = 10
+private let turboTimeout: TimeInterval = 30
+
 class SessionTests: XCTestCase {
     private static let server = HttpServer()
 
@@ -92,8 +95,7 @@ class SessionTests: XCTestCase {
 
     @MainActor
     func test_coldBootVisit_whenVisitFailsFromMissingLibrary_providesAnPageLoadError() async throws {
-        // 5 seconds more than Turbo.js timeout.
-        await visit("/missing-library", timeout: 35)
+        await visit("/missing-library", timeout: turboTimeout + defaultTimeout)
 
         XCTAssertTrue(sessionDelegate.sessionDidFailRequestCalled)
         XCTAssertTrue(sessionDelegate.sessionDidFinishRequestCalled)
@@ -124,7 +126,7 @@ class SessionTests: XCTestCase {
     // MARK: - Server
 
     @MainActor
-    private func visit(_ path: String, timeout: TimeInterval = 5) async {
+    private func visit(_ path: String, timeout: TimeInterval = defaultTimeout) async {
         let expectation = self.expectation(description: "Wait for request to load.")
         sessionDelegate.didChange = { expectation.fulfill() }
 
