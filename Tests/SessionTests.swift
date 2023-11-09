@@ -62,9 +62,8 @@ class SessionTests: XCTestCase {
         XCTAssertFalse(sessionDelegate.sessionDidFailRequestCalled)
     }
 
-    @MainActor
     func test_coldBootVisit_whenVisitSucceeds_configuresJavaScriptBridge() async throws {
-        visit("/")
+        await visit("/")
 
         XCTAssertTrue(sessionDelegate.sessionDidLoadWebViewCalled)
         let result = try await session.webView.evaluateJavaScript("Turbo.navigator.adapter == window.turboNative")
@@ -91,29 +90,21 @@ class SessionTests: XCTestCase {
         XCTAssertTrue(sessionDelegate.sessionDidFinishRequestCalled)
     }
 
-    func test_coldBootVisit_whenVisitFailsFromMissingLibrary_callsSessionDidFailRequestDelegateMethod() async {
-        await visit("/missing-library")
+    @MainActor
+    func test_coldBootVisit_whenVisitFailsFromMissingLibrary_providesAnPageLoadError() async throws {
+        // 5 seconds more than Turbo.js timeout.
+        await visit("/missing-library", timeout: 35)
 
         XCTAssertTrue(sessionDelegate.sessionDidFailRequestCalled)
-    }
-
-    func test_coldBootVisit_whenVisitFailsFromMissingLibrary_providesAnPageLoadError() async throws {
-        await visit("/missing-library")
+        XCTAssertTrue(sessionDelegate.sessionDidFinishRequestCalled)
 
         XCTAssertNotNil(sessionDelegate.failedRequestError)
         let error = try XCTUnwrap(sessionDelegate.failedRequestError)
         XCTAssertEqual(error as? TurboError, TurboError.pageLoadFailure)
     }
 
-    func test_coldBootVisit_whenVisitFailsFromMissingLibrary_callsSessionDidFinishRequestDelegateMethod() async {
-        await visit("/missing-library")
-
-        XCTAssertTrue(sessionDelegate.sessionDidFinishRequestCalled)
-    }
-
-    @MainActor
     func test_coldBootVisit_Turbolinks5Compatibility_loadsThePageAndSetsTheAdapter() async throws {
-        visit("/turbolinks")
+        await visit("/turbolinks")
 
         XCTAssertTrue(sessionDelegate.sessionDidLoadWebViewCalled)
 
@@ -121,9 +112,8 @@ class SessionTests: XCTestCase {
         XCTAssertTrue(result as! Bool)
     }
 
-    @MainActor
     func test_coldBootVisit_Turbolinks5_3Compatibility_loadsThePageAndSetsTheAdapter() async throws {
-        visit("/turbolinks-5.3")
+        await visit("/turbolinks-5.3")
 
         XCTAssertTrue(sessionDelegate.sessionDidLoadWebViewCalled)
 
@@ -134,13 +124,13 @@ class SessionTests: XCTestCase {
     // MARK: - Server
 
     @MainActor
-    private func visit(_ path: String) {
+    private func visit(_ path: String, timeout: TimeInterval = 5) async {
         let expectation = self.expectation(description: "Wait for request to load.")
         sessionDelegate.didChange = { expectation.fulfill() }
 
         let visitable = TestVisitable(url: url(path))
         session.visit(visitable)
-        wait(for: [expectation])
+        await fulfillment(of: [expectation], timeout: timeout)
     }
 
     private func url(_ path: String) -> URL {
