@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   test:
-    runs-on: macos-13-arm64
+    runs-on: macos-13-xl
     steps:
     - uses: actions/checkout@v4
 
