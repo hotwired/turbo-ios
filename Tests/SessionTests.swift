@@ -64,7 +64,7 @@ class SessionTests: XCTestCase {
 
     @MainActor
     func test_coldBootVisit_whenVisitSucceeds_configuresJavaScriptBridge() async throws {
-        await visit("/")
+        visit("/")
 
         XCTAssertTrue(sessionDelegate.sessionDidLoadWebViewCalled)
         let result = try await session.webView.evaluateJavaScript("Turbo.navigator.adapter == window.turboNative")
@@ -113,7 +113,7 @@ class SessionTests: XCTestCase {
 
     @MainActor
     func test_coldBootVisit_Turbolinks5Compatibility_loadsThePageAndSetsTheAdapter() async throws {
-        await visit("/turbolinks")
+        visit("/turbolinks")
 
         XCTAssertTrue(sessionDelegate.sessionDidLoadWebViewCalled)
 
@@ -123,7 +123,7 @@ class SessionTests: XCTestCase {
 
     @MainActor
     func test_coldBootVisit_Turbolinks5_3Compatibility_loadsThePageAndSetsTheAdapter() async throws {
-        await visit("/turbolinks-5.3")
+        visit("/turbolinks-5.3")
 
         XCTAssertTrue(sessionDelegate.sessionDidLoadWebViewCalled)
 
