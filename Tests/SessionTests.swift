@@ -7,15 +7,16 @@ private let defaultTimeout: TimeInterval = 10000
 private let turboTimeout: TimeInterval = 30
 
 class SessionTests: XCTestCase {
-    private static var eventLoop: EventLoop!
-    private static var server: HTTPServer!
+    private static let eventLoop = try! SelectorEventLoop(selector: try! KqueueSelector())
+    private static let server = DefaultHTTPServer.turboServer(eventLoop: eventLoop)
 
     private let sessionDelegate = TestSessionDelegate()
     private var session: Session!
 
     override class func setUp() {
         super.setUp()
-        startServer()
+        try! server.start()
+        DispatchQueue.global().async { eventLoop.runForever() }
     }
 
     override class func tearDown() {
@@ -143,53 +144,5 @@ class SessionTests: XCTestCase {
         let baseURL = URL(string: "http://localhost:8080")!
         let relativePath = path.hasPrefix("/") ? String(path.dropFirst()) : path
         return baseURL.appendingPathComponent(relativePath)
-    }
-
-    private static func startServer() {
-        let loop = try! SelectorEventLoop(selector: try! KqueueSelector())
-        eventLoop = loop
-
-        let server = DefaultHTTPServer(eventLoop: loop, port: 8080) { environ, startResponse, sendBody in
-            let path = environ["PATH_INFO"] as! String
-
-            func respondWithFile(resourceName: String, resourceType: String) {
-                let fileURL = Bundle.module.url(forResource: resourceName, withExtension: resourceType, subdirectory: "Server")!
-                let data = try! Data(contentsOf: fileURL)
-
-                let contentType = (resourceType == "js") ? "application/javascript" : "text/html"
-                startResponse("200 OK", [("Content-Type", contentType)])
-                sendBody(data)
-                sendBody(Data())
-            }
-
-            switch path {
-            case "/turbo-7.0.0-beta.1.js":
-                respondWithFile(resourceName: "turbo-7.0.0-beta.1", resourceType: "js")
-            case "/turbolinks-5.2.0.js":
-                respondWithFile(resourceName: "turbolinks-5.2.0", resourceType: "js")
-            case "/turbolinks-5.3.0-dev.js":
-                respondWithFile(resourceName: "turbolinks-5.3.0-dev", resourceType: "js")
-            case "/":
-                respondWithFile(resourceName: "turbo", resourceType: "html")
-            case "/turbolinks":
-                respondWithFile(resourceName: "turbolinks", resourceType: "html")
-            case "/turbolinks-5.3":
-                respondWithFile(resourceName: "turbolinks-5.3", resourceType: "html")
-            case "/missing-library":
-                startResponse("200 OK", [("Content-Type", "text/html")])
-                sendBody("<html></html>".data(using: .utf8)!)
-                sendBody(Data())
-            default:
-                startResponse("404 Not Found", [("Content-Type", "text/plain")])
-                sendBody(Data())
-            }
-        }
-
-        self.server = server
-        try! server.start()
-
-        DispatchQueue.global().async {
-            loop.runForever()
-        }
     }
 }
