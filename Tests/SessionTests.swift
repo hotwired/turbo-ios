@@ -1,23 +1,27 @@
-import Swifter
+import Embassy
 @testable import Turbo
 import WebKit
 import XCTest
 
-private let defaultTimeout: TimeInterval = 10
+private let defaultTimeout: TimeInterval = 10000
 private let turboTimeout: TimeInterval = 30
 
 class SessionTests: XCTestCase {
-    private static let server = HttpServer()
+    private static var eventLoop: EventLoop!
+    private static var server: HTTPServer!
 
     private let sessionDelegate = TestSessionDelegate()
     private var session: Session!
 
     override class func setUp() {
+        super.setUp()
         startServer()
     }
 
     override class func tearDown() {
-        server.stop()
+        super.tearDown()
+        server.stopAndWait()
+        eventLoop.stop()
     }
 
     override func setUp() {
@@ -142,50 +146,50 @@ class SessionTests: XCTestCase {
     }
 
     private static func startServer() {
-        server["/turbo-7.0.0-beta.1.js"] = { _ in
-            let fileURL = Bundle.module.url(forResource: "turbo-7.0.0-beta.1", withExtension: "js", subdirectory: "Server")!
-            let data = try! Data(contentsOf: fileURL)
-            return .ok(.data(data))
+        let loop = try! SelectorEventLoop(selector: try! KqueueSelector())
+        eventLoop = loop
+
+        let server = DefaultHTTPServer(eventLoop: loop, port: 8080) { environ, startResponse, sendBody in
+            let path = environ["PATH_INFO"] as! String
+
+            func respondWithFile(resourceName: String, resourceType: String) {
+                let fileURL = Bundle.module.url(forResource: resourceName, withExtension: resourceType, subdirectory: "Server")!
+                let data = try! Data(contentsOf: fileURL)
+
+                let contentType = (resourceType == "js") ? "application/javascript" : "text/html"
+                startResponse("200 OK", [("Content-Type", contentType)])
+                sendBody(data)
+                sendBody(Data())
+            }
+
+            switch path {
+            case "/turbo-7.0.0-beta.1.js":
+                respondWithFile(resourceName: "turbo-7.0.0-beta.1", resourceType: "js")
+            case "/turbolinks-5.2.0.js":
+                respondWithFile(resourceName: "turbolinks-5.2.0", resourceType: "js")
+            case "/turbolinks-5.3.0-dev.js":
+                respondWithFile(resourceName: "turbolinks-5.3.0-dev", resourceType: "js")
+            case "/":
+                respondWithFile(resourceName: "turbo", resourceType: "html")
+            case "/turbolinks":
+                respondWithFile(resourceName: "turbolinks", resourceType: "html")
+            case "/turbolinks-5.3":
+                respondWithFile(resourceName: "turbolinks-5.3", resourceType: "html")
+            case "/missing-library":
+                startResponse("200 OK", [("Content-Type", "text/html")])
+                sendBody("<html></html>".data(using: .utf8)!)
+                sendBody(Data())
+            default:
+                startResponse("404 Not Found", [("Content-Type", "text/plain")])
+                sendBody(Data())
+            }
         }
 
-        server["/turbolinks-5.2.0.js"] = { _ in
-            let fileURL = Bundle.module.url(forResource: "turbolinks-5.2.0", withExtension: "js", subdirectory: "Server")!
-            let data = try! Data(contentsOf: fileURL)
-            return .ok(.data(data))
-        }
-
-        server["/turbolinks-5.3.0-dev.js"] = { _ in
-            let fileURL = Bundle.module.url(forResource: "turbolinks-5.3.0-dev", withExtension: "js", subdirectory: "Server")!
-            let data = try! Data(contentsOf: fileURL)
-            return .ok(.data(data))
-        }
-
-        server["/"] = { _ in
-            let fileURL = Bundle.module.url(forResource: "turbo", withExtension: "html", subdirectory: "Server")!
-            let data = try! Data(contentsOf: fileURL)
-            return .ok(.data(data))
-        }
-
-        server["/turbolinks"] = { _ in
-            let fileURL = Bundle.module.url(forResource: "turbolinks", withExtension: "html", subdirectory: "Server")!
-            let data = try! Data(contentsOf: fileURL)
-            return .ok(.data(data))
-        }
-
-        server["/turbolinks-5.3"] = { _ in
-            let fileURL = Bundle.module.url(forResource: "turbolinks-5.3", withExtension: "html", subdirectory: "Server")!
-            let data = try! Data(contentsOf: fileURL)
-            return .ok(.data(data))
-        }
-
-        server["/missing-library"] = { _ in
-            .ok(.html("<html></html>"))
-        }
-
-        server["/invalid"] = { _ in
-            .notFound
-        }
-
+        self.server = server
         try! server.start()
+
+        DispatchQueue.global().async {
+            loop.runForever()
+        }
     }
 }
