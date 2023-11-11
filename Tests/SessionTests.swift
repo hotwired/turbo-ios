@@ -7,34 +7,30 @@ private let defaultTimeout: TimeInterval = 10000
 private let turboTimeout: TimeInterval = 30
 
 class SessionTests: XCTestCase {
-    private static let eventLoop = try! SelectorEventLoop(selector: try! KqueueSelector())
-    private static let server = DefaultHTTPServer.turboServer(eventLoop: eventLoop)
-
     private let sessionDelegate = TestSessionDelegate()
     private var session: Session!
+    private var eventLoop: SelectorEventLoop!
+    private var server: DefaultHTTPServer!
 
-    override class func setUp() {
-        super.setUp()
-        try! server.start()
-        DispatchQueue.global().async { eventLoop.runForever() }
-    }
-
-    override class func tearDown() {
-        super.tearDown()
-        server.stopAndWait()
-        eventLoop.stop()
-    }
-
-    override func setUp() {
+    @MainActor
+    override func setUp() async throws {
         let configuration = WKWebViewConfiguration()
         configuration.applicationNameForUserAgent = "Turbo iOS Test/1.0"
 
         session = Session(webViewConfiguration: configuration)
         session.delegate = sessionDelegate
+
+        eventLoop = try SelectorEventLoop(selector: KqueueSelector())
+        server = DefaultHTTPServer.turboServer(eventLoop: eventLoop)
+        try! server.start()
+        DispatchQueue.global().async { self.eventLoop.runForever() }
     }
 
     override func tearDown() {
         session.webView.configuration.userContentController.removeScriptMessageHandler(forName: "turbo")
+
+        server.stopAndWait()
+        eventLoop.stop()
     }
 
     func test_init_initializesWebViewWithConfiguration() {
