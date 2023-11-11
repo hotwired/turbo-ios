@@ -75,7 +75,7 @@ class SessionTests: XCTestCase {
 
         XCTAssertTrue(sessionDelegate.sessionDidLoadWebViewCalled)
         let result = try await session.webView.evaluateJavaScript("Turbo.navigator.adapter == window.turboNative")
-        XCTAssertTrue(result as! Bool)
+        XCTAssertTrue(try XCTUnwrap(result as? Bool))
     }
 
     func test_coldBootVisit_whenVisitFailsFromHTTPError_callsSessionDidFailRequestDelegateMethod() async {
@@ -116,7 +116,7 @@ class SessionTests: XCTestCase {
         XCTAssertTrue(sessionDelegate.sessionDidLoadWebViewCalled)
 
         let result = try await session.webView.evaluateJavaScript("Turbolinks.controller.adapter === window.turboNative")
-        XCTAssertTrue(result as! Bool)
+        XCTAssertTrue(try XCTUnwrap(result as? Bool))
     }
 
     func test_coldBootVisit_Turbolinks5_3Compatibility_loadsThePageAndSetsTheAdapter() async throws {
@@ -125,7 +125,7 @@ class SessionTests: XCTestCase {
         XCTAssertTrue(sessionDelegate.sessionDidLoadWebViewCalled)
 
         let result = try await session.webView.evaluateJavaScript("Turbolinks.controller.adapter === window.turboNative")
-        XCTAssertTrue(result as! Bool)
+        XCTAssertTrue(try XCTUnwrap(result as? Bool))
     }
 
     // MARK: - Server

@@ -11,6 +11,7 @@ class ScriptMessageTests: XCTestCase {
         XCTAssertEqual(message.name, .pageLoaded)
         XCTAssertEqual(message.identifier, "123")
         XCTAssertEqual(message.restorationIdentifier, "abc")
+
         let options = try XCTUnwrap(message.options)
         XCTAssertEqual(options.action, .advance)
         XCTAssertEqual(message.location, URL(string: "http://turbo.test")!)
