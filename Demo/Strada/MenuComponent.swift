@@ -35,7 +35,7 @@ final class MenuComponent: BridgeComponent {
                                                 preferredStyle: .actionSheet)
         
         for item in items {
-            let action = UIAlertAction(title: item.title, style: .default) {[weak self] _ in
+            let action = UIAlertAction(title: item.title, style: .default) { [weak self] _ in
                 self?.onItemSelected(item: item)
             }
             alertController.addAction(action)
@@ -75,6 +75,6 @@ private extension MenuComponent {
     }
     
     struct SelectionMessageData: Encodable {
-        let selectedIndex:Int
+        let selectedIndex: Int
     }
 }

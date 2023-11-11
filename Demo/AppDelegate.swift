@@ -1,6 +1,6 @@
-import UIKit
-import Turbo
 import Strada
+import Turbo
+import UIKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -9,7 +9,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         TurboLog.debugLoggingEnabled = true
         Strada.config.debugLoggingEnabled = true
         #endif
-        
+
         return true
     }
 

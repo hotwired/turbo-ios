@@ -1,69 +1,53 @@
+import SafariServices
+import Strada
+import Turbo
 import UIKit
 import WebKit
-import SafariServices
-import Turbo
-import Strada
 
 final class SceneController: UIResponder {
-    private static var sharedProcessPool = WKProcessPool()
-    
     var window: UIWindow?
+
     private let rootURL = Demo.current
-    private var navigationController: TurboNavigationController!
-    
+    private lazy var navigator = TurboNavigator(pathConfiguration: pathConfiguration, delegate: self)
+
     // MARK: - Setup
-    
+
+    private func configureStrada() {
+        TurboConfig.shared.userAgent +=
+            " \(Strada.userAgentSubstring(for: BridgeComponent.allTypes))"
+
+        TurboConfig.shared.makeCustomWebView = { config in
+            config.defaultWebpagePreferences?.preferredContentMode = .mobile
+
+            let webView = WKWebView(frame: .zero, configuration: .appConfiguration)
+            if #available(iOS 16.4, *) {
+                webView.isInspectable = true
+            }
+            // Initialize Strada bridge.
+            Bridge.initialize(webView)
+
+            return webView
+        }
+    }
+
     private func configureRootViewController() {
         guard let window = window else {
             fatalError()
         }
-        
-        window.tintColor = UIColor(named: "Tint")
-        
-        let turboNavController: TurboNavigationController
-        if let navController = window.rootViewController as? TurboNavigationController {
-            turboNavController = navController
-            navigationController = navController
-        } else {
-            turboNavController = TurboNavigationController()
-            window.rootViewController = turboNavController
-        }
-        
-        turboNavController.session = session
-        turboNavController.modalSession = modalSession
+
+        window.tintColor = .tint
+        window.rootViewController = navigator.rootViewController
     }
-    
+
     // MARK: - Authentication
-    
+
     private func promptForAuthentication() {
         let authURL = rootURL.appendingPathComponent("/signin")
-        let properties = pathConfiguration.properties(for: authURL)
-        navigationController.route(url: authURL, options: VisitOptions(), properties: properties)
+        navigator.route(authURL)
     }
-    
-    // MARK: - Sessions
-    
-    private lazy var session = makeSession()
-    private lazy var modalSession = makeSession()
-    
-    private func makeSession() -> Session {
-        let webView = WKWebView(frame: .zero,
-                                configuration: .appConfiguration)
-        if #available(iOS 16.4, *) {
-            webView.isInspectable = true
-        }
-        
-        // Initialize Strada bridge.
-        Bridge.initialize(webView)
-        
-        let session = Session(webView: webView)
-        session.delegate = self
-        session.pathConfiguration = pathConfiguration
-        return session
-    }
-    
+
     // MARK: - Path Configuration
-    
+
     private lazy var pathConfiguration = PathConfiguration(sources: [
         .file(Bundle.main.url(forResource: "path-configuration", withExtension: "json")!),
     ])
@@ -71,73 +55,41 @@ final class SceneController: UIResponder {
 
 extension SceneController: UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        guard let _ = scene as? UIWindowScene else { return }
-        
+        guard let windowScene = scene as? UIWindowScene else { return }
+
+        window = UIWindow(windowScene: windowScene)
+        window?.makeKeyAndVisible()
+
+        configureStrada()
         configureRootViewController()
-        navigationController.route(url: rootURL, options: VisitOptions(action: .replace), properties: [:])
+
+        navigator.route(rootURL)
     }
 }
 
-extension SceneController: SessionDelegate {
-    func session(_ session: Session, didProposeVisit proposal: VisitProposal) {
-        navigationController.route(url: proposal.url, options: proposal.options, properties: proposal.properties)
+extension SceneController: TurboNavigatorDelegate {
+    func handle(proposal: VisitProposal) -> ProposalResult {
+        switch proposal.viewController {
+        case "numbers":
+            return .acceptCustom(NumbersViewController(url: proposal.url, navigator: navigator))
+        case "numbersDetail":
+            let alertController = UIAlertController(title: "Number", message: "\(proposal.url.lastPathComponent)", preferredStyle: .alert)
+            alertController.addAction(.init(title: "OK", style: .default, handler: nil))
+            return .acceptCustom(alertController)
+        default:
+            return .acceptCustom(TurboWebViewController(url: proposal.url))
+        }
     }
-    
-    func session(_ session: Session, didFailRequestForVisitable visitable: Visitable, error: Error) {
+
+    func visitableDidFailRequest(_ visitable: Visitable, error: Error, retry: @escaping RetryBlock) {
         if let turboError = error as? TurboError, case let .http(statusCode) = turboError, statusCode == 401 {
             promptForAuthentication()
         } else if let errorPresenter = visitable as? ErrorPresenter {
-            errorPresenter.presentError(error) { [weak self] in
-                self?.session.reload()
-            }
+            errorPresenter.presentError(error, handler: retry)
         } else {
             let alert = UIAlertController(title: "Visit failed!", message: error.localizedDescription, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            navigationController.present(alert, animated: true)
-        }
-    }
-
-    // When a form submission completes in the modal session, we need to
-    // manually clear the snapshot cache in the default session, since we
-    // don't want potentially stale cached snapshots to be used
-    func sessionDidFinishFormSubmission(_ session: Session) {
-        if (session == modalSession) {
-            self.session.clearSnapshotCache()
-        }
-    }
-    
-    func sessionDidLoadWebView(_ session: Session) {
-        session.webView.navigationDelegate = self
-    }
-    
-    func sessionWebViewProcessDidTerminate(_ session: Session) {
-        session.reload()
-    }
-}
-
-extension SceneController: WKNavigationDelegate {
-    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        if navigationAction.navigationType == .linkActivated {
-            // Any link that's not on the same domain as the Turbo root url will go through here
-            // Other links on the domain, but that have an extension that is non-html will also go here
-            // You can decide how to handle those, by default if you're not the navigationDelegate
-            // the Session will open them in the default browser
-            
-            let url = navigationAction.request.url!
-            
-            // For this demo, we'll load files from our domain in a SafariViewController so you
-            // don't need to leave the app. You might expand this in your app
-            // to open all audio/video/images in a native media viewer
-            if url.host == rootURL.host, !url.pathExtension.isEmpty {
-                let safariViewController = SFSafariViewController(url: url)
-                navigationController.present(safariViewController, animated: true)
-            } else {
-                UIApplication.shared.open(url)
-            }
-            
-            decisionHandler(.cancel)
-        } else {
-            decisionHandler(.allow)
+            navigator.activeNavigationController.present(alert, animated: true)
         }
     }
 }

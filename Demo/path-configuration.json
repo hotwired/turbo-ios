@@ -11,7 +11,7 @@
         "/strada-form$"
       ],
       "properties": {
-        "presentation": "modal"
+        "context": "modal"
       }
     },
     {
@@ -28,7 +28,15 @@
       ],
       "properties": {
         "view-controller": "numbersDetail",
-        "presentation": "modal"
+        "context": "modal"
+      }
+    },
+    {
+      "patterns": [
+        "^/$"
+      ],
+      "properties": {
+        "presentation": "replace_root"
       }
     },
   ]

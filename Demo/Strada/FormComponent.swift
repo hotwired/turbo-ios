@@ -76,4 +76,3 @@ private extension FormComponent {
         let submitTitle: String
     }
 }
-
