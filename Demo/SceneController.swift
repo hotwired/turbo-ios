@@ -13,10 +13,9 @@ final class SceneController: UIResponder {
     // MARK: - Setup
 
     private func configureStrada() {
-        TurboConfig.shared.userAgent +=
-            " \(Strada.userAgentSubstring(for: BridgeComponent.allTypes))"
+        Turbo.config.userAgent += " \(Strada.userAgentSubstring(for: BridgeComponent.allTypes))"
 
-        TurboConfig.shared.makeCustomWebView = { config in
+        Turbo.config.makeCustomWebView = { config in
             config.defaultWebpagePreferences?.preferredContentMode = .mobile
 
             let webView = WKWebView(frame: .zero, configuration: .appConfiguration)

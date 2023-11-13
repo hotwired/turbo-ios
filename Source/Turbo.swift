@@ -1,9 +1,11 @@
 import WebKit
 
+public enum Turbo {
+    public static var config = TurboConfig()
+}
+
 public class TurboConfig {
     public typealias WebViewBlock = (_ configuration: WKWebViewConfiguration) -> WKWebView
-
-    public static let shared = TurboConfig()
 
     /// Override to set a custom user agent.
     /// Include "Turbo Native" to use `turbo_native_app?` on your Rails server.
@@ -15,6 +17,12 @@ public class TurboConfig {
         WKWebView(frame: .zero, configuration: configuration)
     }
 
+    public var debugLoggingEnabled = false {
+        didSet {
+            TurboLogger.debugLoggingEnabled = debugLoggingEnabled
+        }
+    }
+
     // MARK: - Internal
 
     public func makeWebView() -> WKWebView {
@@ -24,8 +32,6 @@ public class TurboConfig {
     // MARK: - Private
 
     private let sharedProcessPool = WKProcessPool()
-
-    private init() {}
 
     // A method (not a property) because we need a new instance for each web view.
     private func makeWebViewConfiguration() -> WKWebViewConfiguration {
