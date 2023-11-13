@@ -22,7 +22,7 @@ class SessionTests: XCTestCase {
 
         eventLoop = try SelectorEventLoop(selector: KqueueSelector())
         server = DefaultHTTPServer.turboServer(eventLoop: eventLoop)
-        try! server.start()
+        try server.start()
         DispatchQueue.global().async { self.eventLoop.runForever() }
     }
 
