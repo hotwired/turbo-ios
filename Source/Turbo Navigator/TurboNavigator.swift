@@ -16,7 +16,7 @@ public class TurboNavigator {
     /// Set to handle customize behavior of the `WKUIDelegate`.
     /// Subclass `TurboWKUIController` to add additional behavior alongside alert/confirm dialogs.
     /// Or, provide a completely custom `WKUIDelegate` implementation.
-    public var webkitUIDelegate: TurboWKUIController? {
+    public var webkitUIDelegate: WKUIDelegate? {
         didSet {
             session.webView.uiDelegate = webkitUIDelegate
             modalSession.webView.uiDelegate = webkitUIDelegate
