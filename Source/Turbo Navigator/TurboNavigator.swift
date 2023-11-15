@@ -43,9 +43,9 @@ public class TurboNavigator {
 
     /// Convenience initializer that doesn't require manually creating `Session` instances.
     /// - Parameters:
-    ///   - pathConfiguration:
+    ///   - pathConfiguration: an optional remote configuration reference
     ///   - delegate: an optional delegate to handle custom view controllers
-    public convenience init(pathConfiguration: PathConfiguration, delegate: TurboNavigatorDelegate? = nil) {
+    public convenience init(pathConfiguration: PathConfiguration? = nil, delegate: TurboNavigatorDelegate? = nil) {
         let session = Session(webView: Turbo.config.makeWebView())
         session.pathConfiguration = pathConfiguration
 
