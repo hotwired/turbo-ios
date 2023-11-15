@@ -7,7 +7,7 @@ import UIKit
 /// func handle(proposal: VisitProposal) -> ProposalResult {
 ///    switch proposal.viewController {
 ///    case RecipeViewController.pathConfigurationIdentifier:
-///        return .accept(RecipeViewController.new)
+///        return .acceptCustom(RecipeViewController.new)
 ///    default:
 ///        return .accept
 ///    }
