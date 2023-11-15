@@ -56,14 +56,20 @@ public class TurboNavigator {
     }
 
     /// Transforms `URL` -> `VisitProposal` -> `UIViewController`.
-    /// Given the `VisitProposal`'s properties, push or present this view controller.
+    /// Convenience function to routing a proposal directly.
     ///
-    /// - Parameter url: the URL to visit.
+    /// - Parameter url: the URL to visit
     public func route(_ url: URL) {
         let options = VisitOptions(action: .advance, response: nil)
         let properties = session.pathConfiguration?.properties(for: url) ?? PathProperties()
-        let proposal = VisitProposal(url: url, options: options, properties: properties)
+        route(VisitProposal(url: url, options: options, properties: properties))
+    }
 
+    /// Transforms `VisitProposal` -> `UIViewController`
+    /// Given the `VisitProposal`'s properties, push or present this view controller.
+    ///
+    /// - Parameter proposal: the proposal to visit
+    public func route(_ proposal: VisitProposal) {
         guard let controller = controller(for: proposal) else { return }
         hierarchyController.route(controller: controller, proposal: proposal)
     }
