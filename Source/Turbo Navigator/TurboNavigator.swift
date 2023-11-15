@@ -5,6 +5,8 @@ import WebKit
 
 class DefaultTurboNavigatorDelegate: NSObject, TurboNavigatorDelegate {}
 
+/// Handles navigation to new URLs using the following rules:
+/// https://github.com/hotwired/turbo-ios/Docs/TurboNavigator.md
 public class TurboNavigator {
     public unowned var delegate: TurboNavigatorDelegate
 

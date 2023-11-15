@@ -2,8 +2,6 @@ import SafariServices
 import UIKit
 import WebKit
 
-/// Handles navigation to new URLs using the following rules:
-/// https://github.com/joemasilotti/TurboNavigator#handled-flows
 class TurboNavigationHierarchyController {
     let navigationController: UINavigationController
     let modalNavigationController: UINavigationController
