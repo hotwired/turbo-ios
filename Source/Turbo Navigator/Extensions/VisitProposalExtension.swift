@@ -35,6 +35,8 @@ public extension VisitProposal {
     /// A VisitProposal to `https://example.com/recipes/` will have `proposal.viewController == "recipes"`
     ///
     /// A default value is provided in case the view controller property is missing from the configuration file. This will route the default `VisitableViewController`.
+    ///
+    /// For convenience, conform `ViewController`s to `PathConfigurationIdentifiable` to couple the identifier with a view controller.
     var viewController: String {
         if let viewController = properties["view-controller"] as? String {
             return viewController
