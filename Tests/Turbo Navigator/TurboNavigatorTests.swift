@@ -297,7 +297,7 @@ private class EmptyNavigationDelegate: TurboNavigationHierarchyControllerDelegat
 // MARK: - VisitProposal extension
 
 private extension VisitProposal {
-    init(path: String = "", action: VisitAction = .advance, context: Navigation.Context = .default, presentation: Navigation.Presentation = .default) {
+    init(path: String = "", action: VisitAction = .advance, context: TurboNavigation.Context = .default, presentation: TurboNavigation.Presentation = .default) {
         let url = URL(string: "https://example.com")!.appendingPathComponent(path)
         let options = VisitOptions(action: action, response: nil)
         let properties: PathProperties = [
