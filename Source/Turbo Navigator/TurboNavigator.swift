@@ -48,10 +48,10 @@ public class TurboNavigator {
     ///   - pathConfiguration: an optional remote configuration reference
     ///   - delegate: an optional delegate to handle custom view controllers
     public convenience init(pathConfiguration: PathConfiguration? = nil, delegate: TurboNavigatorDelegate? = nil) {
-        let session = Session(webView: Turbo.config.makeWebView())
+        let session = Session(webView: TurboConfig.shared.makeWebView())
         session.pathConfiguration = pathConfiguration
 
-        let modalSession = Session(webView: Turbo.config.makeWebView())
+        let modalSession = Session(webView: TurboConfig.shared.makeWebView())
         modalSession.pathConfiguration = pathConfiguration
 
         self.init(session: session, modalSession: modalSession, delegate: delegate)

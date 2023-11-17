@@ -1,10 +1,11 @@
 import WebKit
 
-public enum Turbo {
-    public static var config = TurboConfig()
-}
-
 public class TurboConfig {
+    
+    public static let shared = TurboConfig()
+    
+    private init() { }
+    
     public typealias WebViewBlock = (_ configuration: WKWebViewConfiguration) -> WKWebView
 
     /// Override to set a custom user agent.
