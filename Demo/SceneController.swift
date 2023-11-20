@@ -69,12 +69,15 @@ extension SceneController: UIWindowSceneDelegate {
 extension SceneController: TurboNavigatorDelegate {
     func handle(proposal: VisitProposal) -> ProposalResult {
         switch proposal.viewController {
-        case "numbers":
+            
+        case NumbersViewController.pathConfigurationIdentifier:
             return .acceptCustom(NumbersViewController(url: proposal.url, navigator: navigator))
+            
         case "numbersDetail":
             let alertController = UIAlertController(title: "Number", message: "\(proposal.url.lastPathComponent)", preferredStyle: .alert)
             alertController.addAction(.init(title: "OK", style: .default, handler: nil))
             return .acceptCustom(alertController)
+            
         default:
             return .acceptCustom(TurboWebViewController(url: proposal.url))
         }

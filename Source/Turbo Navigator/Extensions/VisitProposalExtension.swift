@@ -1,14 +1,14 @@
 public extension VisitProposal {
-    var context: Navigation.Context {
+    var context: TurboNavigation.Context {
         if let rawValue = properties["context"] as? String {
-            return Navigation.Context(rawValue: rawValue) ?? .default
+            return TurboNavigation.Context(rawValue: rawValue) ?? .default
         }
         return .default
     }
 
-    var presentation: Navigation.Presentation {
+    var presentation: TurboNavigation.Presentation {
         if let rawValue = properties["presentation"] as? String {
-            return Navigation.Presentation(rawValue: rawValue) ?? .default
+            return TurboNavigation.Presentation(rawValue: rawValue) ?? .default
         }
         return .default
     }
@@ -35,6 +35,8 @@ public extension VisitProposal {
     /// A VisitProposal to `https://example.com/recipes/` will have `proposal.viewController == "recipes"`
     ///
     /// A default value is provided in case the view controller property is missing from the configuration file. This will route the default `VisitableViewController`.
+    ///
+    /// For convenience, conform `ViewController`s to `PathConfigurationIdentifiable` to couple the identifier with a view controller.
     var viewController: String {
         if let viewController = properties["view-controller"] as? String {
             return viewController
