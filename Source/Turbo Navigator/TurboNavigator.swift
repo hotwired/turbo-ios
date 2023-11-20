@@ -109,6 +109,9 @@ extension TurboNavigator: SessionDelegate {
         if session == modalSession {
             self.session.clearSnapshotCache()
         }
+        if let url = session.topmostVisitable?.visitableURL {
+            delegate.didSubmitForm(at: url)
+        }
     }
 
     public func session(_ session: Session, openExternalURL url: URL) {
