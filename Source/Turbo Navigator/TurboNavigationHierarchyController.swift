@@ -45,7 +45,7 @@ class TurboNavigationHierarchyController {
             case .clearAll:
                 clearAll()
             case .replaceRoot:
-                replaceRoot(with: controller)
+                replaceRoot(with: controller, via: proposal)
             case .none:
                 break // Do nothing.
             }
@@ -189,12 +189,25 @@ class TurboNavigationHierarchyController {
         delegate.refresh(navigationStack: .main)
     }
 
-    private func replaceRoot(with controller: UIViewController) {
-        navigationController.dismiss(animated: true)
-        navigationController.setViewControllers([controller], animated: true)
+    private func replaceRoot(with controller: UIViewController, via proposal: VisitProposal) {
+        
+        switch proposal.context {
+            
+        case .default:
+            navigationController.dismiss(animated: true)
+            navigationController.setViewControllers([controller], animated: true)
 
-        if let visitable = controller as? Visitable {
-            delegate.visit(visitable, on: .main, with: .init(action: .replace))
+            if let visitable = controller as? Visitable {
+                delegate.visit(visitable, on: .main, with: .init(action: .replace))
+            }
+            
+        case .modal:
+            navigationController.dismiss(animated: true) {
+                self.navigationController.present(controller, animated: true)
+                if let visitable = controller as? Visitable {
+                    self.delegate.visit(visitable, on: .modal, with: proposal.options)
+                }
+            }
         }
     }
 }
