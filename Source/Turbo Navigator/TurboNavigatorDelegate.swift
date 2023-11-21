@@ -12,6 +12,8 @@ public protocol TurboNavigatorDelegate: AnyObject {
     /// - Returns: how to react to the visit proposal
     func handle(proposal: VisitProposal) -> ProposalResult
 
+    func handle(externalURL: URL) -> ExternalURLNavigationAction
+    
     /// Optional. An error occurred loading the request, present it to the user.
     /// Retry the request by executing the closure.
     /// If not implemented, will present the error's localized description and a Retry button.
@@ -25,6 +27,10 @@ public protocol TurboNavigatorDelegate: AnyObject {
 public extension TurboNavigatorDelegate {
     func handle(proposal: VisitProposal) -> ProposalResult {
         .accept
+    }
+    
+    func handle(externalURL: URL) -> ExternalURLNavigationAction {
+        .openViaSystem
     }
 
     func visitableDidFailRequest(_ visitable: Visitable, error: Error, retry: @escaping RetryBlock) {
