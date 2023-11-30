@@ -30,7 +30,7 @@ public extension TurboNavigatorDelegate {
     }
     
     func handle(externalURL: URL) -> ExternalURLNavigationAction {
-        .openViaSystem
+        .openViaSafariController
     }
 
     func visitableDidFailRequest(_ visitable: Visitable, error: Error, retry: @escaping RetryBlock) {
