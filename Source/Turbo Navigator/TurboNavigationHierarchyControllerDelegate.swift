@@ -5,6 +5,5 @@ import WebKit
 /// or to render a native controller instead of a Turbo web visit.
 protocol TurboNavigationHierarchyControllerDelegate: AnyObject {
     func visit(_ : Visitable, on: TurboNavigationHierarchyController.NavigationStackType, with: VisitOptions)
-    func visit(externalURL: URL, on: TurboNavigationHierarchyController.NavigationStackType)
     func refresh(navigationStack: TurboNavigationHierarchyController.NavigationStackType)
 }

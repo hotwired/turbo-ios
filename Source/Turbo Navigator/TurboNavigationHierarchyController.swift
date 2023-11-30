@@ -52,10 +52,6 @@ class TurboNavigationHierarchyController {
         }
     }
 
-    func openExternal(url: URL, navigationType: NavigationStackType) {
-        delegate.visit(externalURL: url, on: navigationType)
-    }
-
     // MARK: Private
 
     @available(*, unavailable)
