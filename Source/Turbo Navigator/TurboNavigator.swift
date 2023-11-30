@@ -111,9 +111,25 @@ extension TurboNavigator: SessionDelegate {
         }
     }
 
-    public func session(_ session: Session, openExternalURL url: URL) {
-        let navigationType: TurboNavigationHierarchyController.NavigationStackType = session === modalSession ? .modal : .main
-        hierarchyController.openExternal(url: url, navigationType: navigationType)
+    public func session(_ session: Session, openExternalURL externalURL: URL) {
+        
+        switch delegate.handle(externalURL: externalURL) {
+            
+        case .openViaSystem:
+            UIApplication.shared.open(externalURL)
+            
+        case .openViaSafariController:
+            let safariViewController = SFSafariViewController(url: externalURL)
+            safariViewController.modalPresentationStyle = .pageSheet
+            if #available(iOS 15.0, *) {
+                safariViewController.preferredControlTintColor = .tintColor
+            }
+            
+            activeNavigationController.present(safariViewController, animated: true)
+            
+        case .reject:
+            return
+        }
     }
 
     public func session(_ session: Session, didFailRequestForVisitable visitable: Visitable, error: Error) {
@@ -146,10 +162,11 @@ extension TurboNavigator: SessionDelegate {
 // MARK: - TurboNavigationHierarchyControllerDelegate
 
 extension TurboNavigator: TurboNavigationHierarchyControllerDelegate {
+    
     func visit(_ controller: Visitable, on navigationStack: TurboNavigationHierarchyController.NavigationStackType, with: VisitOptions) {
         switch navigationStack {
-            case .main: session.visit(controller, action: .advance)
-            case .modal: modalSession.visit(controller, action: .advance)
+        case .main: session.visit(controller, action: .advance)
+        case .modal: modalSession.visit(controller, action: .advance)
         }
     }
 

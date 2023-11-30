@@ -52,20 +52,6 @@ class TurboNavigationHierarchyController {
         }
     }
 
-    func openExternal(url: URL, navigationType: NavigationStackType) {
-        if ["http", "https"].contains(url.scheme) {
-            let safariViewController = SFSafariViewController(url: url)
-            safariViewController.modalPresentationStyle = .pageSheet
-            if #available(iOS 15.0, *) {
-                safariViewController.preferredControlTintColor = .tintColor
-            }
-            let navController = navController(for: navigationType)
-            navController.present(safariViewController, animated: true)
-        } else if UIApplication.shared.canOpenURL(url) {
-            UIApplication.shared.open(url)
-        }
-    }
-
     // MARK: Private
 
     @available(*, unavailable)
