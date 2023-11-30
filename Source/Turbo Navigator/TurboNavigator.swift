@@ -168,7 +168,7 @@ extension TurboNavigator: TurboNavigationHierarchyControllerDelegate {
                 safariViewController.preferredControlTintColor = .tintColor
             }
             
-            rootViewController.present(safariViewController, animated: true)
+            activeNavigationController.present(safariViewController, animated: true)
             
         case .reject:
             return
