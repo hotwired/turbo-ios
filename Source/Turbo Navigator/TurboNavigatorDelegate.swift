@@ -21,6 +21,10 @@ public protocol TurboNavigatorDelegate: AnyObject {
     /// If not implemented, default handling will be performed.
     func didReceiveAuthenticationChallenge(_ challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void)
     
+    /// Optional. Called before a form is submitted.
+    /// If not implemented, no action is taken.
+    func willSubmitForm(to url: URL)
+
     /// Optional. Called when a form is submitted.
     /// If not implemented, no action is taken.
     func didSubmitForm(at url: URL)
@@ -40,6 +44,8 @@ public extension TurboNavigatorDelegate {
     func didReceiveAuthenticationChallenge(_ challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
         completionHandler(.performDefaultHandling, nil)
     }
-    
+
+    func willSubmitForm(to url: URL) {}
+
     func didSubmitForm(at url: URL) {}
 }
