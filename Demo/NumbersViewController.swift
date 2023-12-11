@@ -1,11 +1,11 @@
+import Turbo
 import UIKit
 
 /// A simple native table view controller to demonstrate loading non-Turbo screens
 /// for a visit proposal
 final class NumbersViewController: UITableViewController, PathConfigurationIdentifiable {
-    
     static var pathConfigurationIdentifier: String { "numbers" }
-    
+
     convenience init(url: URL, navigator: Navigator) {
         self.init(nibName: nil, bundle: nil)
         self.url = url
