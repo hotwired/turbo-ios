@@ -13,4 +13,10 @@ public enum TurboNavigation {
         case replaceRoot = "replace_root"
         case none
     }
+
+    public enum ModalStyle: String {
+        case medium
+        case large
+        case full
+    }
 }

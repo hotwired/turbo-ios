@@ -1,3 +1,5 @@
+import UIKit
+
 public extension VisitProposal {
     var context: TurboNavigation.Context {
         if let rawValue = properties["context"] as? String {
@@ -11,6 +13,13 @@ public extension VisitProposal {
             return TurboNavigation.Presentation(rawValue: rawValue) ?? .default
         }
         return .default
+    }
+
+    var modalStyle: TurboNavigation.ModalStyle {
+        if let rawValue = properties["modal-style"] as? String {
+            return TurboNavigation.ModalStyle(rawValue: rawValue) ?? .large
+        }
+        return .large
     }
 
     /// Used to identify a custom native view controller if provided in the path configuration properties of a given pattern.

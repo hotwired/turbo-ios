@@ -18,8 +18,8 @@ class TurboNavigationHierarchyController {
 
     func navController(for navigationType: NavigationStackType) -> UINavigationController {
         switch navigationType {
-            case .main: navigationController
-            case .modal: modalNavigationController
+        case .main: navigationController
+        case .modal: modalNavigationController
         }
     }
 
@@ -82,6 +82,7 @@ class TurboNavigationHierarchyController {
                 pushOrReplace(on: modalNavigationController, with: controller, via: proposal)
             } else {
                 modalNavigationController.setViewControllers([controller], animated: true)
+                modalNavigationController.setModalPresentationStyle(via: proposal)
                 navigationController.present(modalNavigationController, animated: true)
             }
             if let visitable = controller as? Visitable {
@@ -146,6 +147,7 @@ class TurboNavigationHierarchyController {
                 modalNavigationController.replaceLastViewController(with: controller)
             } else {
                 modalNavigationController.setViewControllers([controller], animated: false)
+                modalNavigationController.setModalPresentationStyle(via: proposal)
                 navigationController.present(modalNavigationController, animated: true)
             }
             if let visitable = controller as? Visitable {
