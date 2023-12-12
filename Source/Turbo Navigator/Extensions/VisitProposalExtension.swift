@@ -16,7 +16,7 @@ public extension VisitProposal {
     }
 
     var modalStyle: TurboNavigation.ModalStyle {
-        if let rawValue = properties["modal-style"] as? String {
+        if let rawValue = properties["modal_style"] as? String {
             return TurboNavigation.ModalStyle(rawValue: rawValue) ?? .large
         }
         return .large
@@ -34,7 +34,7 @@ public extension VisitProposal {
     ///         "/recipes/*"
     ///       ],
     ///       "properties": {
-    ///         "view-controller": "recipes",
+    ///         "view_controller": "recipes",
     ///       }
     ///     }
     ///  ]
@@ -47,7 +47,7 @@ public extension VisitProposal {
     ///
     /// For convenience, conform `ViewController`s to `PathConfigurationIdentifiable` to couple the identifier with a view controller.
     var viewController: String {
-        if let viewController = properties["view-controller"] as? String {
+        if let viewController = properties["view_controller"] as? String {
             return viewController
         }
 
