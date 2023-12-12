@@ -105,9 +105,18 @@ extension TurboNavigator: SessionDelegate {
         hierarchyController.route(controller: controller, proposal: proposal)
     }
 
+    public func sessionDidStartFormSubmission(_ session: Session) {
+        if let url = session.topmostVisitable?.visitableURL {
+            delegate.formSubmissionDidStart(to: url)
+        }
+    }
+
     public func sessionDidFinishFormSubmission(_ session: Session) {
         if session == modalSession {
             self.session.clearSnapshotCache()
+        }
+        if let url = session.topmostVisitable?.visitableURL {
+            delegate.formSubmissionDidFinish(at: url)
         }
     }
 
