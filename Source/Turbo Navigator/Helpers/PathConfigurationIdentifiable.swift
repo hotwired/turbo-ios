@@ -1,18 +1,20 @@
 import UIKit
 
-/// As a convenience, your view controller may conform to `PathConfigurationIdentifiable`.
-/// You may then use the view controller's `pathConfigurationIdentifier` property instead of `proposal.url` when deciding how to handle a proposal. See `VisitProposal.viewController` on how to use this in your configuration file.
+/// As a convenience, a view controller may conform to `PathConfigurationIdentifiable`.
 ///
-/// ```
+/// Use a view controller's `pathConfigurationIdentifier` property instead of `proposal.url` when deciding how to handle a proposal.
+///
+/// ```swift
 /// func handle(proposal: VisitProposal) -> ProposalResult {
 ///    switch proposal.viewController {
 ///    case RecipeViewController.pathConfigurationIdentifier:
-///        return .acceptCustom(RecipeViewController.new)
+///        return .acceptCustom(RecipeViewController())
 ///    default:
 ///        return .accept
 ///    }
 /// }
 /// ```
+/// - Note: See `VisitProposal.viewController` on how to use this in your configuration file.
 public protocol PathConfigurationIdentifiable: UIViewController {
     static var pathConfigurationIdentifier: String { get }
 }
