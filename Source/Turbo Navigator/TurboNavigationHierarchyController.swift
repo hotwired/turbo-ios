@@ -33,6 +33,10 @@ class TurboNavigationHierarchyController {
         if let alert = controller as? UIAlertController {
             presentAlert(alert)
         } else {
+            if let visitable = controller as? Visitable {
+                visitable.visitableView.allowsPullToRefresh = proposal.pullToRefreshEnabled
+            }
+
             switch proposal.presentation {
             case .default:
                 navigate(with: controller, via: proposal)

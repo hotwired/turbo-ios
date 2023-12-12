@@ -22,6 +22,10 @@ public extension VisitProposal {
         return .large
     }
 
+    var pullToRefreshEnabled: Bool {
+        properties["pull_to_refresh_enabled"] as? Bool ?? true
+    }
+
     /// Used to identify a custom native view controller if provided in the path configuration properties of a given pattern.
     ///
     /// For example, given the following configuration file:
