@@ -87,12 +87,12 @@ public class TurboNavigator {
 
     private func controller(for proposal: VisitProposal) -> UIViewController? {
         switch delegate.handle(proposal: proposal) {
-            case .accept:
-                VisitableViewController(url: proposal.url)
-            case .acceptCustom(let customViewController):
-                customViewController
-            case .reject:
-                nil
+        case .accept:
+            VisitableViewController(url: proposal.url)
+        case .acceptCustom(let customViewController):
+            customViewController
+        case .reject:
+            nil
         }
     }
 }
@@ -112,21 +112,19 @@ extension TurboNavigator: SessionDelegate {
     }
 
     public func session(_ session: Session, openExternalURL externalURL: URL) {
-        
         switch delegate.handle(externalURL: externalURL) {
-            
         case .openViaSystem:
             UIApplication.shared.open(externalURL)
-            
+
         case .openViaSafariController:
             let safariViewController = SFSafariViewController(url: externalURL)
             safariViewController.modalPresentationStyle = .pageSheet
             if #available(iOS 15.0, *) {
                 safariViewController.preferredControlTintColor = .tintColor
             }
-            
+
             activeNavigationController.present(safariViewController, animated: true)
-            
+
         case .reject:
             return
         }
@@ -162,7 +160,6 @@ extension TurboNavigator: SessionDelegate {
 // MARK: - TurboNavigationHierarchyControllerDelegate
 
 extension TurboNavigator: TurboNavigationHierarchyControllerDelegate {
-    
     func visit(_ controller: Visitable, on navigationStack: TurboNavigationHierarchyController.NavigationStackType, with: VisitOptions) {
         switch navigationStack {
         case .main: session.visit(controller, action: .advance)
@@ -172,8 +169,8 @@ extension TurboNavigator: TurboNavigationHierarchyControllerDelegate {
 
     func refresh(navigationStack: TurboNavigationHierarchyController.NavigationStackType) {
         switch navigationStack {
-            case .main: session.reload()
-            case .modal: modalSession.reload()
+        case .main: session.reload()
+        case .modal: modalSession.reload()
         }
     }
 }
