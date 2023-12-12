@@ -107,7 +107,7 @@ extension TurboNavigator: SessionDelegate {
 
     public func sessionDidStartFormSubmission(_ session: Session) {
         if let url = session.topmostVisitable?.visitableURL {
-            delegate.willSubmitForm(to: url)
+            delegate.formSubmissionDidStart(to: url)
         }
     }
 
@@ -116,7 +116,7 @@ extension TurboNavigator: SessionDelegate {
             self.session.clearSnapshotCache()
         }
         if let url = session.topmostVisitable?.visitableURL {
-            delegate.didSubmitForm(at: url)
+            delegate.formSubmissionDidFinish(at: url)
         }
     }
 
