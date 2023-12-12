@@ -5,7 +5,7 @@ open class VisitableViewController: UIViewController, Visitable {
     open weak var visitableDelegate: VisitableDelegate?
     open var visitableURL: URL!
 
-    public convenience init(url: URL) {
+    public required convenience init(url: URL) {
         self.init()
         self.visitableURL = url
     }

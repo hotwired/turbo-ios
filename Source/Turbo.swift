@@ -11,6 +11,10 @@ public class TurboConfig {
     /// Include "Turbo Native" to use `turbo_native_app?` on your Rails server.
     public var userAgent = "Turbo Native iOS"
 
+    /// The view controller used in `TurboNavigator` for web requests. Must be
+    /// a `VisitableViewController` or subclass.
+    public var defaultViewController = VisitableViewController.self
+
     /// Optionally customize the web views used by each Turbo Session.
     /// Ensure you return a new instance each time.
     public var makeCustomWebView: WebViewBlock = { (configuration: WKWebViewConfiguration) in
