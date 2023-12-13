@@ -169,10 +169,10 @@ extension TurboNavigator: SessionDelegate {
 // MARK: - TurboNavigationHierarchyControllerDelegate
 
 extension TurboNavigator: TurboNavigationHierarchyControllerDelegate {
-    func visit(_ controller: Visitable, on navigationStack: TurboNavigationHierarchyController.NavigationStackType, with: VisitOptions) {
+    func visit(_ controller: Visitable, on navigationStack: TurboNavigationHierarchyController.NavigationStackType, with options: VisitOptions) {
         switch navigationStack {
-        case .main: session.visit(controller, action: .advance)
-        case .modal: modalSession.visit(controller, action: .advance)
+        case .main: session.visit(controller, options: options)
+        case .modal: modalSession.visit(controller, options: options)
         }
     }
 
