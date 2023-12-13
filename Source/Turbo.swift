@@ -13,7 +13,9 @@ public class TurboConfig {
 
     /// The view controller used in `TurboNavigator` for web requests. Must be
     /// a `VisitableViewController` or subclass.
-    public var defaultViewController = VisitableViewController.self
+    public var defaultViewController: (URL) -> VisitableViewController = { url in
+        VisitableViewController(url: url)
+    }
 
     /// Optionally customize the web views used by each Turbo Session.
     /// Ensure you return a new instance each time.
