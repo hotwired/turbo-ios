@@ -248,6 +248,16 @@ final class TurboNavigationHierarchyControllerTests: XCTestCase {
         XCTAssert(navigationController.presentedViewController is SFSafariViewController)
         XCTAssertEqual(navigationController.presentedViewController?.modalPresentationStyle, .pageSheet)
     }
+    
+    func test_always_dismiss_dismissPresentedViewController() throws {
+        navigator.route(VisitProposal(path: "/one", context: .modal))
+        XCTAssertEqual(modalNavigationController.viewControllers.count, 1)
+
+        navigator.route(VisitProposal(path: "/two", context: .modal, properties: ["always_dismiss": true]))
+        XCTAssertEqual(modalNavigationController.viewControllers.count, 1)
+        let twoModal = modalNavigationController.topViewController as! VisitableViewController
+        assertVisited(url: twoModal.visitableURL, on: .modal)
+    }
 
     // MARK: Private
 
@@ -297,14 +307,17 @@ private class EmptyNavigationDelegate: TurboNavigationHierarchyControllerDelegat
 // MARK: - VisitProposal extension
 
 private extension VisitProposal {
-    init(path: String = "", action: VisitAction = .advance, context: TurboNavigation.Context = .default, presentation: TurboNavigation.Presentation = .default) {
+    init(path: String = "", action: VisitAction = .advance, context: TurboNavigation.Context = .default, presentation: TurboNavigation.Presentation = .default, properties: PathProperties? = nil) {
         let url = URL(string: "https://example.com")!.appendingPathComponent(path)
         let options = VisitOptions(action: action, response: nil)
-        let properties: PathProperties = [
+        var defaultProperties: PathProperties = [
             "context": context.rawValue,
             "presentation": presentation.rawValue
         ]
-        self.init(url: url, options: options, properties: properties)
+        if let properties {
+            defaultProperties.merge(properties) { $1 }
+        }
+        self.init(url: url, options: options, properties: defaultProperties)
     }
 }
 
