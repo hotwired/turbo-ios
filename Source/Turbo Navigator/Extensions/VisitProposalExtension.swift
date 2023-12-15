@@ -26,6 +26,14 @@ public extension VisitProposal {
         properties["pull_to_refresh_enabled"] as? Bool ?? true
     }
 
+    /// Allows a proposal to dismiss a modal if it's present.
+    /// This is useful if:
+    /// - Modal A is current presented
+    /// - Modal B is proposed and it does not want to be a part Modal A's navigation controller.
+    var alwaysDismiss: Bool {
+        properties["always_dismiss"] as? Bool ?? false
+    }
+
     /// Used to identify a custom native view controller if provided in the path configuration properties of a given pattern.
     ///
     /// For example, given the following configuration file:
