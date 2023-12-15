@@ -81,7 +81,7 @@ public class TurboNavigator {
     /// - Parameters:
     ///   - externalURL: the URL to navigate to
     ///   - via: navigation action
-    public func open(externalURL: URL, via: ExternalURLNavigationAction) {
+    public func open(externalURL: URL, _ via: ExternalURLNavigationAction) {
         switch via {
             
         case .openViaSystem:
