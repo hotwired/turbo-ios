@@ -147,8 +147,7 @@ extension TurboNavigator: SessionDelegate {
 
     public func session(_ session: Session, openExternalURL externalURL: URL) {
         let decision = delegate.handle(externalURL: externalURL)
-        open(externalURL: externalURL,
-             via: decision)
+        open(externalURL: externalURL, decision)
     }
 
     public func session(_ session: Session, didFailRequestForVisitable visitable: Visitable, error: Error) {
