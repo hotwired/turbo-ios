@@ -76,7 +76,7 @@ public class TurboNavigator {
         hierarchyController.route(controller: controller, proposal: proposal)
     }
     
-    /// Allows programmatic navigation of external URLs.
+    /// Navigate to an external URL.
     ///
     /// - Parameters:
     ///   - externalURL: the URL to navigate to
