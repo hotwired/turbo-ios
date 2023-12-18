@@ -103,6 +103,9 @@
         if (Turbo.navigator.locationWithActionIsSamePage(location, options.action)) {
           Turbo.navigator.view.scrollToAnchorFromLocation(location)
           return
+        } else if (this.currentVisit?.location?.href === location.href) {
+          this.visitLocationWithOptionsAndRestorationIdentifier(location, options, Turbo.navigator.restorationIdentifier)
+          return
         }
       }
 
