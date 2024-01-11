@@ -249,6 +249,13 @@ final class TurboNavigationHierarchyControllerTests: XCTestCase {
         XCTAssertEqual(navigationController.presentedViewController?.modalPresentationStyle, .pageSheet)
     }
 
+    func test_invalidExternalURL_doesNotPresentSafariViewController() throws {
+        let externalURL = URL(string: "ftp://example.com")!
+        navigator.session(navigator.session, openExternalURL: externalURL)
+
+        /// No assertions needed. App will crash if we pass a non-http or non-https scheme to SFSafariViewController.
+    }
+    
     // MARK: Private
 
     private enum Context {

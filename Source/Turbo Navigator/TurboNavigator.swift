@@ -88,6 +88,9 @@ public class TurboNavigator {
             UIApplication.shared.open(externalURL)
             
         case .openViaSafariController:
+            /// SFSafariViewController will crash if we pass along a URL that's not valid.
+            guard externalURL.scheme == "http" || externalURL.scheme == "https" else { return }
+            
             let safariViewController = SFSafariViewController(url: externalURL)
             safariViewController.modalPresentationStyle = .pageSheet
             if #available(iOS 15.0, *) {
