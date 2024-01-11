@@ -75,6 +75,31 @@ public class TurboNavigator {
         guard let controller = controller(for: proposal) else { return }
         hierarchyController.route(controller: controller, proposal: proposal)
     }
+    
+    /// Navigate to an external URL.
+    ///
+    /// - Parameters:
+    ///   - externalURL: the URL to navigate to
+    ///   - via: navigation action
+    public func open(externalURL: URL, _ via: ExternalURLNavigationAction) {
+        switch via {
+            
+        case .openViaSystem:
+            UIApplication.shared.open(externalURL)
+            
+        case .openViaSafariController:
+            let safariViewController = SFSafariViewController(url: externalURL)
+            safariViewController.modalPresentationStyle = .pageSheet
+            if #available(iOS 15.0, *) {
+                safariViewController.preferredControlTintColor = .tintColor
+            }
+            
+            activeNavigationController.present(safariViewController, animated: true)
+            
+        case .reject:
+            return
+        }
+    }
 
     let session: Session
     let modalSession: Session
@@ -121,22 +146,8 @@ extension TurboNavigator: SessionDelegate {
     }
 
     public func session(_ session: Session, openExternalURL externalURL: URL) {
-        switch delegate.handle(externalURL: externalURL) {
-        case .openViaSystem:
-            UIApplication.shared.open(externalURL)
-
-        case .openViaSafariController:
-            let safariViewController = SFSafariViewController(url: externalURL)
-            safariViewController.modalPresentationStyle = .pageSheet
-            if #available(iOS 15.0, *) {
-                safariViewController.preferredControlTintColor = .tintColor
-            }
-
-            activeNavigationController.present(safariViewController, animated: true)
-
-        case .reject:
-            return
-        }
+        let decision = delegate.handle(externalURL: externalURL)
+        open(externalURL: externalURL, decision)
     }
 
     public func session(_ session: Session, didFailRequestForVisitable visitable: Visitable, error: Error) {
