@@ -35,15 +35,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 }
 
 extension SceneDelegate: SessionDelegate {
-    func session(_ session: Session, didProposeVisit proposal: VisitProposal) {
+    func session(_ session: Session, didProposeVisit proposal: Turbo.VisitProposal) {
         visit(url: proposal.url)
     }
     
-    func session(_ session: Session, didFailRequestForVisitable visitable: Visitable, error: Error) {
+    func session(_ session: Session, didFailRequestForVisitable visitable: Turbo.Visitable, error: Error) {
         print("didFailRequestForVisitable: \(error)")
     }
     
-    func sessionWebViewProcessDidTerminate(_ session: Session) {
+    func sessionWebViewProcessDidTerminate(_ session: Turbo.Session) {
         session.reload()
     }
 }
