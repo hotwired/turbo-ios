@@ -87,7 +87,7 @@ public class Session: NSObject {
         topmostVisit = currentVisit
     }
     
-    public func clearSnapshotCache() {
+    @objc public func clearSnapshotCache() {
         bridge.clearSnapshotCache()
     }
 
@@ -221,7 +221,7 @@ extension Session: VisitableDelegate {
         } else if visitable === currentVisit.visitable && currentVisit.state == .started {
             // Navigating forward - complete navigation early
             completeNavigationForCurrentVisit()
-        } else if visitable !== topmostVisit.visitable {
+        } else if visitable !== topmostVisit.visitable && !visitable.visitableViewController.isMovingToParent {
             // Navigating backward
             visit(visitable, action: .restore)
         }
