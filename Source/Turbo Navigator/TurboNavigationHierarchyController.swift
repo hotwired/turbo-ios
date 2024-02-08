@@ -11,6 +11,10 @@ class TurboNavigationHierarchyController {
         navigationController.presentedViewController != nil ? modalNavigationController : navigationController
     }
 
+    var activeNavigationStack: NavigationStackType {
+        navigationController.presentedViewController != nil ? .modal : .main
+    }
+    
     enum NavigationStackType {
         case main
         case modal

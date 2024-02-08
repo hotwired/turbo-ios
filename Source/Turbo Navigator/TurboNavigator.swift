@@ -104,8 +104,16 @@ public class TurboNavigator {
         }
     }
 
+    public func reloadActiveSession() {
+        activeSession.reload()
+    }
+    
     let session: Session
     let modalSession: Session
+    
+    private var activeSession: Session {
+        hierarchyController.activeNavigationStack == .modal ? modalSession : session
+    }
 
     /// Modifies a UINavigationController according to visit proposals.
     lazy var hierarchyController = TurboNavigationHierarchyController(delegate: self)
