@@ -46,6 +46,8 @@ You can also integrate the framework manually if your prefer, such as by adding 
 
 ## Contributing
 
+Read the [contributing guide](/CONTRIBUTING.md) to learn how to set up your development environment.
+
 Turbo iOS is open-source software, freely distributable under the terms of an [MIT-style license](LICENSE). The [source code is hosted on GitHub](https://github.com/hotwired/turbo-ios).
 Development is sponsored by [37signals](https://37signals.com/).
 
