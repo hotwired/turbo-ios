@@ -164,12 +164,16 @@ extension Session: VisitDelegate {
     }
 
     func visitWillStart(_ visit: Visit) {
+        guard !visit.isPageRefresh else { return }
+
         visit.visitable.showVisitableScreenshot()
         activateVisitable(visit.visitable)
     }
 
     func visitDidStart(_ visit: Visit) {
         guard !visit.hasCachedSnapshot else { return }
+        guard !visit.isPageRefresh else { return }
+
         visit.visitable.showVisitableActivityIndicator()
     }
 

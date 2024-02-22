@@ -103,6 +103,9 @@
         if (Turbo.navigator.locationWithActionIsSamePage(location, options.action)) {
           Turbo.navigator.view.scrollToAnchorFromLocation(location)
           return
+        } else if (this.currentVisit?.location?.href === location.href) {
+          this.visitLocationWithOptionsAndRestorationIdentifier(location, options, Turbo.navigator.restorationIdentifier)
+          return
         }
       }
 
@@ -116,7 +119,7 @@
 
     visitStarted(visit) {
       this.currentVisit = visit
-      this.postMessage("visitStarted", { identifier: visit.identifier, hasCachedSnapshot: visit.hasCachedSnapshot() })
+      this.postMessage("visitStarted", { identifier: visit.identifier, hasCachedSnapshot: visit.hasCachedSnapshot(), isPageRefresh: visit.isPageRefresh })
       this.issueRequestForVisitWithIdentifier(visit.identifier)
       this.changeHistoryForVisitWithIdentifier(visit.identifier)
       this.loadCachedSnapshotForVisitWithIdentifier(visit.identifier)

@@ -18,6 +18,7 @@ class Visit: NSObject {
     let location: URL
     
     var hasCachedSnapshot: Bool = false
+    var isPageRefresh: Bool = false
     private(set) var state: VisitState
     
     init(visitable: Visitable, options: VisitOptions, bridge: WebViewBridge) {
