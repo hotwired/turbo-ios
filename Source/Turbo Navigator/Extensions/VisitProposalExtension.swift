@@ -30,7 +30,7 @@ public extension VisitProposal {
     ///
     /// For example, given the following configuration file:
     ///
-    /// ```
+    /// ```json
     /// {
     ///   "rules": [
     ///     {
@@ -45,11 +45,13 @@ public extension VisitProposal {
     /// }
     /// ```
     ///
-    /// A VisitProposal to `https://example.com/recipes/` will have `proposal.viewController == "recipes"`
+    /// A VisitProposal to `https://example.com/recipes/` will have 
+    /// ```swift
+    /// proposal.viewController == "recipes"
+    /// ```
     ///
-    /// A default value is provided in case the view controller property is missing from the configuration file. This will route the default `VisitableViewController`.
-    ///
-    /// For convenience, conform `ViewController`s to `PathConfigurationIdentifiable` to couple the identifier with a view controller.
+    /// - Important: A default value is provided in case the view controller property is missing from the configuration file. This will route the default `VisitableViewController`.
+    /// - Note: A `ViewController` must conform to `PathConfigurationIdentifiable` to couple the identifier with a view controlelr.
     var viewController: String {
         if let viewController = properties["view_controller"] as? String {
             return viewController

@@ -8,7 +8,7 @@ public class TurboConfig {
     public typealias WebViewBlock = (_ configuration: WKWebViewConfiguration) -> WKWebView
 
     /// Override to set a custom user agent.
-    /// Include "Turbo Native" to use `turbo_native_app?` on your Rails server.
+    /// - Important: Include "Turbo Native" to use `turbo_native_app?` on your Rails server.
     public var userAgent = "Turbo Native iOS"
 
     /// The view controller used in `TurboNavigator` for web requests. Must be

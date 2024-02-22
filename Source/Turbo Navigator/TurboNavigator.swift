@@ -6,7 +6,7 @@ import WebKit
 class DefaultTurboNavigatorDelegate: NSObject, TurboNavigatorDelegate {}
 
 /// Handles navigation to new URLs using the following rules:
-/// https://github.com/hotwired/turbo-ios/Docs/TurboNavigator.md
+/// [Turbo Navigator Handled Flows](https://github.com/hotwired/turbo-ios/Docs/TurboNavigator.md)
 public class TurboNavigator {
     public unowned var delegate: TurboNavigatorDelegate
 
@@ -14,6 +14,7 @@ public class TurboNavigator {
     public var activeNavigationController: UINavigationController { hierarchyController.activeNavigationController }
 
     /// Set to handle customize behavior of the `WKUIDelegate`.
+    ///
     /// Subclass `TurboWKUIController` to add additional behavior alongside alert/confirm dialogs.
     /// Or, provide a completely custom `WKUIDelegate` implementation.
     public var webkitUIDelegate: WKUIDelegate? {
@@ -24,11 +25,12 @@ public class TurboNavigator {
     }
 
     /// Default initializer requiring preconfigured `Session` instances.
-    /// User `init(pathConfiguration:delegate)` to only provide a `PathConfiguration`.
+    ///
+    /// User `init(pathConfiguration:delegate:)` to only provide a `PathConfiguration`.
     /// - Parameters:
     ///   - session: the main `Session`
     ///   - modalSession: the `Session` used for the modal navigation controller
-    ///   - delegate: an optional delegate to handle custom view controllers
+    ///   - delegate: _optional:_ delegate to handle custom view controllers
     public init(session: Session, modalSession: Session, delegate: TurboNavigatorDelegate? = nil) {
         self.session = session
         self.modalSession = modalSession
@@ -45,8 +47,8 @@ public class TurboNavigator {
 
     /// Convenience initializer that doesn't require manually creating `Session` instances.
     /// - Parameters:
-    ///   - pathConfiguration: an optional remote configuration reference
-    ///   - delegate: an optional delegate to handle custom view controllers
+    ///   - pathConfiguration: _optional:_ remote configuration reference
+    ///   - delegate: _optional:_ delegate to handle custom view controllers
     public convenience init(pathConfiguration: PathConfiguration? = nil, delegate: TurboNavigatorDelegate? = nil) {
         let session = Session(webView: Turbo.config.makeWebView())
         session.pathConfiguration = pathConfiguration
