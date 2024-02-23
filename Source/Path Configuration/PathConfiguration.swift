@@ -96,7 +96,7 @@ public final class PathConfiguration {
 
 extension PathConfiguration: Equatable {
     public static func == (lhs: PathConfiguration, rhs: PathConfiguration) -> Bool {
-        lhs.settings == lhs.settings && lhs.rules == rhs.rules
+        lhs.settings == rhs.settings && lhs.rules == rhs.rules
     }
 }
 

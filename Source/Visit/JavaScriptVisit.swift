@@ -34,10 +34,11 @@ final class JavaScriptVisit: Visit {
 }
 
 extension JavaScriptVisit: WebViewVisitDelegate {
-    func webView(_ webView: WebViewBridge, didStartVisitWithIdentifier identifier: String, hasCachedSnapshot: Bool) {
-        log("didStartVisitWithIdentifier", ["identifier": identifier, "hasCachedSnapshot": hasCachedSnapshot])
+    func webView(_ webView: WebViewBridge, didStartVisitWithIdentifier identifier: String, hasCachedSnapshot: Bool, isPageRefresh: Bool) {
+        log("didStartVisitWithIdentifier", ["identifier": identifier, "hasCachedSnapshot": hasCachedSnapshot, "isPageRefresh": isPageRefresh])
         self.identifier = identifier
         self.hasCachedSnapshot = hasCachedSnapshot
+        self.isPageRefresh = isPageRefresh
         
         delegate?.visitDidStart(self)
     }
