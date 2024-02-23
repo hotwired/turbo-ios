@@ -64,6 +64,12 @@
       }
     }
 
+    cacheSnapshot() {
+      if (window.Turbo) {
+        Turbo.session.view.cacheSnapshot()
+      }
+    }
+
     // Current visit
 
     issueRequestForVisitWithIdentifier(identifier) {

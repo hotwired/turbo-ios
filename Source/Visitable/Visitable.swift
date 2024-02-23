@@ -4,6 +4,8 @@ import WebKit
 public protocol VisitableDelegate: AnyObject {
     func visitableViewWillAppear(_ visitable: Visitable)
     func visitableViewDidAppear(_ visitable: Visitable)
+    func visitableViewWillDisappear(_ visitable: Visitable)
+    func visitableViewDidDisappear(_ visitable: Visitable)
     func visitableDidRequestReload(_ visitable: Visitable)
     func visitableDidRequestRefresh(_ visitable: Visitable)
 }

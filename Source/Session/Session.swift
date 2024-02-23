@@ -244,6 +244,14 @@ extension Session: VisitableDelegate {
         }
     }
 
+    public func visitableViewWillDisappear(_ visitable: Visitable) {
+        topmostVisit?.cacheSnapshot()
+    }
+
+    public func visitableViewDidDisappear(_ visitable: Visitable) {
+        deactivateVisitable(visitable)
+    }
+
     public func visitableDidRequestReload(_ visitable: Visitable) {
         guard visitable === topmostVisitable else { return }
         reload()

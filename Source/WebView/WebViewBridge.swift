@@ -76,6 +76,10 @@ final class WebViewBridge {
         callJavaScript(function: "window.turboNative.clearSnapshotCache")
     }
 
+    func cacheSnapshot() {
+        callJavaScript(function: "window.turboNative.cacheSnapshot")
+    }
+
     func cancelVisit(withIdentifier identifier: String) {
         callJavaScript(function: "window.turboNative.cancelVisitWithIdentifier", arguments: [identifier])
     }
