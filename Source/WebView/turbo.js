@@ -120,7 +120,7 @@
 
     visitStarted(visit) {
       this.currentVisit = visit
-      this.postMessage("visitStarted", { identifier: visit.identifier, hasCachedSnapshot: visit.hasCachedSnapshot() })
+      this.postMessage("visitStarted", { identifier: visit.identifier, hasCachedSnapshot: visit.hasCachedSnapshot(), isPageRefresh: visit.isPageRefresh })
       this.issueRequestForVisitWithIdentifier(visit.identifier)
       this.changeHistoryForVisitWithIdentifier(visit.identifier)
       this.loadCachedSnapshotForVisitWithIdentifier(visit.identifier)
