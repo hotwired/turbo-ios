@@ -9,3 +9,9 @@ To run the test suite:
 
 1. Open the directory in Xcode
 1. Click Product → Test or <kbd>⌘</kbd>+<kbd>U</kbd>
+
+## Feature parity with Android
+
+New features will not be merged until also added to [turbo-android](https://github.com/hotwired/turbo-android).
+
+This does not apply to bugs that only appear on iOS.
