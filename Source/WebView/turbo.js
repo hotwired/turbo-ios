@@ -99,25 +99,17 @@
     // Adapter interface
 
     visitProposedToLocation(location, options) {
-      if (window.Turbo) {
-        if (Turbo.navigator.locationWithActionIsSamePage(location, options.action)) {
-          this.postMessage("visitProposalScrollingToAnchor", { location: location.toString(), options: options })
-          Turbo.navigator.view.scrollToAnchorFromLocation(location)
-
-          return
-        }
-        
-        if (this.isPageRefreshWithBackwardsCompatibility(location, options.action)) {
-          // Refresh the page without native proposal
-          this.postMessage("visitProposalRefreshingPage", { location: location.toString(), options: options })
-          this.visitLocationWithOptionsAndRestorationIdentifier(location, options, Turbo.navigator.restorationIdentifier)
-
-          return
-        }
+      if (window.Turbo && Turbo.navigator.locationWithActionIsSamePage(location, options.action)) {
+        this.postMessage("visitProposalScrollingToAnchor", { location: location.toString(), options: options })
+        Turbo.navigator.view.scrollToAnchorFromLocation(location)
+      } else if (this.isPageRefreshWithBackwardsCompatibility(location, options.action)) {
+        // Refresh the page without native proposal
+        this.postMessage("visitProposalRefreshingPage", { location: location.toString(), options: options })
+        this.visitLocationWithOptionsAndRestorationIdentifier(location, options, Turbo.navigator.restorationIdentifier)
+      } else {
+        // Propose the visit
+        this.postMessage("visitProposed", { location: location.toString(), options: options })
       }
-
-      // Propose the visit
-      this.postMessage("visitProposed", { location: location.toString(), options: options })
     }
 
     // Turbolinks 5
