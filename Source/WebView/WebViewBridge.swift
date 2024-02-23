@@ -125,6 +125,10 @@ extension WebViewBridge: ScriptMessageHandlerDelegate {
             delegate?.webViewDidInvalidatePage(self)
         case .visitProposed:
             delegate?.webView(self, didProposeVisitToLocation: message.location!, options: message.options!)
+        case .visitProposalScrollingToAnchor:
+            break
+        case .visitProposalRefreshingPage:
+            break
         case .visitStarted:
             visitDelegate?.webView(self, didStartVisitWithIdentifier: message.identifier!, hasCachedSnapshot: message.data["hasCachedSnapshot"] as! Bool)
         case .visitRequestStarted:
