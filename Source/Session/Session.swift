@@ -10,7 +10,9 @@ public class Session: NSObject {
     
     public let webView: WKWebView
     public var pathConfiguration: PathConfiguration?
-    
+
+    var needsCacheClearing = false
+
     private lazy var bridge = WebViewBridge(webView: webView)
     private var initialized = false
     private var refreshing = false
@@ -214,6 +216,11 @@ extension Session: VisitDelegate {
 extension Session: VisitableDelegate {
     public func visitableViewWillAppear(_ visitable: Visitable) {
         guard let topmostVisit = self.topmostVisit, let currentVisit = self.currentVisit else { return }
+
+        if needsCacheClearing {
+            clearSnapshotCache()
+            needsCacheClearing = false
+        }
 
         if visitable === topmostVisit.visitable && visitable.visitableViewController.isMovingToParent {
             // Back swipe gesture canceled
