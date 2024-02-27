@@ -35,6 +35,7 @@ public class Session: NSObject {
 
     private var currentVisit: Visit?
     private var topmostVisit: Visit?
+    private var disappearingVisitForSnapshotting: Visit?
 
     /// The topmost visitable is the visitable that has most recently completed a visit
     public var topmostVisitable: Visitable? {
@@ -213,6 +214,8 @@ extension Session: VisitDelegate {
 
 extension Session: VisitableDelegate {
     public func visitableViewWillAppear(_ visitable: Visitable) {
+        self.disappearingVisitForSnapshotting = nil
+
         guard let topmostVisit = self.topmostVisit, let currentVisit = self.currentVisit else { return }
 
         if visitable === topmostVisit.visitable && visitable.visitableViewController.isMovingToParent {
@@ -245,10 +248,11 @@ extension Session: VisitableDelegate {
     }
 
     public func visitableViewWillDisappear(_ visitable: Visitable) {
-        topmostVisit?.cacheSnapshot()
+        self.disappearingVisitForSnapshotting = topmostVisit
     }
 
     public func visitableViewDidDisappear(_ visitable: Visitable) {
+        disappearingVisitForSnapshotting?.cacheSnapshot()
         deactivateVisitable(visitable)
     }
 
