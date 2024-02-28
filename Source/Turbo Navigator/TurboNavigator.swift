@@ -143,7 +143,7 @@ extension TurboNavigator: SessionDelegate {
 
     public func sessionDidFinishFormSubmission(_ session: Session) {
         if session == modalSession {
-            self.session.clearSnapshotCache()
+            self.session.markSnapshotCacheAsStale()
         }
         if let url = session.topmostVisitable?.visitableURL {
             delegate.formSubmissionDidFinish(at: url)
