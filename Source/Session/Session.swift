@@ -229,7 +229,15 @@ extension Session: VisitableDelegate {
     public func visitableViewWillAppear(_ visitable: Visitable) {
         guard let topmostVisit = self.topmostVisit, let currentVisit = self.currentVisit else { return }
 
-        if visitable === topmostVisit.visitable && visitable.visitableViewController.isMovingToParent {
+        if isSnapshotCacheStale {
+            clearSnapshotCache()
+            isSnapshotCacheStale = false
+        }
+
+        if isShowingStaleContent {
+            reload()
+            isShowingStaleContent = false
+        } else if visitable === topmostVisit.visitable && visitable.visitableViewController.isMovingToParent {
             // Back swipe gesture canceled
             if topmostVisit.state == .completed {
                 currentVisit.cancel()
@@ -242,12 +250,6 @@ extension Session: VisitableDelegate {
         } else if visitable !== topmostVisit.visitable {
             // Navigating backward
             visit(visitable, action: .restore)
-        } else if isShowingStaleContent {
-            reload()
-            isShowingStaleContent = false
-        } else if isSnapshotCacheStale {
-            clearSnapshotCache()
-            isSnapshotCacheStale = false
         }
     }
 
