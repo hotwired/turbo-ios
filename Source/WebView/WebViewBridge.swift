@@ -14,7 +14,7 @@ protocol WebViewPageLoadDelegate: AnyObject {
 }
 
 protocol WebViewVisitDelegate: AnyObject {
-    func webView(_ webView: WebViewBridge, didStartVisitWithIdentifier identifier: String, hasCachedSnapshot: Bool)
+    func webView(_ webView: WebViewBridge, didStartVisitWithIdentifier identifier: String, hasCachedSnapshot: Bool, isPageRefresh: Bool)
     func webView(_ webView: WebViewBridge, didStartRequestForVisitWithIdentifier identifier: String, date: Date)
     func webView(_ webView: WebViewBridge, didCompleteRequestForVisitWithIdentifier identifier: String)
     func webView(_ webView: WebViewBridge, didFailRequestForVisitWithIdentifier identifier: String, statusCode: Int)
@@ -125,8 +125,12 @@ extension WebViewBridge: ScriptMessageHandlerDelegate {
             delegate?.webViewDidInvalidatePage(self)
         case .visitProposed:
             delegate?.webView(self, didProposeVisitToLocation: message.location!, options: message.options!)
+        case .visitProposalScrollingToAnchor:
+            break
+        case .visitProposalRefreshingPage:
+            break
         case .visitStarted:
-            visitDelegate?.webView(self, didStartVisitWithIdentifier: message.identifier!, hasCachedSnapshot: message.data["hasCachedSnapshot"] as! Bool)
+            visitDelegate?.webView(self, didStartVisitWithIdentifier: message.identifier!, hasCachedSnapshot: message.data["hasCachedSnapshot"] as! Bool, isPageRefresh: message.data["isPageRefresh"] as! Bool)
         case .visitRequestStarted:
             visitDelegate?.webView(self, didStartRequestForVisitWithIdentifier: message.identifier!, date: message.date)
         case .visitRequestCompleted:

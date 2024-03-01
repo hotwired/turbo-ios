@@ -13,12 +13,13 @@
 
 Turbo iOS is written in Swift 5.3 and requires iOS 14 or higher. It supports web apps using either Turbo 7 or Turbolinks 5. The Turbo iOS framework has no dependencies.
 
-**Note:** You should understand how Turbo works with web applications in the browser before attempting to use Turbo iOS. See the [Turbo 7 documentation](https://github.com/hotwired/turbo) for details. Ensure that your web app sets the `window.Turbo` global variable as it's required by the native apps:
+**Note:** You should understand how Turbo works with web applications in the browser before attempting to use Turbo iOS. See the [Turbo 7 documentation](https://github.com/hotwired/turbo) for details.
 
 ```javascript
 import { Turbo } from "@hotwired/turbo-rails"
-window.Turbo = Turbo
 ```
+
+Make sure your web app sets the `window.Turbo` global variable as it's required by the native apps (set automatically by [turbo-rails](https://github.com/hotwired/turbo-rails)).
 
 ## Getting Started
 
@@ -44,6 +45,8 @@ You can also integrate the framework manually if your prefer, such as by adding 
 - [Advanced](Docs/Advanced.md)
 
 ## Contributing
+
+Read the [contributing guide](/CONTRIBUTING.md) to learn how to set up your development environment.
 
 Turbo iOS is open-source software, freely distributable under the terms of an [MIT-style license](LICENSE). The [source code is hosted on GitHub](https://github.com/hotwired/turbo-ios).
 Development is sponsored by [37signals](https://37signals.com/).

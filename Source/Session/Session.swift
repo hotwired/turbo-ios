@@ -18,6 +18,9 @@ public class Session: NSObject {
     /// Options behave differently if a response is provided.
     private let visitOptionsHandler = VisitOptionsHandler()
 
+    private var isShowingStaleContent = false
+    private var isSnapshotCacheStale = false
+
     /// Automatically creates a web view with the passed-in configuration
     public convenience init(webViewConfiguration: WKWebViewConfiguration? = nil) {
         self.init(webView: WKWebView(frame: .zero, configuration: webViewConfiguration ?? WKWebViewConfiguration()))
@@ -95,6 +98,18 @@ public class Session: NSObject {
         bridge.clearSnapshotCache()
     }
 
+    // MARK: Caching
+
+    /// Clear the snapshot cache the next time the visitable view appears.
+    public func markSnapshotCacheAsStale() {
+        isSnapshotCacheStale = true
+    }
+
+    /// Reload the `Session` the next time the visitable view appears.
+    public func markContentAsStale() {
+        isShowingStaleContent = true
+    }
+
     // MARK: Visitable activation
 
     private var activatedVisitable: Visitable?
@@ -168,12 +183,16 @@ extension Session: VisitDelegate {
     }
 
     func visitWillStart(_ visit: Visit) {
+        guard !visit.isPageRefresh else { return }
+        
         visit.visitable.showVisitableScreenshot()
         activateVisitable(visit.visitable)
     }
 
     func visitDidStart(_ visit: Visit) {
         guard !visit.hasCachedSnapshot else { return }
+        guard !visit.isPageRefresh else { return }
+        
         visit.visitable.showVisitableActivityIndicator()
     }
 
@@ -215,7 +234,15 @@ extension Session: VisitableDelegate {
     public func visitableViewWillAppear(_ visitable: Visitable) {
         guard let topmostVisit = self.topmostVisit, let currentVisit = self.currentVisit else { return }
 
-        if visitable === topmostVisit.visitable && visitable.visitableViewController.isMovingToParent {
+        if isSnapshotCacheStale {
+            clearSnapshotCache()
+            isSnapshotCacheStale = false
+        }
+
+        if isShowingStaleContent {
+            reload()
+            isShowingStaleContent = false
+        } else if visitable === topmostVisit.visitable && visitable.visitableViewController.isMovingToParent {
             // Back swipe gesture canceled
             if topmostVisit.state == .completed {
                 currentVisit.cancel()
