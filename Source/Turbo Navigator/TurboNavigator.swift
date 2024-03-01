@@ -105,16 +105,27 @@ public class TurboNavigator {
             return
         }
     }
-
-    let session: Session
-    let modalSession: Session
-
+    
+    public func appDidBecomeActive() {
+        appInBackground = false
+        inspectAllSession()
+    }
+    
+    public func appDidEnterBackground() {
+        appInBackground = true
+    }
+    
+    var session: Session
+    var modalSession: Session
+    
     /// Modifies a UINavigationController according to visit proposals.
     lazy var hierarchyController = TurboNavigationHierarchyController(delegate: self)
-
+    
     /// A default delegate implementation if none is provided.
     private let navigatorDelegate = DefaultTurboNavigatorDelegate()
-
+    private var backgroundTerminatedWebViewSessions = [Session]()
+    private var appInBackground: Bool = false
+    
     private func controller(for proposal: VisitProposal) -> UIViewController? {
         switch delegate.handle(proposal: proposal) {
         case .accept:
@@ -162,7 +173,7 @@ extension TurboNavigator: SessionDelegate {
     }
 
     public func sessionWebViewProcessDidTerminate(_ session: Session) {
-        session.reload()
+        reloadIfPermitted(session)
     }
 
     public func session(_ session: Session, didReceiveAuthenticationChallenge challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
@@ -203,5 +214,91 @@ extension TurboNavigator: TurboNavigationHierarchyControllerDelegate {
 extension TurboNavigator: TurboWKUIDelegate {
     public func present(_ alert: UIAlertController, animated: Bool) {
         hierarchyController.activeNavigationController.present(alert, animated: animated)
+    }
+}
+
+// MARK: - Session and web view reloading
+
+extension TurboNavigator {
+    private func inspectAllSession() {
+        [session, modalSession].forEach { inspect($0) }
+    }
+    
+    private func reloadIfPermitted(_ session: Session) {
+        /// If the web view process is terminated, it leaves the web view with a white screen, so we need to reload it.
+        /// However, if the web view is no longer onscreen, such as after visiting a page and going back to a native view,
+        /// then reloading will unnecessarily fetch all the content, and on next visit,
+        /// it will trigger various bridge messages since the web view will be added to the window and call all the connect() methods.
+        ///
+        /// We don't want to reload a view controller not on screen, since that can have unwanted
+        /// side-effects for the next visit (like showing the wrong bridge components). We can't just
+        /// check if the view controller is visible, since it may be further back in the stack of a navigation controller.
+        /// Seeing if there is a parent was the best solution I could find.
+        guard let viewController = session.activeVisitable?.visitableViewController,
+              viewController.parent != nil else {
+            return
+        }
+        
+        if appInBackground {
+            /// Don't reload the web view if the app is in the background.
+            /// Instead, save the session in `backgroundTerminatedWebViewSessions`
+            /// and reload it when the app is back in foreground.
+            backgroundTerminatedWebViewSessions.append(session)
+            return
+        }
+        
+        reload(session)
+    }
+    
+    private func reload(_ session: Session) {
+        session.reload()
+    }
+    
+    /// Inspects the provided session to handle terminated web view process and reloads or recreates the web view accordingly.
+    ///
+    /// - Parameter session: The session to inspect.
+    ///
+    /// This method checks if the web view associated with the session has terminated in the background. 
+    /// If so, it removes the session from the list of background terminated web view processes, reloads the session, and returns.
+    /// If the session's topmost visitable URL is not available, the method returns without further action.
+    /// If the web view's content process state is non-recoverable/terminated, it recreates the web view for the session.
+    private func inspect(_ session: Session) {
+        if let index = backgroundTerminatedWebViewSessions.firstIndex(where: { $0 === session }) {
+            backgroundTerminatedWebViewSessions.remove(at: index)
+            reload(session)
+            return
+        }
+        
+        guard let _ = session.topmostVisitable?.visitableURL else {
+            return
+        }
+        
+        session.webView.queryWebContentProcessState { [weak self] state in
+            guard case .terminated = state else { return }
+            self?.recreateWebView(for: session)
+        }
+    }
+    
+    /// Recreates the web view and session for the given session and performs a `replace` visit.
+    ///
+    /// - Parameter session: The session to recreate.
+    private func recreateWebView(for session: Session) {
+        guard let _ = session.activeVisitable?.visitableViewController,
+              let url = session.activeVisitable?.visitableURL else { return }
+        
+        let newSession = Session(webView: Turbo.config.makeWebView())
+        newSession.pathConfiguration = session.pathConfiguration
+        newSession.delegate = self
+        newSession.webView.uiDelegate = webkitUIDelegate
+        
+        if session == self.session {
+            self.session = newSession
+        } else {
+            self.modalSession = newSession
+        }
+        
+        let options = VisitOptions(action: .replace, response: nil)
+        let properties = session.pathConfiguration?.properties(for: url) ?? PathProperties()
+        route(VisitProposal(url: url, options: options, properties: properties))
     }
 }
