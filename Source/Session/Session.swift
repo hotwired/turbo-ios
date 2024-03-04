@@ -215,6 +215,7 @@ extension Session: VisitDelegate {
 extension Session: VisitableDelegate {
     public func visitableViewWillAppear(_ visitable: Visitable) {
         defer {
+            /// Nilling out the previous visit here prevents `double-snapshotting` for web -> web visits.
             previosVisit = nil
         }
 
