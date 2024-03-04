@@ -8,11 +8,11 @@ class VisitOptionsHandler {
     func process(_ options: VisitOptions?) -> VisitOptions {
         
         if let options, options.response?.responseHTML != nil {
-            /// Options are provided for the next visit.
+            /// A `responseHTML` is provided for the next visit.
             unhandledVisitOptions = options
             return options
         } else if let unhandledVisitOptions {
-            /// Next visit is happening. Use the previous visit options.
+            /// Next visit is happening. Use the previous `responseHTML`.
             self.unhandledVisitOptions = nil
             return unhandledVisitOptions
         } else {
