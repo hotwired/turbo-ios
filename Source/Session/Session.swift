@@ -35,7 +35,7 @@ public class Session: NSObject {
 
     private var currentVisit: Visit?
     private var topmostVisit: Visit?
-    private var disappearingVisitForSnapshotting: Visit?
+    private var previosVisit: Visit?
 
     /// The topmost visitable is the visitable that has most recently completed a visit
     public var topmostVisitable: Visitable? {
@@ -214,8 +214,8 @@ extension Session: VisitDelegate {
 
 extension Session: VisitableDelegate {
     public func visitableViewWillAppear(_ visitable: Visitable) {
-        let lastDisappearingVisit = self.disappearingVisitForSnapshotting
-        self.disappearingVisitForSnapshotting = nil
+        let lastDisappearingVisit = self.previosVisit
+        self.previosVisit = nil
 
         guard let topmostVisit = self.topmostVisit, let currentVisit = self.currentVisit else { return }
 
@@ -229,7 +229,7 @@ extension Session: VisitableDelegate {
         } else if visitable === currentVisit.visitable && currentVisit.state == .started {
             // Navigating forward - complete navigation early
             completeNavigationForCurrentVisit()
-        } else if visitable !== topmostVisit.visitable || visitable === lastDisappearingVisit?.visitable {
+        } else if visitable !== topmostVisit.visitable || visitable === previosVisit?.visitable {
             // Navigating backward
             visit(visitable, action: .restore)
         }
@@ -249,11 +249,11 @@ extension Session: VisitableDelegate {
     }
 
     public func visitableViewWillDisappear(_ visitable: Visitable) {
-        self.disappearingVisitForSnapshotting = topmostVisit
+        previosVisit = topmostVisit
     }
 
     public func visitableViewDidDisappear(_ visitable: Visitable) {
-        disappearingVisitForSnapshotting?.cacheSnapshot()
+        previosVisit?.cacheSnapshot()
         deactivateVisitable(visitable)
     }
 
