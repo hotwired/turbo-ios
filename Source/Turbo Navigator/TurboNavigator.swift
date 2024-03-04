@@ -24,14 +24,14 @@ public class TurboNavigator {
         }
     }
 
-    /// Default initializer requiring preconfigured `Session` instances.
+    /// Internal initializer requiring preconfigured `Session` instances.
     ///
     /// User `init(pathConfiguration:delegate:)` to only provide a `PathConfiguration`.
     /// - Parameters:
     ///   - session: the main `Session`
     ///   - modalSession: the `Session` used for the modal navigation controller
     ///   - delegate: _optional:_ delegate to handle custom view controllers
-    public init(session: Session, modalSession: Session, delegate: TurboNavigatorDelegate? = nil) {
+    init(session: Session, modalSession: Session, delegate: TurboNavigatorDelegate? = nil) {
         self.session = session
         self.modalSession = modalSession
 
