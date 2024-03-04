@@ -35,7 +35,7 @@ public class Session: NSObject {
 
     private var currentVisit: Visit?
     private var topmostVisit: Visit?
-    private var previosVisit: Visit?
+    private var previousVisit: Visit?
 
     /// The topmost visitable is the visitable that has most recently completed a visit
     public var topmostVisitable: Visitable? {
@@ -216,7 +216,7 @@ extension Session: VisitableDelegate {
     public func visitableViewWillAppear(_ visitable: Visitable) {
         defer {
             /// Nilling out the previous visit here prevents `double-snapshotting` for web -> web visits.
-            previosVisit = nil
+            previousVisit = nil
         }
 
         guard let topmostVisit = self.topmostVisit, let currentVisit = self.currentVisit else { return }
@@ -234,7 +234,7 @@ extension Session: VisitableDelegate {
         } else if visitable !== topmostVisit.visitable {
             // Navigating backward from a web view screen to a web view screen.
             visit(visitable, action: .restore)
-        } else if visitable === previosVisit?.visitable {
+        } else if visitable === previousVisit?.visitable {
             // Navigating backward from a native to a web view screen.
             visit(visitable, action: .restore)
         }
@@ -254,11 +254,11 @@ extension Session: VisitableDelegate {
     }
 
     public func visitableViewWillDisappear(_ visitable: Visitable) {
-        previosVisit = topmostVisit
+        previousVisit = topmostVisit
     }
 
     public func visitableViewDidDisappear(_ visitable: Visitable) {
-        previosVisit?.cacheSnapshot()
+        previousVisit?.cacheSnapshot()
         deactivateVisitable(visitable)
     }
 
