@@ -7,7 +7,7 @@ class VisitOptionsHandler {
     /// If a form submission provides a response HTML, save the options and pass them to the next visit proposal.
     func process(_ options: VisitOptions?) -> VisitOptions {
         
-        if let options, options.response != nil {
+        if let options, options.response?.responseHTML != nil {
             /// Options are provided for the next visit.
             unhandledVisitOptions = options
             return options
