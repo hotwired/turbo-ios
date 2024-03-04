@@ -123,7 +123,7 @@ public class TurboNavigator {
     /// A default delegate implementation if none is provided.
     private let navigatorDelegate = DefaultTurboNavigatorDelegate()
     private var backgroundTerminatedWebViewSessions = [Session]()
-    private var appInBackground: Bool = false
+    private var appInBackground = false
     
     private func controller(for proposal: VisitProposal) -> UIViewController? {
         switch delegate.handle(proposal: proposal) {
