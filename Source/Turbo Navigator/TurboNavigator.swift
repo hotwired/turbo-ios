@@ -120,7 +120,6 @@ public class TurboNavigator {
     
     /// Modifies a UINavigationController according to visit proposals.
     lazy var hierarchyController = TurboNavigationHierarchyController(delegate: self)
-    
     /// A default delegate implementation if none is provided.
     private let navigatorDelegate = DefaultTurboNavigatorDelegate()
     private var backgroundTerminatedWebViewSessions = [Session]()
