@@ -64,6 +64,14 @@ extension SceneController: UIWindowSceneDelegate {
 
         navigator.route(rootURL)
     }
+    
+    func sceneDidBecomeActive(_ scene: UIScene) {
+        navigator.appDidBecomeActive()
+    }
+    
+    func sceneDidEnterBackground(_ scene: UIScene) {
+        navigator.appDidEnterBackground()
+    }
 }
 
 extension SceneController: TurboNavigatorDelegate {
