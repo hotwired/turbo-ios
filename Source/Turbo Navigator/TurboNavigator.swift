@@ -24,27 +24,6 @@ public class TurboNavigator {
         }
     }
 
-    /// Internal initializer requiring preconfigured `Session` instances.
-    ///
-    /// User `init(pathConfiguration:delegate:)` to only provide a `PathConfiguration`.
-    /// - Parameters:
-    ///   - session: the main `Session`
-    ///   - modalSession: the `Session` used for the modal navigation controller
-    ///   - delegate: _optional:_ delegate to handle custom view controllers
-    init(session: Session, modalSession: Session, delegate: TurboNavigatorDelegate? = nil) {
-        self.session = session
-        self.modalSession = modalSession
-
-        self.delegate = delegate ?? navigatorDelegate
-
-        self.session.delegate = self
-        self.modalSession.delegate = self
-
-        self.webkitUIDelegate = TurboWKUIController(delegate: self)
-        session.webView.uiDelegate = webkitUIDelegate
-        modalSession.webView.uiDelegate = webkitUIDelegate
-    }
-
     /// Convenience initializer that doesn't require manually creating `Session` instances.
     /// - Parameters:
     ///   - pathConfiguration: _optional:_ remote configuration reference
@@ -108,23 +87,48 @@ public class TurboNavigator {
     
     public func appDidBecomeActive() {
         appInBackground = false
-        inspectAllSession()
+        inspectAllSessions()
     }
     
     public func appDidEnterBackground() {
         appInBackground = true
     }
-    
+
+    // MARK: Internal
+
     var session: Session
     var modalSession: Session
-    
     /// Modifies a UINavigationController according to visit proposals.
     lazy var hierarchyController = TurboNavigationHierarchyController(delegate: self)
+
+    /// Internal initializer requiring preconfigured `Session` instances.
+    ///
+    /// User `init(pathConfiguration:delegate:)` to only provide a `PathConfiguration`.
+    /// - Parameters:
+    ///   - session: the main `Session`
+    ///   - modalSession: the `Session` used for the modal navigation controller
+    ///   - delegate: _optional:_ delegate to handle custom view controllers
+    init(session: Session, modalSession: Session, delegate: TurboNavigatorDelegate? = nil) {
+        self.session = session
+        self.modalSession = modalSession
+
+        self.delegate = delegate ?? navigatorDelegate
+
+        self.session.delegate = self
+        self.modalSession.delegate = self
+
+        self.webkitUIDelegate = TurboWKUIController(delegate: self)
+        session.webView.uiDelegate = webkitUIDelegate
+        modalSession.webView.uiDelegate = webkitUIDelegate
+    }
+
+    // MARK: Private
+
     /// A default delegate implementation if none is provided.
     private let navigatorDelegate = DefaultTurboNavigatorDelegate()
     private var backgroundTerminatedWebViewSessions = [Session]()
     private var appInBackground = false
-    
+
     private func controller(for proposal: VisitProposal) -> UIViewController? {
         switch delegate.handle(proposal: proposal) {
         case .accept:
@@ -219,7 +223,7 @@ extension TurboNavigator: TurboWKUIDelegate {
 // MARK: - Session and web view reloading
 
 extension TurboNavigator {
-    private func inspectAllSession() {
+    private func inspectAllSessions() {
         [session, modalSession].forEach { inspect($0) }
     }
     
