@@ -35,8 +35,13 @@ public class TurboConfig {
 
     // MARK: - Internal
 
-    public func makeWebView() -> WKWebView {
-        mainWebViewProvider(makeWebViewConfiguration())
+    public func makeWebView(for navigationStack: NavigationStackType) -> WKWebView {
+        switch navigationStack {
+        case .main:
+            return mainWebViewProvider(makeWebViewConfiguration())
+        case .modal:
+            return modalWebViewProvider(makeWebViewConfiguration())
+        }
     }
 
     // MARK: - Private

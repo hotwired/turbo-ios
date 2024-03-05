@@ -29,10 +29,10 @@ public class TurboNavigator {
     ///   - pathConfiguration: _optional:_ remote configuration reference
     ///   - delegate: _optional:_ delegate to handle custom view controllers
     public convenience init(pathConfiguration: PathConfiguration? = nil, delegate: TurboNavigatorDelegate? = nil) {
-        let session = Session(webView: Turbo.config.makeWebView())
+        let session = Session(webView: Turbo.config.makeWebView(for: .main))
         session.pathConfiguration = pathConfiguration
 
-        let modalSession = Session(webView: Turbo.config.makeWebView())
+        let modalSession = Session(webView: Turbo.config.makeWebView(for: .modal))
         modalSession.pathConfiguration = pathConfiguration
 
         self.init(session: session, modalSession: modalSession, delegate: delegate)
@@ -199,14 +199,14 @@ extension TurboNavigator: SessionDelegate {
 // MARK: - TurboNavigationHierarchyControllerDelegate
 
 extension TurboNavigator: TurboNavigationHierarchyControllerDelegate {
-    func visit(_ controller: Visitable, on navigationStack: TurboNavigationHierarchyController.NavigationStackType, with options: VisitOptions) {
+    func visit(_ controller: Visitable, on navigationStack: NavigationStackType, with options: VisitOptions) {
         switch navigationStack {
         case .main: session.visit(controller, options: options)
         case .modal: modalSession.visit(controller, options: options)
         }
     }
 
-    func refresh(navigationStack: TurboNavigationHierarchyController.NavigationStackType) {
+    func refresh(navigationStack: NavigationStackType) {
         switch navigationStack {
         case .main: session.reload()
         case .modal: modalSession.reload()
@@ -289,7 +289,9 @@ extension TurboNavigator {
         guard let _ = session.activeVisitable?.visitableViewController,
               let url = session.activeVisitable?.visitableURL else { return }
         
-        let newSession = Session(webView: Turbo.config.makeWebView())
+        let newSession = Session(
+            webView: Turbo.config.makeWebView(for: session == self.session ? .main : .modal)
+        )
         newSession.pathConfiguration = session.pathConfiguration
         newSession.delegate = self
         newSession.webView.uiDelegate = webkitUIDelegate
