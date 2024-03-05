@@ -23,6 +23,10 @@ public class TurboConfig {
         WKWebView(frame: .zero, configuration: configuration)
     }
 
+    public var modalWebViewProvider: WebViewBlock = { configuration in
+        WKWebView(frame: .zero, configuration: configuration)
+    }
+
     public var debugLoggingEnabled = false {
         didSet {
             TurboLogger.debugLoggingEnabled = debugLoggingEnabled
