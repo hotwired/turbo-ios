@@ -52,13 +52,11 @@ public final class PathConfiguration {
         properties(for: url)
     }
     
-    /// Returns a merged dictionary containing all the properties
-    /// that match this url
-    /// Note: currently only looks at path, not query, but most likely will
-    /// add query support in the future, so it's best to always use this over the path variant
-    /// unless you're sure you'll never need to reference other parts of the URL in the future
-    public func properties(for url: URL) -> PathProperties {
-        properties(for: url.path)
+    /// Returns a merged dictionary containing all the properties that match this url
+    /// Note: by default we consider both the path and the query parameters of the URL
+    public func properties(for url: URL, considerParams: Bool = true) -> PathProperties {
+        let path = considerParams ? url.path + (url.query.map { "?" + $0 } ?? "") : url.path
+        return properties(for: path)
     }
     
     /// Returns a merged dictionary containing all the properties
