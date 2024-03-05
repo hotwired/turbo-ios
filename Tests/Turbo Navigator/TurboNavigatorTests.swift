@@ -266,8 +266,8 @@ final class TurboNavigationHierarchyControllerTests: XCTestCase {
     private lazy var oneURL = baseURL.appendingPathComponent("/one")
     private lazy var twoURL = baseURL.appendingPathComponent("/two")
 
-    private let session = Session(webView: Turbo.config.makeWebView())
-    private let modalSession = Session(webView: Turbo.config.makeWebView())
+    private let session = Session(webView: Turbo.config.makeWebView(for: .main))
+    private let modalSession = Session(webView: Turbo.config.makeWebView(for: .modal))
 
     private var navigator: TurboNavigator!
     private let alertControllerDelegate = AlertControllerDelegate()
@@ -297,8 +297,8 @@ final class TurboNavigationHierarchyControllerTests: XCTestCase {
 // MARK: - EmptyNavigationDelegate
 
 private class EmptyNavigationDelegate: TurboNavigationHierarchyControllerDelegate {
-    func visit(_: Visitable, on: TurboNavigationHierarchyController.NavigationStackType, with: VisitOptions) {}
-    func refresh(navigationStack: TurboNavigationHierarchyController.NavigationStackType) {}
+    func visit(_: Visitable, on: NavigationStackType, with: VisitOptions) {}
+    func refresh(navigationStack: NavigationStackType) {}
 }
 
 // MARK: - VisitProposal extension
