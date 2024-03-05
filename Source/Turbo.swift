@@ -19,7 +19,7 @@ public class TurboConfig {
 
     /// Optionally customize the web views used by each Turbo Session.
     /// Ensure you return a new instance each time.
-    public var makeCustomWebView: WebViewBlock = { (configuration: WKWebViewConfiguration) in
+    public var mainWebViewProvider: WebViewBlock = { configuration in
         WKWebView(frame: .zero, configuration: configuration)
     }
 
@@ -36,7 +36,7 @@ public class TurboConfig {
     // MARK: - Internal
 
     public func makeWebView() -> WKWebView {
-        makeCustomWebView(makeWebViewConfiguration())
+        mainWebViewProvider(makeWebViewConfiguration())
     }
 
     // MARK: - Private
