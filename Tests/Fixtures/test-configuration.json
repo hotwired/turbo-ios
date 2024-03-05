@@ -21,7 +21,7 @@
       "properties": {"background_color": "white"}
     },
     {
-      "patterns": [".*\\?open_in_external_browser=true.*"],
+      "patterns": [".*\\?.*open_in_external_browser=true.*"],
       "properties": {"open_in_external_browser": true}
     }
   ]
