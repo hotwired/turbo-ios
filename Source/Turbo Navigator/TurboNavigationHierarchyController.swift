@@ -2,6 +2,11 @@ import SafariServices
 import UIKit
 import WebKit
 
+public enum NavigationStackType {
+    case main
+    case modal
+}
+
 class TurboNavigationHierarchyController {
     let navigationController: UINavigationController
     let modalNavigationController: UINavigationController
@@ -9,11 +14,6 @@ class TurboNavigationHierarchyController {
     var rootViewController: UIViewController { navigationController }
     var activeNavigationController: UINavigationController {
         navigationController.presentedViewController != nil ? modalNavigationController : navigationController
-    }
-
-    enum NavigationStackType {
-        case main
-        case modal
     }
 
     func navController(for navigationType: NavigationStackType) -> UINavigationController {
