@@ -11,7 +11,7 @@ final class TurboNavigationHierarchyControllerTests: XCTestCase {
         modalNavigationController = TestableNavigationController()
 
         navigator = TurboNavigator(session: session, modalSession: modalSession)
-        hierarchyController = TurboNavigationHierarchyController(delegate: navigator, navigationControler: navigationController, modalNavigationController: modalNavigationController)
+        hierarchyController = TurboNavigationHierarchyController(delegate: navigator, navigationController: navigationController, modalNavigationController: modalNavigationController)
         navigator.hierarchyController = hierarchyController
 
         loadNavigationControllerInWindow()
