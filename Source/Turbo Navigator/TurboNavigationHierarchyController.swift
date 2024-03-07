@@ -23,7 +23,11 @@ class TurboNavigationHierarchyController {
         }
     }
 
-    init(delegate: TurboNavigationHierarchyControllerDelegate, navigationControler: UINavigationController = UINavigationController(), modalNavigationController: UINavigationController = UINavigationController()) {
+    init(
+        delegate: TurboNavigationHierarchyControllerDelegate,
+        navigationControler: UINavigationController = Turbo.config.defaultNavigationController(),
+        modalNavigationController: UINavigationController = Turbo.config.defaultNavigationController()
+    ) {
         self.delegate = delegate
         self.navigationController = navigationControler
         self.modalNavigationController = modalNavigationController

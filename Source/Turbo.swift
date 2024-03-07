@@ -17,6 +17,12 @@ public class TurboConfig {
         VisitableViewController(url: url)
     }
 
+    /// The navigation controller used in `TurboNavigator` for the main and modal stacks.
+    /// Must be a `UINavigationController` or subclass.
+    public var defaultNavigationController: () -> UINavigationController = {
+        UINavigationController()
+    }
+
     /// Optionally customize the web views used by each Turbo Session.
     /// Ensure you return a new instance each time.
     public var makeCustomWebView: WebViewBlock = { (configuration: WKWebViewConfiguration) in
