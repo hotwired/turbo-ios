@@ -9,5 +9,11 @@ public class TurboConfig {
         }
     }
 
-    public var matchPathConfigurationQuery = false
+    public var pathConfiguration = PathConfiguration()
+}
+
+public extension TurboConfig {
+    class PathConfiguration {
+        public var matchQuery = false
+    }
 }

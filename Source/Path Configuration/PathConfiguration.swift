@@ -49,14 +49,14 @@ public final class PathConfiguration {
     
     /// Convenience method for retrieving properties for url: configuration[url]
     public subscript(url: URL) -> PathProperties {
-        properties(for: url, matchQuery: Turbo.config.matchPathConfigurationQuery)
+        properties(for: url)
     }
 
     /// Returns a merged dictionary containing all the properties that match this URL.
     /// - Parameters:
     ///   - matchQuery: Enable to include query items when matching URLs.
-    public func properties(for url: URL, matchQuery: Bool) -> PathProperties {
-        if matchQuery, let query = url.query {
+    public func properties(for url: URL) -> PathProperties {
+        if Turbo.config.pathConfiguration.matchQuery, let query = url.query {
             return properties(for: "\(url.path)?\(query)")
         }
         return properties(for: url.path)

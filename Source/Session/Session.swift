@@ -282,7 +282,7 @@ extension Session: VisitableDelegate {
 
 extension Session: WebViewDelegate {
     func webView(_ bridge: WebViewBridge, didProposeVisitToLocation location: URL, options: VisitOptions) {
-        let properties = pathConfiguration?.properties(for: location, matchQuery: Turbo.config.matchPathConfigurationQuery) ?? [:]
+        let properties = pathConfiguration?.properties(for: location) ?? [:]
         let proposal = VisitProposal(url: location, options: options, properties: properties)
         delegate?.session(self, didProposeVisit: proposal)
     }
