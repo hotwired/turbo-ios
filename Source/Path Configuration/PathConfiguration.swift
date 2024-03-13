@@ -53,8 +53,6 @@ public final class PathConfiguration {
     }
 
     /// Returns a merged dictionary containing all the properties that match this URL.
-    /// - Parameters:
-    ///   - matchQuery: Enable to include query items when matching URLs.
     public func properties(for url: URL) -> PathProperties {
         if Turbo.config.pathConfiguration.matchQuery, let query = url.query {
             return properties(for: "\(url.path)?\(query)")
