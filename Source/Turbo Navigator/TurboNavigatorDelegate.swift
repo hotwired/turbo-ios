@@ -46,7 +46,7 @@ public extension TurboNavigatorDelegate {
 
     func visitableDidFailRequest(_ visitable: Visitable, error: Error, retry: RetryBlock?) {
         if let errorPresenter = visitable as? ErrorPresenter {
-            errorPresenter.presentError(error, handler: retry)
+            errorPresenter.presentError(error, retryHandler: retry)
         }
     }
 

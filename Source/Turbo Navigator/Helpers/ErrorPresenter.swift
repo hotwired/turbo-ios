@@ -3,14 +3,22 @@ import SwiftUI
 public protocol ErrorPresenter: UIViewController {
     typealias Handler = () -> Void
 
-    func presentError(_ error: Error, handler: Handler?)
+    func presentError(_ error: Error, retryHandler: Handler?)
 }
 
 public extension ErrorPresenter {
-    func presentError(_ error: Error, handler: Handler?) {
+    
+    /// Presents an error in a full screen view.
+    /// The error view will display a `Retry` button if `retryHandler != nil`.
+    /// Tapping `Retry` will call `retryHandler?()` then dismiss the error.
+    ///
+    /// - Parameters:
+    ///   - error: <#error description#>
+    ///   - retryHandler: <#retryHandler description#>
+    func presentError(_ error: Error, retryHandler: Handler?) {
         let errorView = ErrorView(error: error,
-                                  shouldShowRetryButton: (handler != nil)) { [unowned self] in
-            handler?()
+                                  shouldShowRetryButton: (retryHandler != nil)) { [unowned self] in
+            retryHandler?()
             self.removeErrorViewController()
         }
 
