@@ -3,13 +3,14 @@ import SwiftUI
 public protocol ErrorPresenter: UIViewController {
     typealias Handler = () -> Void
 
-    func presentError(_ error: Error, handler: @escaping Handler)
+    func presentError(_ error: Error, handler: Handler?)
 }
 
 public extension ErrorPresenter {
-    func presentError(_ error: Error, handler: @escaping () -> Void) {
-        let errorView = ErrorView(error: error) { [unowned self] in
-            handler()
+    func presentError(_ error: Error, handler: Handler?) {
+        let errorView = ErrorView(error: error,
+                                  shouldShowRetryButton: (handler != nil)) { [unowned self] in
+            handler?()
             self.removeErrorViewController()
         }
 
@@ -34,6 +35,7 @@ extension UIViewController: ErrorPresenter {}
 
 private struct ErrorView: View {
     let error: Error
+    let shouldShowRetryButton: Bool
     let handler: ErrorPresenter.Handler?
 
     var body: some View {
@@ -49,10 +51,12 @@ private struct ErrorView: View {
                 .font(.body)
                 .multilineTextAlignment(.center)
 
-            Button("Retry") {
-                handler?()
+            if shouldShowRetryButton {
+                Button("Retry") {
+                    handler?()
+                }
+                .font(.system(size: 17, weight: .bold))
             }
-            .font(.system(size: 17, weight: .bold))
         }
         .padding(32)
     }
@@ -64,7 +68,7 @@ private struct ErrorView_Previews: PreviewProvider {
             domain: "com.example.error",
             code: 1001,
             userInfo: [NSLocalizedDescriptionKey: "Could not connect to the server."]
-        )) {}
+        ), shouldShowRetryButton: true) {}
     }
 }
 

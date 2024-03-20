@@ -20,7 +20,7 @@ public protocol TurboNavigatorDelegate: AnyObject {
     /// An error occurred loading the request, present it to the user.
     /// Retry the request by executing the closure.
     /// - Important: If not implemented, will present the error's localized description and a Retry button.
-    func visitableDidFailRequest(_ visitable: Visitable, error: Error, retry: @escaping RetryBlock)
+    func visitableDidFailRequest(_ visitable: Visitable, error: Error, retry: RetryBlock?)
 
     /// Respond to authentication challenge presented by web servers behing basic auth.
     /// If not implemented, default handling will be performed.
@@ -44,7 +44,7 @@ public extension TurboNavigatorDelegate {
         .openViaSafariController
     }
 
-    func visitableDidFailRequest(_ visitable: Visitable, error: Error, retry: @escaping RetryBlock) {
+    func visitableDidFailRequest(_ visitable: Visitable, error: Error, retry: RetryBlock?) {
         if let errorPresenter = visitable as? ErrorPresenter {
             errorPresenter.presentError(error, handler: retry)
         }
