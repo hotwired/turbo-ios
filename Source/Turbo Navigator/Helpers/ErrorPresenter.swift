@@ -13,8 +13,8 @@ public extension ErrorPresenter {
     /// Tapping `Retry` will call `retryHandler?()` then dismiss the error.
     ///
     /// - Parameters:
-    ///   - error: <#error description#>
-    ///   - retryHandler: <#retryHandler description#>
+    ///   - error: presents the data in this error
+    ///   - retryHandler: a user-triggered action to perform in case the error is recoverable
     func presentError(_ error: Error, retryHandler: Handler?) {
         let errorView = ErrorView(error: error,
                                   shouldShowRetryButton: (retryHandler != nil)) { [unowned self] in
