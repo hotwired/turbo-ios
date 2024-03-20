@@ -90,11 +90,11 @@ extension SceneController: TurboNavigatorDelegate {
         }
     }
 
-    func visitableDidFailRequest(_ visitable: Visitable, error: Error, retry: @escaping RetryBlock) {
+    func visitableDidFailRequest(_ visitable: Visitable, error: Error, retryHandler: RetryBlock?) {
         if let turboError = error as? TurboError, case let .http(statusCode) = turboError, statusCode == 401 {
             promptForAuthentication()
         } else if let errorPresenter = visitable as? ErrorPresenter {
-            errorPresenter.presentError(error, retryHandler: retry)
+            errorPresenter.presentError(error, retryHandler: retryHandler)
         } else {
             let alert = UIAlertController(title: "Visit failed!", message: error.localizedDescription, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
