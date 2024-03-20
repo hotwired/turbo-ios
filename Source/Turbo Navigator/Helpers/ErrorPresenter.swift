@@ -16,8 +16,7 @@ public extension ErrorPresenter {
     ///   - error: presents the data in this error
     ///   - retryHandler: a user-triggered action to perform in case the error is recoverable
     func presentError(_ error: Error, retryHandler: Handler?) {
-        let errorView = ErrorView(error: error,
-                                  shouldShowRetryButton: (retryHandler != nil)) { [unowned self] in
+        let errorView = ErrorView(error: error, shouldShowRetryButton: (retryHandler != nil)) {
             retryHandler?()
             self.removeErrorViewController()
         }
