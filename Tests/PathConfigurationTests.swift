@@ -43,10 +43,10 @@ class PathConfigurationTests: XCTestCase {
     func test_propertiesForURL_withParams() {
         let url = URL(string: "http://turbo.test/sample.pdf?open_in_external_browser=true")!
 
-        Turbo.config.pathConfiguration.matchQuery = false
+        Turbo.config.pathConfiguration.matchQueryStrings = false
         XCTAssertEqual(configuration.properties(for: url), [:])
 
-        Turbo.config.pathConfiguration.matchQuery = true
+        Turbo.config.pathConfiguration.matchQueryStrings = true
         XCTAssertEqual(configuration.properties(for: url), [
             "open_in_external_browser": true
         ])

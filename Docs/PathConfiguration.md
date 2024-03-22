@@ -111,7 +111,7 @@ When the `Session` proposes a visit, it looks up the path properties for the pro
 By default, path patterns only match against the path component of the URL. Enable query string matching via:
 
 ```swift
-Turbo.config.pathConfiguration.matchQuery = true
+Turbo.config.pathConfiguration.matchQueryStrings = true
 ```
 
 To ensure the order of query string parameters don't affect matching, a wildcard `.*` before and after the match is recommended, like so:

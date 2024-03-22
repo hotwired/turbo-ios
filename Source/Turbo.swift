@@ -14,6 +14,6 @@ public class TurboConfig {
 
 public extension TurboConfig {
     class PathConfiguration {
-        public var matchQuery = false
+        public var matchQueryStrings = false
     }
 }
