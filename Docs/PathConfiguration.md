@@ -61,7 +61,7 @@ let pathConfiguration = PathConfiguration(sources: [
 
 Path properties are the core of the path configuration. The `rules` key of the JSON is an array of dictionaries. Each dictionary has a `patterns` array which is an array of regular expressions for matching on the URL, and a dictionary of `properties` that will get returned when a pattern matches.
 
-You can lookup the properties for a URL by using the URL itself or the `url.path` value. Currently, the path configuration only looks at the path component of the URL, but likely we'll add support for other components in the future. The path configuration finds all matching rules in order, and then merges them into one dictionary, with later rules overriding earlier ones. This way you can group similar properties together.
+You can lookup the properties for a URL by using the URL itself or the `url.path` value. The path configuration finds all matching rules in order, and then merges them into one dictionary, with later rules overriding earlier ones. This way you can group similar properties together.
 
 Given the following rules:
 
@@ -105,6 +105,25 @@ The url `example.com/messages/new` however would match both the first and second
 ```
 
 When the `Session` proposes a visit, it looks up the path properties for the proposed visit url if it has a `pathConfiguration` and it passes those path properties to your app in the `VisitProposal` via `proposal.properties`. This is for convenience, but you can also use the path configuration directly and do the same lookup in your application code.
+
+### Query String Matching
+
+By default, path patterns only match against the path component of the URL. Enable query string matching via:
+
+```swift
+Turbo.config.pathConfiguration.matchQueryStrings = true
+```
+
+To ensure the order of query string parameters don't affect matching, a wildcard `.*` before and after the match is recommended, like so:
+
+```
+{
+  "patterns": [".*\\?.*foo=bar.*"],
+  "properties": {
+    "foo": "bar"
+  }
+}
+```
 
 ## Settings
 

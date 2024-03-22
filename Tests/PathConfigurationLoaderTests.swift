@@ -15,7 +15,7 @@ class PathConfigurationLoaderTests: XCTestCase {
         loader.load { loadedConfig = $0 }
 
         let config = try XCTUnwrap(loadedConfig)
-        XCTAssertEqual(config.rules.count, 4)
+        XCTAssertEqual(config.rules.count, 5)
     }
 
     func test_file_automaticallyLoadsFromTheLocalFileAndCallsTheHandler() throws {
@@ -25,7 +25,7 @@ class PathConfigurationLoaderTests: XCTestCase {
         loader.load { loadedConfig = $0 }
 
         let config = try XCTUnwrap(loadedConfig)
-        XCTAssertEqual(config.rules.count, 4)
+        XCTAssertEqual(config.rules.count, 5)
     }
 
     func test_server_automaticallyDownloadsTheFileAndCallsTheHandler() throws {
