@@ -1,6 +1,6 @@
 {
   "settings": {
-    "enable-feature-x": true
+    "enable_feature_x": true
   },
   "rules": [
     {
@@ -11,7 +11,8 @@
         "/strada-form$"
       ],
       "properties": {
-        "presentation": "modal"
+        "context": "modal",
+        "pull_to_refresh_enabled": false
       }
     },
     {
@@ -19,7 +20,7 @@
         "/numbers$"
       ],
       "properties": {
-        "view-controller": "numbers"
+        "view_controller": "numbers"
       }
     },
     {
@@ -27,8 +28,16 @@
         "/numbers/[0-9]+$"
       ],
       "properties": {
-        "view-controller": "numbersDetail",
-        "presentation": "modal"
+        "view_controller": "numbers_detail",
+        "context": "modal"
+      }
+    },
+    {
+      "patterns": [
+        "^/$"
+      ],
+      "properties": {
+        "presentation": "replace_root"
       }
     },
   ]

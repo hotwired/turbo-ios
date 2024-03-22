@@ -7,50 +7,29 @@ This is a quick start guide to creating the most minimal Turbo iOS application f
 2. Select your app's main top-level project, go to the Swift Packages tab and add the Turbo iOS dependency by entering in `https://github.com/hotwired/turbo-ios`.
 
 3. Open the `SceneDelegate`, and replace the entire file with this code:
+
 ```swift
-import UIKit
 import Turbo
+import UIKit
+
+private let rootURL = URL(string: "https://turbo-native-demo.glitch.me")!
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
-    private lazy var navigationController = UINavigationController()
+
+    private lazy var navigator = TurboNavigator()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let _ = (scene as? UIWindowScene) else { return }
-        window!.rootViewController = navigationController
-        visit(url: URL(string: "https://turbo-native-demo.glitch.me")!)
-    }
-    
-    private func visit(url: URL) {
-        let viewController = VisitableViewController(url: url)
-        navigationController.pushViewController(viewController, animated: true)
-        session.visit(viewController)
-    }
-    
-    private lazy var session: Session = {
-        let session = Session()
-        session.delegate = self
-        return session
-    }()
-}
 
-extension SceneDelegate: SessionDelegate {
-    func session(_ session: Session, didProposeVisit proposal: VisitProposal) {
-        visit(url: proposal.url)
-    }
-    
-    func session(_ session: Session, didFailRequestForVisitable visitable: Visitable, error: Error) {
-        print("didFailRequestForVisitable: \(error)")
-    }
-    
-    func sessionWebViewProcessDidTerminate(_ session: Session) {
-        session.reload()
+        window!.rootViewController = navigator.rootViewController
+        navigator.route(rootURL)
     }
 }
 ```
 
-4. Hit run, and you have a basic working app. You can now tap links and navigate the demo back and forth in the simulator. We've only touched the very core requirements here of creating a `Session` and handling a visit.
+4. Hit run, and you have a basic working app. You can now tap links and navigate the demo back and forth in the simulator. We've only touched the very core requirements here of creating a `Turbo Navigator` and handling a visit.
 
-5. You can change the url we use for the initial visit to your web app. Note: if you're running your app locally without https, you'll need to adjust your `NSAppTransportSecurity` settings in the Info.plist to allow arbitrary loads.
+5. You can change the url we use for the initial visit to your web app.
 
-6. A real application will want to customize the view controller, respond to different visit actions, gracefully handle errors, and build a more powerful routing system. Read the rest of the documentation to learn more.
+6. A real application will want to customize the view controller, respond to different visit actions, and build a more powerful routing system. Read the rest of the documentation to learn more.

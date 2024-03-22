@@ -1,18 +1,15 @@
-import UIKit
-import Turbo
 import Strada
+import Turbo
+import UIKit
 import WebKit
 
-final class TurboWebViewController: VisitableViewController,
-                                    ErrorPresenter,
-                                    BridgeDestination {
-    
-    private lazy var bridgeDelegate: BridgeDelegate = {
-        BridgeDelegate(location: visitableURL.absoluteString,
-                       destination: self,
-                       componentTypes: BridgeComponent.allTypes)
-    }()
-    
+final class TurboWebViewController: VisitableViewController, BridgeDestination {
+    private lazy var bridgeDelegate = BridgeDelegate(
+        location: visitableURL.absoluteString,
+        destination: self,
+        componentTypes: BridgeComponent.allTypes
+    )
+
     // MARK: View lifecycle
     
     override func viewDidLoad() {
