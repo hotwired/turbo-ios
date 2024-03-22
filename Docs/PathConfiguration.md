@@ -108,7 +108,7 @@ When the `Session` proposes a visit, it looks up the path properties for the pro
 
 ### Query String Matching
 
-By default, the path configuration only looks at the path component of the URL. Enable query matching via:
+By default, path patterns only match against the path component of the URL. Enable query string matching via:
 
 ```swift
 Turbo.config.pathConfiguration.matchQuery = true
