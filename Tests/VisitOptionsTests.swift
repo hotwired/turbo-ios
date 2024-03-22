@@ -21,8 +21,31 @@ class VisitOptionsTests: XCTestCase {
     }
 
     func test_Decodable_canBeInitializedWithResponse() throws {
+        _ = try validVisitVisitOptions(responseHTMLString: "<html></html>")
+    }
+    
+    func test_visitOptionsArePreserved() throws {
+        let visitOptionsWithResponse = try validVisitVisitOptions(responseHTMLString: "<html></html>")
+        let handler = VisitOptionsHandler()
+        
+        let processedOptions = handler.process(visitOptionsWithResponse)
+        XCTAssert(processedOptions == visitOptionsWithResponse)
+        
+        let nextVisitOptions = try validVisitVisitOptions(responseHTMLString: nil)
+        let savedOptions = handler.process(nextVisitOptions)
+        XCTAssert(savedOptions == visitOptionsWithResponse)
+    }
+}
+
+extension VisitOptionsTests {
+    func validVisitVisitOptions(responseHTMLString: String?) throws -> VisitOptions {
+        var responseJSON = ""
+        if let responseHTMLString {
+            responseJSON = ", \"responseHTML\": \"\(responseHTMLString)\""
+        }
+        
         let json = """
-        {"response": {"statusCode": 200, "responseHTML": "<html></html>"}}
+        {"response": {"statusCode": 200\(responseJSON)}}
         """.data(using: .utf8)!
 
         let options = try JSONDecoder().decode(VisitOptions.self, from: json)
@@ -30,6 +53,19 @@ class VisitOptionsTests: XCTestCase {
 
         let response = try XCTUnwrap(options.response)
         XCTAssertEqual(response.statusCode, 200)
-        XCTAssertEqual(response.responseHTML, "<html></html>")
+        XCTAssertEqual(response.responseHTML, responseHTMLString)
+        return options
+    }
+}
+
+extension VisitOptions : Equatable {
+    public static func == (lhs: VisitOptions, rhs: VisitOptions) -> Bool {
+        lhs.action == rhs.action && lhs.response == rhs.response
+    }
+}
+
+extension VisitResponse : Equatable {
+    public static func == (lhs: VisitResponse, rhs: VisitResponse) -> Bool {
+        lhs.responseHTML == rhs.responseHTML && lhs.statusCode == rhs.statusCode
     }
 }
