@@ -52,4 +52,12 @@ public class TurboConfig {
         configuration.processPool = sharedProcessPool
         return configuration
     }
+
+    public var pathConfiguration = PathConfiguration()
+}
+
+public extension TurboConfig {
+    class PathConfiguration {
+        public var matchQueryStrings = false
+    }
 }
