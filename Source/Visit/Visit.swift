@@ -68,6 +68,10 @@ class Visit: NSObject {
         delegate?.visitDidFinish(self)
     }
 
+    func cacheSnapshot() {
+        bridge.cacheSnapshot()
+    }
+
     func startVisit() {}
     func cancelVisit() {}
     func completeVisit() {}
