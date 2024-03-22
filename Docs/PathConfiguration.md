@@ -114,7 +114,7 @@ By default, path patterns only match against the path component of the URL. Enab
 Turbo.config.pathConfiguration.matchQuery = true
 ```
 
-To ensure the order of query items don't effect matching, a wildcard `.*` before and after the match is recommended, like so:
+To ensure the order of query string parameters don't affect matching, a wildcard `.*` before and after the match is recommended, like so:
 
 ```
 {
