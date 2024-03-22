@@ -106,7 +106,7 @@ The url `example.com/messages/new` however would match both the first and second
 
 When the `Session` proposes a visit, it looks up the path properties for the proposed visit url if it has a `pathConfiguration` and it passes those path properties to your app in the `VisitProposal` via `proposal.properties`. This is for convenience, but you can also use the path configuration directly and do the same lookup in your application code.
 
-### Matching the Query
+### Query String Matching
 
 By default, the path configuration only looks at the path component of the URL. Enable query matching via:
 
