@@ -44,6 +44,11 @@ final class MenuComponent: BridgeComponent {
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
         alertController.addAction(cancelAction)
         
+        // Set popoverController for iPads
+        if let popoverController = alertController.popoverPresentationController {
+            popoverController.barButtonItem = viewController?.navigationItem.rightBarButtonItem
+        }
+
         viewController?.present(alertController, animated: true)
     }
     
