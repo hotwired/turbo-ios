@@ -2,6 +2,7 @@ import WebKit
 
 protocol WebViewDelegate: AnyObject {
     func webView(_ webView: WebViewBridge, didProposeVisitToLocation location: URL, options: VisitOptions)
+    func webView(_ webView: WebViewBridge, didProposeVisitToCrossOriginRedirect location: URL)
     func webViewDidInvalidatePage(_ webView: WebViewBridge)
     func webView(_ webView: WebViewBridge, didStartFormSubmissionToLocation location: URL)
     func webView(_ webView: WebViewBridge, didFinishFormSubmissionToLocation location: URL)
@@ -129,6 +130,8 @@ extension WebViewBridge: ScriptMessageHandlerDelegate {
             delegate?.webViewDidInvalidatePage(self)
         case .visitProposed:
             delegate?.webView(self, didProposeVisitToLocation: message.location!, options: message.options!)
+        case .visitProposedToCrossOriginRedirect:
+            delegate?.webView(self, didProposeVisitToCrossOriginRedirect: message.location!)
         case .visitProposalScrollingToAnchor:
             break
         case .visitProposalRefreshingPage:
