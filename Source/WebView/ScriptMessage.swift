@@ -52,6 +52,7 @@ extension ScriptMessage {
         case pageLoadFailed
         case errorRaised
         case visitProposed
+        case visitProposedToCrossOriginRedirect
         case visitProposalScrollingToAnchor
         case visitProposalRefreshingPage
         case visitStarted
