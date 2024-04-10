@@ -1,5 +1,6 @@
 import Foundation
+import UIKit
 
-public protocol URLIdentifiable {
+public protocol URLIdentifiable: UIViewController {
     static var urlIdentifier: URL { get }
 }
