@@ -42,10 +42,14 @@ public class TurboNavigator {
     /// Convenience function to routing a proposal directly.
     ///
     /// - Parameter url: the URL to visit
-    public func route(_ url: URL) {
+    public func route(_ url: URL, viewController: UIViewController? = nil) {
         let options = VisitOptions(action: .advance, response: nil)
         let properties = session.pathConfiguration?.properties(for: url) ?? PathProperties()
-        route(VisitProposal(url: url, options: options, properties: properties))
+        let visitProposal = VisitProposal(url: url,
+                                          options: options,
+                                          properties: properties,
+                                          viewController: viewController)
+        route(visitProposal)
     }
 
     /// Transforms `VisitProposal` -> `UIViewController`
