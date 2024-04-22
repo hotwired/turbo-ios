@@ -2,6 +2,7 @@ import UIKit
 
 public protocol SessionDelegate: AnyObject {
     func session(_ session: Session, didProposeVisit proposal: VisitProposal)
+    func session(_ session: Session, didProposeVisitToCrossOriginRedirect url: URL)
     func session(_ session: Session, didFailRequestForVisitable visitable: Visitable, error: Error)
     
     func session(_ session: Session, openExternalURL url: URL)
@@ -24,6 +25,8 @@ public extension SessionDelegate {
     func session(_ session: Session, openExternalURL url: URL) {
         UIApplication.shared.open(url)
     }
+
+    func session(_ session: Session, didProposeVisitToCrossOriginRedirect url: URL) {}
     
     func sessionDidStartRequest(_ session: Session) {}
     func sessionDidFinishRequest(_ session: Session) {}

@@ -311,10 +311,7 @@ extension Session: WebViewDelegate {
     }
     
     func webView(_ bridge: WebViewBridge, didProposeVisitToCrossOriginRedirect location: URL) {
-        // Remove the current visitable from the backstack since it
-        // resulted in a visit failure due to a cross-origin redirect.
-        activatedVisitable?.visitableViewController.navigationController?.popViewController(animated: false)
-        openExternalURL(location)
+        delegate?.session(self, didProposeVisitToCrossOriginRedirect: location)
     }
     
     func webView(_ webView: WebViewBridge, didStartFormSubmissionToLocation location: URL) {
