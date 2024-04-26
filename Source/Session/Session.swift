@@ -179,7 +179,7 @@ extension Session: VisitDelegate {
     }
 
     func visit(_ visit: Visit, requestDidFailWithError error: Error) {
-        delegate?.session(self, didFailRequestForVisitable: visit.visitable, error: error, forURL: visit.location)
+        delegate?.session(self, didFailRequestForVisitable: visit.visitable, error: error)
     }
 
     func visitDidInitializeWebView(_ visit: Visit) {
