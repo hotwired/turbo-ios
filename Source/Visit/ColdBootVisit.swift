@@ -78,26 +78,30 @@ extension ColdBootVisit: WKNavigationDelegate {
                 decisionHandler(.allow)
             } else {
                 decisionHandler(.cancel)
-                fail(with: TurboError.http(statusCode: httpResponse.statusCode))
+                guard let url = httpResponse.url else { return }
+                fail(with: TurboError.http(statusCode: httpResponse.statusCode), forURL: url)
             }
         } else {
             if (navigationResponse.response.url?.scheme == "blob") {
                 decisionHandler(.allow)
             } else {
                 decisionHandler(.cancel)
-                fail(with: TurboError.http(statusCode: 0))
+                guard let url = navigationResponse.response.url else { return }
+                fail(with: TurboError.http(statusCode: 0), forURL: url)
             }
         }
     }
 
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         guard navigation == self.navigation else { return }
-        fail(with: error)
+        guard let url = webView.url else { return }
+        fail(with: error, forURL: url)
     }
 
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         guard navigation == self.navigation else { return }
-        fail(with: error)
+        guard let url = webView.url else { return }
+        fail(with: error, forURL: url)
     }
     
     func webView(_ webView: WKWebView, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {

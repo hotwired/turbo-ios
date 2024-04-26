@@ -58,11 +58,13 @@ class Visit: NSObject {
         delegate?.visitDidFinish(self)
     }
 
-    func fail(with error: Error) {
+    func fail(with error: Error, forURL url: URL) {
         guard state == .started else { return }
 
         state = .failed
-        delegate?.visit(self, requestDidFailWithError: error)
+        if delegate?.visitShouldFail(url) ?? true {
+            delegate?.visit(self, requestDidFailWithError: error)
+        }
         failVisit()
         delegate?.visitDidFail(self)
         delegate?.visitDidFinish(self)

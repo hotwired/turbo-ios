@@ -166,6 +166,10 @@ public class Session: NSObject {
 }
 
 extension Session: VisitDelegate {
+    func visitShouldFail(_ url: URL) -> Bool {
+        delegate?.sessionShouldFailRequest(url) ?? true
+    }
+    
     func visitRequestDidStart(_ visit: Visit) {
         delegate?.sessionDidStartRequest(self)
     }
@@ -175,7 +179,7 @@ extension Session: VisitDelegate {
     }
 
     func visit(_ visit: Visit, requestDidFailWithError error: Error) {
-        delegate?.session(self, didFailRequestForVisitable: visit.visitable, error: error)
+        delegate?.session(self, didFailRequestForVisitable: visit.visitable, error: error, forURL: visit.location)
     }
 
     func visitDidInitializeWebView(_ visit: Visit) {

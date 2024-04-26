@@ -2,7 +2,7 @@ import UIKit
 
 public protocol SessionDelegate: AnyObject {
     func session(_ session: Session, didProposeVisit proposal: VisitProposal)
-    func session(_ session: Session, didFailRequestForVisitable visitable: Visitable, error: Error)
+    func session(_ session: Session, didFailRequestForVisitable visitable: Visitable, error: Error, forURL url: URL)
     
     func session(_ session: Session, openExternalURL url: URL)
     func session(_ session: Session, didReceiveAuthenticationChallenge challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void)
@@ -14,6 +14,8 @@ public protocol SessionDelegate: AnyObject {
     func sessionDidFinishFormSubmission(_ session: Session)
 
     func sessionWebViewProcessDidTerminate(_ session: Session)
+    
+    func sessionShouldFailRequest(_ url: URL) -> Bool
 }
 
 public extension SessionDelegate {
