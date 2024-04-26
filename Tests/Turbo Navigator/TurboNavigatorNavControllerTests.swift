@@ -29,6 +29,20 @@ final class TurboNavigationHierarchyNavControllerTests: XCTestCase {
         XCTAssertEqual(navigationController.viewControllers.count, 1)
         XCTAssertEqual(modalNavigationController.viewControllers.count, 0)
         XCTAssertNotIdentical(navigationController.presentedViewController, modalNavigationController)
+        XCTAssertNotNil(navigationController.presentedViewController as? UINavigationController)
+    }
+    
+    func test_default_modal_replace_presentsModal() {
+        navigationController.pushViewController(UIViewController(), animated: false)
+        XCTAssertEqual(navigationController.viewControllers.count, 1)
+
+        let proposal = VisitProposal(path: "/navigation_controller", context: .modal, presentation: .replace)
+        navigator.route(proposal)
+
+        XCTAssertEqual(navigationController.viewControllers.count, 1)
+        XCTAssertEqual(modalNavigationController.viewControllers.count, 0)
+        XCTAssertNotIdentical(navigationController.presentedViewController, modalNavigationController)
+        XCTAssertNotNil(navigationController.presentedViewController as? UINavigationController)
     }
     
     // MARK: Private
