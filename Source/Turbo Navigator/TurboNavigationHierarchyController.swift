@@ -86,7 +86,10 @@ class TurboNavigationHierarchyController {
                 delegate.visit(visitable, on: .main, with: proposal.options)
             }
         case .modal:
-            if navigationController.presentedViewController != nil, !modalNavigationController.isBeingDismissed {
+            if let proposedModalNavController = controller as? UINavigationController {
+                proposedModalNavController.setModalPresentationStyle(via: proposal)
+                navigationController.present(proposedModalNavController, animated: true)
+            } else if navigationController.presentedViewController != nil, !modalNavigationController.isBeingDismissed {
                 pushOrReplace(on: modalNavigationController, with: controller, via: proposal)
             } else {
                 modalNavigationController.setViewControllers([controller], animated: true)
@@ -151,7 +154,10 @@ class TurboNavigationHierarchyController {
                 delegate.visit(visitable, on: .main, with: proposal.options)
             }
         case .modal:
-            if navigationController.presentedViewController != nil {
+            if let proposedModalNavController = controller as? UINavigationController {
+                proposedModalNavController.setModalPresentationStyle(via: proposal)
+                navigationController.present(proposedModalNavController, animated: true)
+            } else if navigationController.presentedViewController != nil {
                 modalNavigationController.replaceLastViewController(with: controller)
             } else {
                 modalNavigationController.setViewControllers([controller], animated: false)
