@@ -104,6 +104,15 @@ The default `Action` is `.advance`. In most cases you’ll respond to an advance
 
 When you follow a link annotated with `data-turbo-action="replace"`, the proposed Action will be `.replace`. Usually you’ll want to handle a replace visit by replacing the top-most visible view controller with a new one instead of pushing.
 
+### Responding to cross-origin redirects
+
+When a Visit action results in a cross-origin redirect that Turbo iOS is not able to handle due to the cross-origin nature, your Session's delegate can handle this by implementing the `session:didProposeVisitToCrossOriginRedirect`. Depending on your navigation structure, you could choose to pop the view controller and open the URL in a an external browser, for example:
+
+```swift
+navigationController.popViewController(animated: false)
+UIApplication.shared.open(url)
+```
+
 ## Handling Failed Requests
 
 Turbo iOS calls the `session:didFailRequestForVisitable:error:` method when a visit request fails. This might be because of a network error, or because the server returned an HTTP 4xx or 5xx status code. If it was a network error in the main cold boot visit, it will be the `NSError` returned by WebKit. If it was a HTTP error or a network error from a JavaScript visit the error will be a `TurboError` and you can retrieve the status code.

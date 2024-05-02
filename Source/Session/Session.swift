@@ -310,6 +310,10 @@ extension Session: WebViewDelegate {
         delegate?.session(self, didProposeVisit: proposal)
     }
     
+    func webView(_ bridge: WebViewBridge, didProposeVisitToCrossOriginRedirect location: URL) {
+        delegate?.session(self, didProposeVisitToCrossOriginRedirect: location)
+    }
+    
     func webView(_ webView: WebViewBridge, didStartFormSubmissionToLocation location: URL) {
         delegate?.sessionDidStartFormSubmission(self)
     }
