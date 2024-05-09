@@ -42,7 +42,7 @@ public class TurboNavigator {
     /// Convenience function to routing a proposal directly.
     ///
     /// - Parameter url: the URL to visit
-    /// - Parameter bundle: provide context relevant to `url`
+    /// - Parameter parameters: provide context relevant to `url`
     public func route(_ url: URL, parameters: [String: Any]? = nil) {
         let options = VisitOptions(action: .advance, response: nil)
         let properties = session.pathConfiguration?.properties(for: url) ?? PathProperties()
