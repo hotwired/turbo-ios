@@ -59,4 +59,13 @@ public extension VisitProposal {
 
         return VisitableViewController.pathConfigurationIdentifier
     }
+    
+    /// Allows the proposal to change the animation status when pushing, popping or presenting.
+    var animated: Bool {
+        if let animated = parameters?["animated"] as? Bool {
+            return animated
+        }
+        
+        return true
+    }
 }

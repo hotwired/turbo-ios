@@ -35,7 +35,7 @@ class TurboNavigationHierarchyController {
 
     func route(controller: UIViewController, proposal: VisitProposal) {
         if let alert = controller as? UIAlertController {
-            presentAlert(alert)
+            presentAlert(alert, via: proposal)
         } else {
             if let visitable = controller as? Visitable {
                 visitable.visitableView.allowsPullToRefresh = proposal.pullToRefreshEnabled
@@ -45,15 +45,15 @@ class TurboNavigationHierarchyController {
             case .default:
                 navigate(with: controller, via: proposal)
             case .pop:
-                pop()
+                pop(via: proposal)
             case .replace:
                 replace(with: controller, via: proposal)
             case .refresh:
-                refresh()
+                refresh(via: proposal)
             case .clearAll:
-                clearAll()
+                clearAll(via: proposal)
             case .replaceRoot:
-                replaceRoot(with: controller)
+                replaceRoot(with: controller, via: proposal)
             case .none:
                 break // Do nothing.
             }
@@ -69,18 +69,18 @@ class TurboNavigationHierarchyController {
 
     private unowned let delegate: TurboNavigationHierarchyControllerDelegate
 
-    private func presentAlert(_ alert: UIAlertController) {
+    private func presentAlert(_ alert: UIAlertController, via proposal: VisitProposal) {
         if navigationController.presentedViewController != nil {
-            modalNavigationController.present(alert, animated: true)
+            modalNavigationController.present(alert, animated: proposal.animated)
         } else {
-            navigationController.present(alert, animated: true)
+            navigationController.present(alert, animated: proposal.animated)
         }
     }
 
     private func navigate(with controller: UIViewController, via proposal: VisitProposal) {
         switch proposal.context {
         case .default:
-            navigationController.dismiss(animated: true)
+            navigationController.dismiss(animated: proposal.animated)
             pushOrReplace(on: navigationController, with: controller, via: proposal)
             if let visitable = controller as? Visitable {
                 delegate.visit(visitable, on: .main, with: proposal.options)
@@ -89,9 +89,9 @@ class TurboNavigationHierarchyController {
             if navigationController.presentedViewController != nil, !modalNavigationController.isBeingDismissed {
                 pushOrReplace(on: modalNavigationController, with: controller, via: proposal)
             } else {
-                modalNavigationController.setViewControllers([controller], animated: true)
+                modalNavigationController.setViewControllers([controller], animated: proposal.animated)
                 modalNavigationController.setModalPresentationStyle(via: proposal)
-                navigationController.present(modalNavigationController, animated: true)
+                navigationController.present(modalNavigationController, animated: proposal.animated)
             }
             if let visitable = controller as? Visitable {
                 delegate.visit(visitable, on: .modal, with: proposal.options)
@@ -103,9 +103,9 @@ class TurboNavigationHierarchyController {
         if visitingSamePage(on: navigationController, with: controller, via: proposal.url) {
             navigationController.replaceLastViewController(with: controller)
         } else if visitingPreviousPage(on: navigationController, with: controller, via: proposal.url) {
-            navigationController.popViewController(animated: true)
+            navigationController.popViewController(animated: proposal.animated)
         } else if proposal.options.action == .advance {
-            navigationController.pushViewController(controller, animated: true)
+            navigationController.pushViewController(controller, animated: proposal.animated)
         } else {
             navigationController.replaceLastViewController(with: controller)
         }
@@ -130,22 +130,22 @@ class TurboNavigationHierarchyController {
         return type(of: previousController) == type(of: controller)
     }
 
-    private func pop() {
+    private func pop(via proposal: VisitProposal) {
         if navigationController.presentedViewController != nil {
             if modalNavigationController.viewControllers.count == 1 {
-                navigationController.dismiss(animated: true)
+                navigationController.dismiss(animated: proposal.animated)
             } else {
-                modalNavigationController.popViewController(animated: true)
+                modalNavigationController.popViewController(animated: proposal.animated)
             }
         } else {
-            navigationController.popViewController(animated: true)
+            navigationController.popViewController(animated: proposal.animated)
         }
     }
 
     private func replace(with controller: UIViewController, via proposal: VisitProposal) {
         switch proposal.context {
         case .default:
-            navigationController.dismiss(animated: true)
+            navigationController.dismiss(animated: proposal.animated)
             navigationController.replaceLastViewController(with: controller)
             if let visitable = controller as? Visitable {
                 delegate.visit(visitable, on: .main, with: proposal.options)
@@ -156,7 +156,7 @@ class TurboNavigationHierarchyController {
             } else {
                 modalNavigationController.setViewControllers([controller], animated: false)
                 modalNavigationController.setModalPresentationStyle(via: proposal)
-                navigationController.present(modalNavigationController, animated: true)
+                navigationController.present(modalNavigationController, animated: proposal.animated)
             }
             if let visitable = controller as? Visitable {
                 delegate.visit(visitable, on: .modal, with: proposal.options)
@@ -164,30 +164,30 @@ class TurboNavigationHierarchyController {
         }
     }
 
-    private func refresh() {
+    private func refresh(via proposal: VisitProposal) {
         if navigationController.presentedViewController != nil {
             if modalNavigationController.viewControllers.count == 1 {
-                navigationController.dismiss(animated: true)
+                navigationController.dismiss(animated: proposal.animated)
                 delegate.refresh(navigationStack: .main)
             } else {
-                modalNavigationController.popViewController(animated: true)
+                modalNavigationController.popViewController(animated: proposal.animated)
                 delegate.refresh(navigationStack: .modal)
             }
         } else {
-            navigationController.popViewController(animated: true)
+            navigationController.popViewController(animated: proposal.animated)
             delegate.refresh(navigationStack: .main)
         }
     }
 
-    private func clearAll() {
-        navigationController.dismiss(animated: true)
-        navigationController.popToRootViewController(animated: true)
+    private func clearAll(via proposal: VisitProposal) {
+        navigationController.dismiss(animated: proposal.animated)
+        navigationController.popToRootViewController(animated: proposal.animated)
         delegate.refresh(navigationStack: .main)
     }
 
-    private func replaceRoot(with controller: UIViewController) {
+    private func replaceRoot(with controller: UIViewController, via proposal: VisitProposal) {
         navigationController.dismiss(animated: true)
-        navigationController.setViewControllers([controller], animated: true)
+        navigationController.setViewControllers([controller], animated: proposal.animated)
 
         if let visitable = controller as? Visitable {
             delegate.visit(visitable, on: .main, with: .init(action: .replace))
