@@ -11,6 +11,9 @@ public class TurboNavigator {
     public unowned var delegate: TurboNavigatorDelegate
 
     public var rootViewController: UINavigationController { hierarchyController.navigationController }
+    
+    public var modalRootViewController: UINavigationController { hierarchyController.modalNavigationController }
+    
     public var activeNavigationController: UINavigationController { hierarchyController.activeNavigationController }
 
     /// Set to handle customize behavior of the `WKUIDelegate`.
