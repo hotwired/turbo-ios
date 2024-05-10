@@ -49,7 +49,7 @@ public class TurboNavigator {
     /// - Parameter parameters: provide context relevant to `url`
     public func route(_ url: URL, options: VisitOptions? = nil, parameters: [String: Any]? = nil) {
         let defaultOptions = VisitOptions(action: .advance, response: nil)
-        var properties = session.pathConfiguration?.properties(for: url) ?? PathProperties()
+        let properties = session.pathConfiguration?.properties(for: url) ?? PathProperties()
         route(VisitProposal(url: url,
                             options: options ?? defaultOptions,
                             properties: properties,
