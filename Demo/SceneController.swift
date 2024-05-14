@@ -36,6 +36,7 @@ final class SceneController: UIResponder {
     // MARK: - Authentication
     
     private func promptForAuthentication() {
+        navigationController.popViewController(animated: false)
         let authURL = rootURL.appendingPathComponent("/signin")
         let properties = pathConfiguration.properties(for: authURL)
         navigationController.route(url: authURL, options: VisitOptions(), properties: properties)
