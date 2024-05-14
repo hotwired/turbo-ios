@@ -17,12 +17,23 @@ final class TurboNavigationHierarchyControllerTests: XCTestCase {
         loadNavigationControllerInWindow()
     }
 
-    func test_default_default_default_pushesOnMainStack() {
+    func test_default_default_default_defaultOptionsParamater_pushesOnMainStack() {
         navigator.route(oneURL)
         XCTAssertEqual(navigationController.viewControllers.count, 1)
         XCTAssert(navigator.rootViewController.viewControllers.last is VisitableViewController)
 
         navigator.route(twoURL)
+        XCTAssertEqual(navigationController.viewControllers.count, 2)
+        XCTAssert(navigator.rootViewController.viewControllers.last is VisitableViewController)
+        assertVisited(url: twoURL, on: .main)
+    }
+    
+    func test_default_default_default_nilOptionsParameter_pushesOnMainStack() {
+        navigator.route(oneURL)
+        XCTAssertEqual(navigationController.viewControllers.count, 1)
+        XCTAssert(navigator.rootViewController.viewControllers.last is VisitableViewController)
+
+        navigator.route(twoURL, options: nil)
         XCTAssertEqual(navigationController.viewControllers.count, 2)
         XCTAssert(navigator.rootViewController.viewControllers.last is VisitableViewController)
         assertVisited(url: twoURL, on: .main)
