@@ -47,11 +47,12 @@ public class TurboNavigator {
     /// - Parameter url: the URL to visit
     /// - Parameter options: passed options will override any from the path configuration
     /// - Parameter parameters: provide context relevant to `url`
-    public func route(_ url: URL, options: VisitOptions? = nil, parameters: [String: Any]? = nil) {
-        let defaultOptions = VisitOptions(action: .advance, response: nil)
+    public func route(_ url: URL,
+                      options: VisitOptions = VisitOptions(action: .advance),
+                      parameters: [String: Any]? = nil) {
         let properties = session.pathConfiguration?.properties(for: url) ?? PathProperties()
         route(VisitProposal(url: url,
-                            options: options ?? defaultOptions,
+                            options: options,
                             properties: properties,
                             parameters: parameters))
     }
