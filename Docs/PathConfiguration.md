@@ -139,7 +139,7 @@ if let enableFeatureX = pathConfiguration.settings["enable-feature-x"] as? Bool 
 
 ### Swift Regex
 
-The Turbo IOS framework uses `NSRegularExpression` swift class to evaluate regex expressions. Something to note is you need to escape back slashes `\` becauses they are special charectars in Swift to do this add a second backslash `\\d`
+The Turbo IOS framework uses `NSRegularExpression` swift class to evaluate regular expressions. Something to note is you need to escape back slashes `\` because it is a special charectars in Swift to do this add a second backslash `\\d`
 
 ```json
 [
