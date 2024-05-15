@@ -11,6 +11,9 @@ public class TurboNavigator {
     public unowned var delegate: TurboNavigatorDelegate
 
     public var rootViewController: UINavigationController { hierarchyController.navigationController }
+    
+    public var modalRootViewController: UINavigationController { hierarchyController.modalNavigationController }
+    
     public var activeNavigationController: UINavigationController { hierarchyController.activeNavigationController }
 
     /// Set to handle customize behavior of the `WKUIDelegate`.
@@ -42,11 +45,16 @@ public class TurboNavigator {
     /// Convenience function to routing a proposal directly.
     ///
     /// - Parameter url: the URL to visit
+    /// - Parameter options: passed options will override default `advance` visit options
     /// - Parameter parameters: provide context relevant to `url`
-    public func route(_ url: URL, parameters: [String: Any]? = nil) {
-        let options = VisitOptions(action: .advance, response: nil)
+    public func route(_ url: URL,
+                      options: VisitOptions? = VisitOptions(action: .advance),
+                      parameters: [String: Any]? = nil) {
         let properties = session.pathConfiguration?.properties(for: url) ?? PathProperties()
-        route(VisitProposal(url: url, options: options, properties: properties, parameters: parameters))
+        route(VisitProposal(url: url,
+                            options: options ?? .init(action: .advance),
+                            properties: properties,
+                            parameters: parameters))
     }
 
     /// Transforms `VisitProposal` -> `UIViewController`
