@@ -86,7 +86,7 @@ class TurboNavigationHierarchyController {
                 delegate.visit(visitable, on: .main, with: proposal.options)
             }
         case .modal:
-            if navigationController.presentedViewController != nil, !modalNavigationController.isBeingDismissed {
+            if modalNavigationController.presentingViewController != nil, !modalNavigationController.isBeingDismissed {
                 pushOrReplace(on: modalNavigationController, with: controller, via: proposal)
             } else {
                 modalNavigationController.setViewControllers([controller], animated: proposal.animated)
