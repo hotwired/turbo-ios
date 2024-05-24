@@ -18,5 +18,6 @@ public enum TurboNavigation {
         case medium
         case large
         case full
+        case custom
     }
 }

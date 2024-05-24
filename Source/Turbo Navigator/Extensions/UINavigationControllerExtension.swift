@@ -8,6 +8,8 @@ extension UINavigationController {
 
     func setModalPresentationStyle(via proposal: VisitProposal) {
         switch proposal.modalStyle {
+        case .custom:
+            break
         case .medium:
             modalPresentationStyle = .automatic
             if #available(iOS 15.0, *) {
