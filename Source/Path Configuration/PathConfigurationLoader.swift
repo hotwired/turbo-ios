@@ -4,7 +4,6 @@ typealias PathConfigurationLoaderCompletionHandler = (PathConfigurationDecoder) 
 
 final class PathConfigurationLoader {
     private let cacheDirectory = "Turbo"
-    private let configurationCacheFilename = "path-configuration.json"
     private let sources: [PathConfiguration.Source]
     private let options: PathConfigurationLoaderOptions?
     private var completionHandler: PathConfigurationLoaderCompletionHandler?
@@ -20,7 +19,7 @@ final class PathConfigurationLoader {
         for source in sources {
             switch source {
             case .data(let data):
-                loadData(data)
+                loadData(data, for: .PathDataTemporaryURL)
             case .file(let url):
                 loadFile(url)
             case .server(let url):
@@ -35,8 +34,8 @@ final class PathConfigurationLoader {
         precondition(!url.isFileURL, "URL provided for server is a file url")
         
         // Immediately load most recent cached version if available
-        if let data = cachedData() {
-            loadData(data)
+        if let data = cachedData(for: url) {
+            loadData(data, for: url)
         }
         
         let session = options?.urlSessionConfiguration.map { URLSession(configuration: $0) } ?? URLSession.shared
@@ -50,29 +49,31 @@ final class PathConfigurationLoader {
                 return
             }
             
-            self?.loadData(data, cache: true)
+            self?.loadData(data, cache: true, for: url)
         }.resume()
     }
     
     // MARK: - Caching
     
-    private func cacheRemoteData(_ data: Data) {
+    private func cacheRemoteData(_ data: Data, for url: URL) {
         createCacheDirectoryIfNeeded()
         
         do {
-            try data.write(to: configurationCacheURL)
+            let url = configurationCacheURL(for: url)
+            try data.write(to: url)
         } catch {
             debugPrint("[path-configuration-loader] error caching file error: \(error)")
         }
     }
     
-    private func cachedData() -> Data? {
-        guard FileManager.default.fileExists(atPath: configurationCacheURL.path) else {
+    private func cachedData(for url: URL) -> Data? {
+        let cachedURL = configurationCacheURL(for: url)
+        guard FileManager.default.fileExists(atPath: cachedURL.path) else {
             return nil
         }
         
         do {
-            return try Data(contentsOf: configurationCacheURL)
+            return try Data(contentsOf: cachedURL)
         } catch {
             debugPrint("[path-configuration-loader] *** error loading cached data: \(error)")
             return nil
@@ -94,8 +95,8 @@ final class PathConfigurationLoader {
         return directory.appendingPathComponent(cacheDirectory)
     }
     
-    var configurationCacheURL: URL {
-        turboCacheDirectoryURL.appendingPathComponent(configurationCacheFilename)
+    func configurationCacheURL(for url: URL) -> URL {
+        turboCacheDirectoryURL.appendingPathComponent(url.lastPathComponent)
     }
     
     // MARK: - File
@@ -105,7 +106,7 @@ final class PathConfigurationLoader {
         
         do {
             let data = try Data(contentsOf: url)
-            loadData(data)
+            loadData(data, for: url)
         } catch {
             debugPrint("[path-configuration] *** error loading configuration from file: \(url), error: \(error)")
         }
@@ -113,7 +114,7 @@ final class PathConfigurationLoader {
     
     // MARK: - Data
     
-    private func loadData(_ data: Data, cache: Bool = false) {
+    private func loadData(_ data: Data, cache: Bool = false, for url: URL) {
         do {
             guard let json = try JSONSerialization.jsonObject(with: data) as? [String: Any] else {
                 throw JSONDecodingError.invalidJSON
@@ -123,7 +124,7 @@ final class PathConfigurationLoader {
             
             if cache {
                 // Only cache once we ensure we have valid data
-                cacheRemoteData(data)
+                cacheRemoteData(data, for: url)
             }
             
             updateHandler(with: config)
@@ -143,4 +144,8 @@ final class PathConfigurationLoader {
             }
         }
     }
+}
+
+private extension URL {
+    static let PathDataTemporaryURL = URL(string: "https://localhost/path-configuration.json")!
 }
