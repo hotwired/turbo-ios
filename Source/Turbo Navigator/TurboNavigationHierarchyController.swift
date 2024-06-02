@@ -131,14 +131,16 @@ class TurboNavigationHierarchyController {
     }
 
     private func pop(via proposal: VisitProposal) {
-        if navigationController.presentedViewController != nil {
+        switch proposal.context {
+        case .default:
+            navigationController.popViewController(animated: true)
+            
+        case .modal:
             if modalNavigationController.viewControllers.count == 1 {
                 navigationController.dismiss(animated: proposal.animated)
             } else {
                 modalNavigationController.popViewController(animated: proposal.animated)
             }
-        } else {
-            navigationController.popViewController(animated: proposal.animated)
         }
     }
 
