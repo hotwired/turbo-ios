@@ -187,7 +187,7 @@ final class TurboNavigationHierarchyControllerTests: XCTestCase {
         navigator.route(VisitProposal(path: "/two", context: .modal))
         XCTAssertEqual(modalNavigationController.viewControllers.count, 2)
 
-        navigator.route(VisitProposal(presentation: .pop))
+        navigator.route(VisitProposal(context: .modal, presentation: .pop))
         XCTAssertNotNil(navigationController.presentedViewController)
         XCTAssertEqual(modalNavigationController.viewControllers.count, 1)
     }
@@ -196,7 +196,7 @@ final class TurboNavigationHierarchyControllerTests: XCTestCase {
         navigator.route(VisitProposal(path: "/one", context: .modal))
         XCTAssertEqual(modalNavigationController.viewControllers.count, 1)
 
-        navigator.route(VisitProposal(presentation: .pop))
+        navigator.route(VisitProposal(context: .modal, presentation: .pop))
         XCTAssertNil(navigationController.presentedViewController)
     }
 
