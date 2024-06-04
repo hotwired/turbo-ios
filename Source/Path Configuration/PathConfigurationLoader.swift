@@ -19,7 +19,7 @@ final class PathConfigurationLoader {
         for source in sources {
             switch source {
             case .data(let data):
-                loadData(data, for: .PathDataTemporaryURL)
+                loadData(data)
             case .file(let url):
                 loadFile(url)
             case .server(let url):
@@ -35,7 +35,7 @@ final class PathConfigurationLoader {
         
         // Immediately load most recent cached version if available
         if let data = cachedData(for: url) {
-            loadData(data, for: url)
+            loadData(data)
         }
         
         let session = options?.urlSessionConfiguration.map { URLSession(configuration: $0) } ?? URLSession.shared
@@ -106,7 +106,7 @@ final class PathConfigurationLoader {
         
         do {
             let data = try Data(contentsOf: url)
-            loadData(data, for: url)
+            loadData(data)
         } catch {
             debugPrint("[path-configuration] *** error loading configuration from file: \(url), error: \(error)")
         }
@@ -114,7 +114,7 @@ final class PathConfigurationLoader {
     
     // MARK: - Data
     
-    private func loadData(_ data: Data, cache: Bool = false, for url: URL) {
+    private func loadData(_ data: Data, cache: Bool = false, for url: URL? = nil) {
         do {
             guard let json = try JSONSerialization.jsonObject(with: data) as? [String: Any] else {
                 throw JSONDecodingError.invalidJSON
@@ -122,7 +122,7 @@ final class PathConfigurationLoader {
             
             let config = try PathConfigurationDecoder(json: json)
             
-            if cache {
+            if cache, let url {
                 // Only cache once we ensure we have valid data
                 cacheRemoteData(data, for: url)
             }
@@ -144,8 +144,4 @@ final class PathConfigurationLoader {
             }
         }
     }
-}
-
-private extension URL {
-    static let PathDataTemporaryURL = URL(string: "https://localhost/path-configuration.json")!
 }
