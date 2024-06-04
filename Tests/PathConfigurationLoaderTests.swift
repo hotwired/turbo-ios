@@ -55,7 +55,7 @@ class PathConfigurationLoaderTests: XCTestCase {
         wait(for: [expectation])
 
         XCTAssertTrue(handlerCalled)
-        XCTAssertTrue(FileManager.default.fileExists(atPath: loader.configurationCacheURL.path))
+        XCTAssertTrue(FileManager.default.fileExists(atPath: loader.configurationCacheURL(for: serverURL).path))
     }
 
     private func stubRequest(for loader: PathConfigurationLoader) -> XCTestExpectation {
@@ -64,7 +64,7 @@ class PathConfigurationLoaderTests: XCTestCase {
             return HTTPStubsResponse(jsonObject: json, statusCode: 200, headers: [:])
         }
 
-        clearCache(loader.configurationCacheURL)
+        clearCache(loader.configurationCacheURL(for: serverURL))
 
         return expectation(description: "Wait for configuration to load.")
     }
