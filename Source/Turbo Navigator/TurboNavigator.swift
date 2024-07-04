@@ -215,10 +215,13 @@ extension TurboNavigator: TurboNavigationHierarchyControllerDelegate {
         }
     }
 
-    func refresh(navigationStack: TurboNavigationHierarchyController.NavigationStackType) {
+    func refreshVisitable(navigationStack: TurboNavigationHierarchyController.NavigationStackType,
+                          newTopmostVisitable: any Visitable) {
         switch navigationStack {
-        case .main: session.reload()
-        case .modal: modalSession.reload()
+        case .main:
+            session.visit(newTopmostVisitable, reload: true)
+        case .modal:
+            modalSession.visit(newTopmostVisitable, reload: true)
         }
     }
 }

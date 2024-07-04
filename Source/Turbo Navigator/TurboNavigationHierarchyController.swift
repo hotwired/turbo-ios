@@ -168,21 +168,28 @@ class TurboNavigationHierarchyController {
         if navigationController.presentedViewController != nil {
             if modalNavigationController.viewControllers.count == 1 {
                 navigationController.dismiss(animated: proposal.animated)
-                delegate.refresh(navigationStack: .main)
+                refreshIfTopViewControllerIsVisitable(from: .main)
             } else {
                 modalNavigationController.popViewController(animated: proposal.animated)
-                delegate.refresh(navigationStack: .modal)
+                refreshIfTopViewControllerIsVisitable(from: .modal)
             }
         } else {
             navigationController.popViewController(animated: proposal.animated)
-            delegate.refresh(navigationStack: .main)
+            refreshIfTopViewControllerIsVisitable(from: .main)
+        }
+    }
+    
+    private func refreshIfTopViewControllerIsVisitable(from stack: NavigationStackType) {
+        if let navControllerTopmostVisitable = navController(for: stack).topViewController as? Visitable {
+            delegate.refreshVisitable(navigationStack: stack,
+                                      newTopmostVisitable: navControllerTopmostVisitable)
         }
     }
 
     private func clearAll(via proposal: VisitProposal) {
         navigationController.dismiss(animated: proposal.animated)
         navigationController.popToRootViewController(animated: proposal.animated)
-        delegate.refresh(navigationStack: .main)
+        refreshIfTopViewControllerIsVisitable(from: .main)
     }
 
     private func replaceRoot(with controller: UIViewController, via proposal: VisitProposal) {
