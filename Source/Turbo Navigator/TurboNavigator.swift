@@ -219,9 +219,9 @@ extension TurboNavigator: TurboNavigationHierarchyControllerDelegate {
                           newTopmostVisitable: any Visitable) {
         switch navigationStack {
         case .main:
-            session.visit(newTopmostVisitable, reload: true)
+            session.visit(newTopmostVisitable, action: .restore)
         case .modal:
-            modalSession.visit(newTopmostVisitable, reload: true)
+            modalSession.visit(newTopmostVisitable, action: .restore)
         }
     }
 }
