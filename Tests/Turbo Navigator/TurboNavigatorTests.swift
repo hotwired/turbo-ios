@@ -82,6 +82,61 @@ final class TurboNavigationHierarchyControllerTests: XCTestCase {
         XCTAssert(navigationController.viewControllers.last is VisitableViewController)
         assertVisited(url: proposal.url, on: .main)
     }
+    
+    func test_default_default_refresh_refreshesPreviousController() {
+        navigator.route(oneURL)
+        XCTAssertEqual(navigationController.viewControllers.count, 1)
+        
+        navigator.route(twoURL)
+        XCTAssertEqual(navigator.rootViewController.viewControllers.count, 2)
+        
+        /// Refreshing should pop the view controller and refresh the underlying controller.
+        let proposal = VisitProposal(presentation: .refresh)
+        navigator.route(proposal)
+        
+        let visitable = navigator.session.activeVisitable as! VisitableViewController
+        XCTAssertEqual(visitable.visitableURL, oneURL)
+        XCTAssertEqual(navigator.rootViewController.viewControllers.count, 1)
+    }
+    
+    func test_default_modal_refresh_refreshesPreviousController() {
+        navigationController.pushViewController(UIViewController(), animated: false)
+        XCTAssertEqual(navigationController.viewControllers.count, 1)
+
+        let oneURLProposal = VisitProposal(path: "/one", context: .modal)
+        navigator.route(oneURLProposal)
+        
+        let twoURLProposal = VisitProposal(path: "/two", context: .modal)
+        navigator.route(twoURLProposal)
+        XCTAssertEqual(modalNavigationController.viewControllers.count, 2)
+        
+        /// Refreshing should pop the view controller and refresh the underlying controller.
+        let proposal = VisitProposal(presentation: .refresh)
+        navigator.route(proposal)
+        
+        let visitable = navigator.modalSession.activeVisitable as! VisitableViewController
+        XCTAssertEqual(visitable.visitableURL, oneURL)
+        XCTAssertEqual(modalNavigationController.viewControllers.count, 1)
+    }
+    
+    func test_default_modal_refresh_dismissesAndRefreshesMainStackTopViewController() {
+        navigator.route(oneURL)
+        XCTAssertEqual(navigationController.viewControllers.count, 1)
+        
+        let twoURLProposal = VisitProposal(path: "/two", context: .modal)
+        navigator.route(twoURLProposal)
+        XCTAssertEqual(modalNavigationController.viewControllers.count, 1)
+        
+        /// Refreshing should dismiss the view controller and refresh the underlying controller.
+        let proposal = VisitProposal(context: .modal, presentation: .refresh)
+        navigator.route(proposal)
+        
+        let visitable = navigator.session.activeVisitable as! VisitableViewController
+        XCTAssertEqual(visitable.visitableURL, oneURL)
+        
+        XCTAssertNil(navigationController.presentedViewController)
+        XCTAssertEqual(navigator.rootViewController.viewControllers.count, 1)
+    }
 
     func test_default_modal_default_presentsModal() {
         navigationController.pushViewController(UIViewController(), animated: false)
@@ -309,7 +364,7 @@ final class TurboNavigationHierarchyControllerTests: XCTestCase {
 
 private class EmptyNavigationDelegate: TurboNavigationHierarchyControllerDelegate {
     func visit(_: Visitable, on: TurboNavigationHierarchyController.NavigationStackType, with: VisitOptions) {}
-    func refresh(navigationStack: TurboNavigationHierarchyController.NavigationStackType) {}
+    func refreshVisitable(navigationStack: TurboNavigationHierarchyController.NavigationStackType, newTopmostVisitable: any Visitable) { }
 }
 
 // MARK: - VisitProposal extension
