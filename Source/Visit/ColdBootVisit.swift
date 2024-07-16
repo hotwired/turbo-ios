@@ -15,7 +15,9 @@ final class ColdBootVisit: Visit {
         if let response = options.response, response.isSuccessful, let body = response.responseHTML {
             navigation = webView.loadHTMLString(body, baseURL: location)
         } else {
-            navigation = webView.load(URLRequest(url: location))
+            var request = URLRequest(url: location)
+            visitable.visitableDelegate?.visitableCustomizeRequest(&request)
+            navigation = webView.load(request)
         }
 
         delegate?.visitDidStart(self)

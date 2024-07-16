@@ -21,6 +21,8 @@ public class Session: NSObject {
     private var isShowingStaleContent = false
     private var isSnapshotCacheStale = false
 
+    public var customHeaders: [String: String] = [:]
+    
     /// Automatically creates a web view with the passed-in configuration
     public convenience init(webViewConfiguration: WKWebViewConfiguration? = nil) {
         self.init(webView: WKWebView(frame: .zero, configuration: webViewConfiguration ?? WKWebViewConfiguration()))
@@ -300,6 +302,11 @@ extension Session: VisitableDelegate {
         refreshing = true
         visitable.visitableWillRefresh()
         reload()
+    }
+    public func visitableCustomizeRequest(_ request: inout URLRequest) {
+        for (key, value) in customHeaders {
+            request.setValue(value, forHTTPHeaderField: key)
+        }
     }
 }
 

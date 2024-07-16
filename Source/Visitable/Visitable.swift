@@ -8,6 +8,7 @@ public protocol VisitableDelegate: AnyObject {
     func visitableViewDidDisappear(_ visitable: Visitable)
     func visitableDidRequestReload(_ visitable: Visitable)
     func visitableDidRequestRefresh(_ visitable: Visitable)
+    func visitableCustomizeRequest(_ request: inout URLRequest)
 }
 
 public protocol Visitable: AnyObject {
@@ -81,6 +82,9 @@ extension Visitable {
 
     func visitableViewDidRequestRefresh() {
         visitableDelegate?.visitableDidRequestRefresh(self)
+    }
+    func visitableCustomizeRequest(_ request: inout URLRequest){
+        // no op
     }
 }
 
