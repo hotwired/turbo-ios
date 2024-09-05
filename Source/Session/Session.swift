@@ -68,8 +68,7 @@ public class Session: NSObject {
             initialized = false
         }
         
-        let processedOptions = visitOptionsHandler.process(options)
-        let visit = makeVisit(for: visitable, options: processedOptions)
+        let visit = makeVisit(for: visitable, options: options ?? VisitOptions())
         currentVisit?.cancel()
         currentVisit = visit
         
