@@ -14,9 +14,6 @@ public class Session: NSObject {
     private lazy var bridge = WebViewBridge(webView: webView)
     private var initialized = false
     private var refreshing = false
-    
-    /// Options behave differently if a response is provided.
-    private let visitOptionsHandler = VisitOptionsHandler()
 
     private var isShowingStaleContent = false
     private var isSnapshotCacheStale = false
