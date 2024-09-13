@@ -174,7 +174,6 @@ class TurboNavigationHierarchyController {
                 refreshIfTopViewControllerIsVisitable(from: .modal)
             }
         } else {
-            navigationController.popViewController(animated: proposal.animated)
             refreshIfTopViewControllerIsVisitable(from: .main)
         }
     }
