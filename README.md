@@ -1,3 +1,8 @@
+> [!IMPORTANT]
+> [Hotwire Native](https://native.hotwired.dev) is the new consolidation of the Turbo Native and Strada libraries into a single framework for iOS and Android. For new development, start with the new [Hotwire Native iOS](https://github.com/hotwired/hotwire-native-ios) library, which is built on the Turbo Native foundation and offers many new features. For existing Turbo Native apps, please transition to Hotwire Native as soon as possible.
+>
+> No new features will be added to this library and it will be deprecated in the coming months.
+
 # Turbo Native for iOS
 
 **Build high-fidelity hybrid apps with native navigation and a single shared web view.** Turbo Native for iOS provides the tooling to wrap your [Turbo 7](https://github.com/hotwired/turbo)-enabled web app in a native iOS shell. It manages a single WKWebView instance across multiple view controllers, giving you native navigation UI with all the client-side performance benefits of Turbo.
